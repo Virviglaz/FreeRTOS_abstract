@@ -107,13 +107,20 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a594300025cc39e3142208ec6e132ce14"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_task.html#a594300025cc39e3142208ec6e132ce14">SuspendAll</a> ()</td></tr>
 <tr class="memdesc:a594300025cc39e3142208ec6e132ce14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Suspends the scheduler.  <a href="class_free_r_t_o_s_1_1_task.html#a594300025cc39e3142208ec6e132ce14">More...</a><br /></td></tr>
 <tr class="separator:a594300025cc39e3142208ec6e132ce14"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a718584a6070a4b5979b5e4f6980cc068"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_task.html#a718584a6070a4b5979b5e4f6980cc068">ResumeAll</a> ()</td></tr>
+<tr class="memitem:a718584a6070a4b5979b5e4f6980cc068"><td class="memItemLeft" align="right" valign="top"><a id="a718584a6070a4b5979b5e4f6980cc068" name="a718584a6070a4b5979b5e4f6980cc068"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>ResumeAll</b> ()</td></tr>
+<tr class="memdesc:a718584a6070a4b5979b5e4f6980cc068"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resumes the scheduler after it was suspended using a call to vTaskSuspendAll(). <br /></td></tr>
 <tr class="separator:a718584a6070a4b5979b5e4f6980cc068"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a026c97a31108347b80a105a59920fa6a"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_task.html#a026c97a31108347b80a105a59920fa6a">DoYield</a> ()</td></tr>
+<tr class="memitem:a026c97a31108347b80a105a59920fa6a"><td class="memItemLeft" align="right" valign="top"><a id="a026c97a31108347b80a105a59920fa6a" name="a026c97a31108347b80a105a59920fa6a"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>DoYield</b> ()</td></tr>
+<tr class="memdesc:a026c97a31108347b80a105a59920fa6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">taskYIELD() is used to request a context switch to another task. However, if there are no other tasks at a higher or equal priority to the task that calls taskYIELD() then the RTOS scheduler will simply select the task that called taskYIELD() to run again. <br /></td></tr>
 <tr class="separator:a026c97a31108347b80a105a59920fa6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeac72b24ef62f1c64d14351674c9932a"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_task.html#aeac72b24ef62f1c64d14351674c9932a">EnterCritical</a> ()</td></tr>
+<tr class="memitem:aeac72b24ef62f1c64d14351674c9932a"><td class="memItemLeft" align="right" valign="top"><a id="aeac72b24ef62f1c64d14351674c9932a" name="aeac72b24ef62f1c64d14351674c9932a"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>EnterCritical</b> ()</td></tr>
+<tr class="memdesc:aeac72b24ef62f1c64d14351674c9932a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Critical sections are entered by calling taskENTER_CRITICAL(), and subsequently exited by calling taskEXIT_CRITICAL(). <br /></td></tr>
 <tr class="separator:aeac72b24ef62f1c64d14351674c9932a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe252dac2fb6e563182212f6d7a36056"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_task.html#abe252dac2fb6e563182212f6d7a36056">ExitCritical</a> ()</td></tr>
+<tr class="memdesc:abe252dac2fb6e563182212f6d7a36056"><td class="mdescLeft">&#160;</td><td class="mdescRight">Critical sections are entered by calling taskENTER_CRITICAL(), and subsequently exited by calling taskEXIT_CRITICAL().  <a href="class_free_r_t_o_s_1_1_task.html#abe252dac2fb6e563182212f6d7a36056">More...</a><br /></td></tr>
 <tr class="separator:abe252dac2fb6e563182212f6d7a36056"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
@@ -194,62 +201,6 @@ template&lt;const size_t stack_size = FREERTOS_TASK_DEFAULT_TASK_STACK_SIZE&gt; 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a026c97a31108347b80a105a59920fa6a" name="a026c97a31108347b80a105a59920fa6a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a026c97a31108347b80a105a59920fa6a">&#9670;&#160;</a></span>DoYield()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;const size_t stack_size = FREERTOS_TASK_DEFAULT_TASK_STACK_SIZE&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void <a class="el" href="class_free_r_t_o_s_1_1_task.html">FreeRTOS::Task</a>&lt; stack_size &gt;::DoYield </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p >brief taskYIELD() is used to request a context switch to another task. However, if there are no other tasks at a higher or equal priority to the task that calls taskYIELD() then the RTOS scheduler will simply select the task that called taskYIELD() to run again. </p>
-
-</div>
-</div>
-<a id="aeac72b24ef62f1c64d14351674c9932a" name="aeac72b24ef62f1c64d14351674c9932a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeac72b24ef62f1c64d14351674c9932a">&#9670;&#160;</a></span>EnterCritical()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;const size_t stack_size = FREERTOS_TASK_DEFAULT_TASK_STACK_SIZE&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void <a class="el" href="class_free_r_t_o_s_1_1_task.html">FreeRTOS::Task</a>&lt; stack_size &gt;::EnterCritical </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p >brief Critical sections are entered by calling taskENTER_CRITICAL(), and subsequently exited by calling taskEXIT_CRITICAL(). </p>
-
-</div>
-</div>
 <a id="abe252dac2fb6e563182212f6d7a36056" name="abe252dac2fb6e563182212f6d7a36056"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abe252dac2fb6e563182212f6d7a36056">&#9670;&#160;</a></span>ExitCritical()</h2>
 
@@ -274,36 +225,9 @@ template&lt;const size_t stack_size = FREERTOS_TASK_DEFAULT_TASK_STACK_SIZE&gt; 
   </tr>
 </table>
 </div><div class="memdoc">
-<p >brief Critical sections are entered by calling taskENTER_CRITICAL(), and subsequently exited by calling taskEXIT_CRITICAL().</p>
+
+<p>Critical sections are entered by calling taskENTER_CRITICAL(), and subsequently exited by calling taskEXIT_CRITICAL(). </p>
 <p >The taskENTER_CRITICAL() and taskEXIT_CRITICAL() macros provide a basic critical section implementation that works by simply disabling interrupts, either globally, or up to a specific interrupt priority level. See the vTaskSuspendAll() RTOS API function for information on creating a critical section without disabling interrupts. </p>
-
-</div>
-</div>
-<a id="a718584a6070a4b5979b5e4f6980cc068" name="a718584a6070a4b5979b5e4f6980cc068"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a718584a6070a4b5979b5e4f6980cc068">&#9670;&#160;</a></span>ResumeAll()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;const size_t stack_size = FREERTOS_TASK_DEFAULT_TASK_STACK_SIZE&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void <a class="el" href="class_free_r_t_o_s_1_1_task.html">FreeRTOS::Task</a>&lt; stack_size &gt;::ResumeAll </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p >brief Resumes the scheduler after it was suspended using a call to vTaskSuspendAll(). </p>
 
 </div>
 </div>
