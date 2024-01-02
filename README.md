@@ -1,5 +1,8 @@
 # C++ abstract layer for FreeRTOS
 
+## Doxygen documentation:
+https://virviglaz.github.io/FreeRTOS_abstract/
+
 ## Task handling
 ### Static allocation:
 ~~~cpp
