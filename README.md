@@ -58,7 +58,8 @@ auto ret = q.TryPop();
 ## Locks
 ~~~cpp
 FreeRTOS::Mutex lock;
-FreeRTOS::Semaphore waiter;
+FreeRTOS::BinarySemaphore waiter;
+FreeRTOS::CountingSemaphore counter;
 
 lock.Lock();
 lock.Unlock();
