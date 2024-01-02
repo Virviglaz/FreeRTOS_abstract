@@ -215,7 +215,7 @@ namespace FreeRTOS
 		}
 
 		/**
-		 * brief Resumes the scheduler after it was suspended using
+		 * @brief Resumes the scheduler after it was suspended using
 		 * a call to vTaskSuspendAll().
 		 */
 		static inline void ResumeAll() {
@@ -223,7 +223,7 @@ namespace FreeRTOS
 		}
 
 		/**
-		 * brief taskYIELD() is used to request a context switch to another
+		 * @brief taskYIELD() is used to request a context switch to another
 		 * task. However, if there are no other tasks at a higher or equal
 		 * priority to the task that calls taskYIELD() then the RTOS scheduler
 		 * will simply select the task that called taskYIELD() to run again.
@@ -233,7 +233,7 @@ namespace FreeRTOS
 		}
 
 		/**
-		 * brief Critical sections are entered by calling taskENTER_CRITICAL(),
+		 * @brief Critical sections are entered by calling taskENTER_CRITICAL(),
 		 * and subsequently exited by calling taskEXIT_CRITICAL().
 		 */
 		static inline void EnterCritical() {
@@ -241,7 +241,7 @@ namespace FreeRTOS
 		}
 
 		/**
-		 * brief Critical sections are entered by calling taskENTER_CRITICAL(),
+		 * @brief Critical sections are entered by calling taskENTER_CRITICAL(),
 		 * and subsequently exited by calling taskEXIT_CRITICAL().
 		 *
 		 * The taskENTER_CRITICAL() and taskEXIT_CRITICAL() macros provide
