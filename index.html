@@ -137,7 +137,7 @@ Locks</h1>
 <div class="line">lock.<a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#abebd78712e4394604d7508e8f99abd30">Unlock</a>();</div>
 <div class="ttc" id="aclass_free_r_t_o_s_1_1_binary_semaphore_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_binary_semaphore.html">FreeRTOS::BinarySemaphore</a></div><div class="ttdoc">Create binary semaphore.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:511</div></div>
 <div class="ttc" id="aclass_free_r_t_o_s_1_1_counting_semaphore_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_counting_semaphore.html">FreeRTOS::CountingSemaphore</a></div><div class="ttdoc">Create counting semaphore.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:530</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html">FreeRTOS::Mutex</a></div><div class="ttdoc">Implement locking mechanism between tasks to protect shared resources againts race conditions.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:436</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html">FreeRTOS::Mutex</a></div><div class="ttdoc">Implement locking mechanism between tasks to protect shared resources against race conditions.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:436</div></div>
 <div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html_a95ab2ce0ab807a6de35c95a991ce02e9"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html#a95ab2ce0ab807a6de35c95a991ce02e9">FreeRTOS::Mutex::Lock</a></div><div class="ttdeci">bool Lock(size_t wait_ms=0)</div><div class="ttdoc">Obtain a mutex.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:472</div></div>
 <div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html_abebd78712e4394604d7508e8f99abd30"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html#abebd78712e4394604d7508e8f99abd30">FreeRTOS::Mutex::Unlock</a></div><div class="ttdeci">bool Unlock()</div><div class="ttdoc">Release an obtained mutex.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:481</div></div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md8"></a>
@@ -150,8 +150,8 @@ Timer</h1>
 <div class="line">tim.Start();</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md9"></a>
 Misc</h1>
-<div class="fragment"><div class="line"><span class="comment">/* Start kernel scheduller */</span></div>
-<div class="line">FreeRTOS::StartScheduller();</div>
+<div class="fragment"><div class="line"><span class="comment">/* Start kernel scheduler */</span></div>
+<div class="line">FreeRTOS::StartScheduler();</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">/* ms delays */</span></div>
 <div class="line">FreeRTOS::Task::Delay_ms(1000);</div>
@@ -206,7 +206,7 @@ Testing</h1>
 <div class="line"> </div>
 <div class="line">FreeRTOS::Timer job_done([](TimerHandle_t t) {</div>
 <div class="line">    (void)t;</div>
-<div class="line">    FreeRTOS::StopScheduller();</div>
+<div class="line">    FreeRTOS::StopScheduler();</div>
 <div class="line">}, 500);</div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main()</div>
@@ -220,7 +220,7 @@ Testing</h1>
 <div class="line"> </div>
 <div class="line">    tim.Start();</div>
 <div class="line">    job_done.Start();</div>
-<div class="line">    FreeRTOS::StartScheduller();</div>
+<div class="line">    FreeRTOS::StartScheduler();</div>
 <div class="line"> </div>
 <div class="line">    <span class="keywordflow">if</span> (task_err)</div>
 <div class="line">        std::cerr &lt;&lt; <span class="stringliteral">&quot;Consumer task never executed&quot;</span> &lt;&lt; std::endl;</div>
