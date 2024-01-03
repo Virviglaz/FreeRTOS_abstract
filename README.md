@@ -80,8 +80,8 @@ tim.Start();
 
 ## Misc
 ~~~cpp
-/* Start kernel scheduller */
-FreeRTOS::StartScheduller();
+/* Start kernel scheduler */
+FreeRTOS::StartScheduler();
 
 /* ms delays */
 FreeRTOS::Task::Delay_ms(1000);
@@ -138,7 +138,7 @@ FreeRTOS::Timer tim([](TimerHandle_t t) {
 
 FreeRTOS::Timer job_done([](TimerHandle_t t) {
 	(void)t;
-	FreeRTOS::StopScheduller();
+	FreeRTOS::StopScheduler();
 }, 500);
 
 int main()
@@ -152,7 +152,7 @@ int main()
 
 	tim.Start();
 	job_done.Start();
-	FreeRTOS::StartScheduller();
+	FreeRTOS::StartScheduler();
 
 	if (task_err)
 		std::cerr << "Consumer task never executed" << std::endl;

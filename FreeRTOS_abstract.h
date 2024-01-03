@@ -26,7 +26,7 @@ namespace FreeRTOS
      * After calling the RTOS kernel has control
      * over which tasks are executed and when.
      */
-	inline void StartScheduller() {
+	inline void StartScheduler() {
 		vTaskStartScheduler();
 	}
 
@@ -38,7 +38,7 @@ namespace FreeRTOS
 	 * Execution then resumes from the point where vTaskStartScheduler()
 	 * was called, as if vTaskStartScheduler() had just returned.
 	 */
-	inline void StopScheduller() {
+	inline void StopScheduler() {
 		vTaskEndScheduler();
 	}
 
@@ -325,7 +325,7 @@ namespace FreeRTOS
 		}
 
 		/**
-		 * @brief Desctuctor. Deletes the queue and releases allocated memory.
+		 * @brief Deletes the queue and releases allocated memory.
 		 */
 		~Queue() {
 			if (handle)
@@ -430,7 +430,7 @@ namespace FreeRTOS
 
 	/**
 	 * @brief Implement locking mechanism between tasks to protect shared
-	 * resources againts race conditions.
+	 * resources against race conditions.
 	 */
 	class Mutex
 	{
