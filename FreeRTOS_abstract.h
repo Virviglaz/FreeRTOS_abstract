@@ -379,8 +379,9 @@ namespace FreeRTOS
 		 * @return Pointer to item in the buffer or nullptr if queue is empty.
 		 */
 		T* TryPop(size_t wait_ms = 0) {
-			return xQueueReceive(handle, (void *)&buffer,
-				pdMS_TO_TICKS(wait_ms)) == pdTRUE ? &buffer : nullptr;
+			return xQueueReceive(handle, const_cast<T *>(&buffer),
+				pdMS_TO_TICKS(wait_ms)) == pdTRUE ? \
+						const_cast<T *>(&buffer) : nullptr;
 		}
 
 		/* non-copyable */
@@ -539,7 +540,7 @@ namespace FreeRTOS
 		 */
 		CountingSemaphore(size_t initial, size_t max) {
 #if (configSUPPORT_STATIC_ALLOCATION == 1)
-			handle = xSemaphoreCreateCountingStatic(&buffer, max, initial);
+			handle = xSemaphoreCreateCountingStatic(max, initial, &buffer);
 #else /* STATIC_ALLOCATION */
 			handle = xSemaphoreCreateCounting(max, initial);
 			configASSERT(handle != nullptr);
