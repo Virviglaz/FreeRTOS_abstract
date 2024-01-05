@@ -105,15 +105,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a703ab0a1c19ff40ca535081729c14460"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_queue.html#a703ab0a1c19ff40ca535081729c14460">TryEmplaceFront</a> (size_t wait_ms, Args &amp;&amp;...args) noexcept(std::is_nothrow_constructible&lt; T, Args &amp;&amp;... &gt;::value)</td></tr>
 <tr class="memdesc:a703ab0a1c19ff40ca535081729c14460"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an item at the front place of a queue.  <a href="class_free_r_t_o_s_1_1_queue.html#a703ab0a1c19ff40ca535081729c14460">More...</a><br /></td></tr>
 <tr class="separator:a703ab0a1c19ff40ca535081729c14460"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0fef801ac99350d9702eadbf125aae39"><td class="memItemLeft" align="right" valign="top">FREERTOS_NODISCARD bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_queue.html#a0fef801ac99350d9702eadbf125aae39">TryPushBack</a> (const T &amp;item, size_t wait_ms=0)</td></tr>
-<tr class="memdesc:a0fef801ac99350d9702eadbf125aae39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Post an item to the back of a queue.  <a href="class_free_r_t_o_s_1_1_queue.html#a0fef801ac99350d9702eadbf125aae39">More...</a><br /></td></tr>
-<tr class="separator:a0fef801ac99350d9702eadbf125aae39"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00669503f679ef7697a5d97d819b0ce4"><td class="memItemLeft" align="right" valign="top">FREERTOS_NODISCARD bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_queue.html#a00669503f679ef7697a5d97d819b0ce4">TryPushFront</a> (const T &amp;item, size_t wait_ms=0)</td></tr>
-<tr class="memdesc:a00669503f679ef7697a5d97d819b0ce4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Post an item to the front of a queue.  <a href="class_free_r_t_o_s_1_1_queue.html#a00669503f679ef7697a5d97d819b0ce4">More...</a><br /></td></tr>
-<tr class="separator:a00669503f679ef7697a5d97d819b0ce4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a216eaf54825fdf8d3ab09ba25b357fbe"><td class="memItemLeft" align="right" valign="top">FREERTOS_NODISCARD T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_queue.html#a216eaf54825fdf8d3ab09ba25b357fbe">TryPop</a> (size_t wait_ms=0) noexcept</td></tr>
-<tr class="memdesc:a216eaf54825fdf8d3ab09ba25b357fbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive an item from a queue.  <a href="class_free_r_t_o_s_1_1_queue.html#a216eaf54825fdf8d3ab09ba25b357fbe">More...</a><br /></td></tr>
-<tr class="separator:a216eaf54825fdf8d3ab09ba25b357fbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f78822f1cb0b3b772fa844b69fd127e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_queue.html#a6f78822f1cb0b3b772fa844b69fd127e">TryPushBack</a> (const T &amp;item, size_t wait_ms=0)</td></tr>
+<tr class="memdesc:a6f78822f1cb0b3b772fa844b69fd127e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Post an item to the back of a queue.  <a href="class_free_r_t_o_s_1_1_queue.html#a6f78822f1cb0b3b772fa844b69fd127e">More...</a><br /></td></tr>
+<tr class="separator:a6f78822f1cb0b3b772fa844b69fd127e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35050745dc8fb0fc673de0de5308c8a5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_queue.html#a35050745dc8fb0fc673de0de5308c8a5">TryPushFront</a> (const T &amp;item, size_t wait_ms=0)</td></tr>
+<tr class="memdesc:a35050745dc8fb0fc673de0de5308c8a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Post an item to the front of a queue.  <a href="class_free_r_t_o_s_1_1_queue.html#a35050745dc8fb0fc673de0de5308c8a5">More...</a><br /></td></tr>
+<tr class="separator:a35050745dc8fb0fc673de0de5308c8a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3c2c7c25301e6cf29e40f8edf9f3a37"><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_queue.html#ae3c2c7c25301e6cf29e40f8edf9f3a37">TryPop</a> (size_t wait_ms=0) noexcept</td></tr>
+<tr class="memdesc:ae3c2c7c25301e6cf29e40f8edf9f3a37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive an item from a queue.  <a href="class_free_r_t_o_s_1_1_queue.html#ae3c2c7c25301e6cf29e40f8edf9f3a37">More...</a><br /></td></tr>
+<tr class="separator:ae3c2c7c25301e6cf29e40f8edf9f3a37"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adff4d860cb39c2ff5ff40277b14e283a"><td class="memItemLeft" align="right" valign="top"><a id="adff4d860cb39c2ff5ff40277b14e283a" name="adff4d860cb39c2ff5ff40277b14e283a"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Queue</b> (const <a class="el" href="class_free_r_t_o_s_1_1_queue.html">Queue</a> &amp;)=delete</td></tr>
 <tr class="separator:adff4d860cb39c2ff5ff40277b14e283a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -257,8 +257,8 @@ template&lt;typename... Args&gt; </div>
 
 </div>
 </div>
-<a id="a216eaf54825fdf8d3ab09ba25b357fbe" name="a216eaf54825fdf8d3ab09ba25b357fbe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a216eaf54825fdf8d3ab09ba25b357fbe">&#9670;&#160;</a></span>TryPop()</h2>
+<a id="ae3c2c7c25301e6cf29e40f8edf9f3a37" name="ae3c2c7c25301e6cf29e40f8edf9f3a37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3c2c7c25301e6cf29e40f8edf9f3a37">&#9670;&#160;</a></span>TryPop()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -269,7 +269,7 @@ template&lt;class T , size_t size = 2, const bool support_emplace = false&gt; </
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">FREERTOS_NODISCARD T * <a class="el" href="class_free_r_t_o_s_1_1_queue.html">FreeRTOS::Queue</a>&lt; T, size, support_emplace &gt;::TryPop </td>
+          <td class="memname">T * <a class="el" href="class_free_r_t_o_s_1_1_queue.html">FreeRTOS::Queue</a>&lt; T, size, support_emplace &gt;::TryPop </td>
           <td>(</td>
           <td class="paramtype">size_t&#160;</td>
           <td class="paramname"><em>wait_ms</em> = <code>0</code></td><td>)</td>
@@ -324,8 +324,8 @@ template&lt;class T , size_t size = 2, const bool support_emplace = false&gt; </
 
 </div>
 </div>
-<a id="a0fef801ac99350d9702eadbf125aae39" name="a0fef801ac99350d9702eadbf125aae39"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0fef801ac99350d9702eadbf125aae39">&#9670;&#160;</a></span>TryPushBack()</h2>
+<a id="a6f78822f1cb0b3b772fa844b69fd127e" name="a6f78822f1cb0b3b772fa844b69fd127e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f78822f1cb0b3b772fa844b69fd127e">&#9670;&#160;</a></span>TryPushBack()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -336,7 +336,7 @@ template&lt;class T , size_t size = 2, const bool support_emplace = false&gt; </
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">FREERTOS_NODISCARD bool <a class="el" href="class_free_r_t_o_s_1_1_queue.html">FreeRTOS::Queue</a>&lt; T, size, support_emplace &gt;::TryPushBack </td>
+          <td class="memname">bool <a class="el" href="class_free_r_t_o_s_1_1_queue.html">FreeRTOS::Queue</a>&lt; T, size, support_emplace &gt;::TryPushBack </td>
           <td>(</td>
           <td class="paramtype">const T &amp;&#160;</td>
           <td class="paramname"><em>item</em>, </td>
@@ -411,8 +411,8 @@ template&lt;class T , size_t size = 2, const bool support_emplace = false&gt; </
 
 </div>
 </div>
-<a id="a00669503f679ef7697a5d97d819b0ce4" name="a00669503f679ef7697a5d97d819b0ce4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a00669503f679ef7697a5d97d819b0ce4">&#9670;&#160;</a></span>TryPushFront()</h2>
+<a id="a35050745dc8fb0fc673de0de5308c8a5" name="a35050745dc8fb0fc673de0de5308c8a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35050745dc8fb0fc673de0de5308c8a5">&#9670;&#160;</a></span>TryPushFront()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -423,7 +423,7 @@ template&lt;class T , size_t size = 2, const bool support_emplace = false&gt; </
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">FREERTOS_NODISCARD bool <a class="el" href="class_free_r_t_o_s_1_1_queue.html">FreeRTOS::Queue</a>&lt; T, size, support_emplace &gt;::TryPushFront </td>
+          <td class="memname">bool <a class="el" href="class_free_r_t_o_s_1_1_queue.html">FreeRTOS::Queue</a>&lt; T, size, support_emplace &gt;::TryPushFront </td>
           <td>(</td>
           <td class="paramtype">const T &amp;&#160;</td>
           <td class="paramname"><em>item</em>, </td>
