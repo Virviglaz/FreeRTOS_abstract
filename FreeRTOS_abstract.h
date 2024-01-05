@@ -18,6 +18,15 @@
 
 #define WAIT_MAX					portMAX_DELAY
 
+#ifdef __has_cpp_attribute
+#if __has_cpp_attribute(nodiscard)
+#define FREERTOS_NODISCARD [[nodiscard]]
+#endif
+#endif
+#ifndef FREERTOS_NODISCARD
+#define FREERTOS_NODISCARD
+#endif
+
 namespace FreeRTOS
 {
 	/**
@@ -48,6 +57,7 @@ namespace FreeRTOS
 	 * @param[in] size		Size of requested memory.
 	 * @return Pointer to allocated memory or nullptr.
 	 */
+	FREERTOS_NODISCARD
 	void *malloc(size_t size) {
 		void *ret = pvPortMalloc(size);
 		configASSERT(ret != nullptr);
@@ -61,6 +71,7 @@ namespace FreeRTOS
 	 * @return Pointer to allocated object or nullptr.
 	 */
 	template <typename T>
+	FREERTOS_NODISCARD
 	T malloc(size_t size) {
 		void *ret = pvPortMalloc(size);
 		configASSERT(ret != nullptr);
@@ -74,7 +85,7 @@ namespace FreeRTOS
 	 * @param[in] size		Size of requested memory.
 	 * @return Pointer to allocated object or nullptr.
 	 */
-
+	FREERTOS_NODISCARD
 	void *zalloc(size_t size) {
 		void *ret = pvPortMalloc(size);
 		configASSERT(ret != nullptr);
@@ -91,6 +102,7 @@ namespace FreeRTOS
 	 * @return Pointer to allocated object or nullptr.
 	 */
 	template <typename T>
+	FREERTOS_NODISCARD
 	T zalloc(size_t size) {
 		void *ret = pvPortMalloc(size);
 		configASSERT(ret != nullptr);
@@ -195,6 +207,7 @@ namespace FreeRTOS
 		 * @brief Get current task state.
 		 */
 		enum TaskState { Ready, Running, Blocked, Suspended, Deleted };
+		FREERTOS_NODISCARD
 		TaskState GetState() {
 			eTaskState state = eTaskGetState(handle);
 			return (TaskState)state;
@@ -255,7 +268,9 @@ namespace FreeRTOS
 			taskEXIT_CRITICAL();
 		}
 
-		/* non-copyable */
+		/**
+		 * @brief Prevent class to be copied.
+		 */
 		Task(const Task &) = delete;
 
 		/**
@@ -296,10 +311,15 @@ namespace FreeRTOS
 	/**
 	 * @brief Creates a new FreeRTOS queue instance.
 	 *
+	 * @Note This is MPSC queue (multi producers, single consumer queue).
+	 * If you need to use MPMC queue, you have to block the kernel until
+	 * popped pointer is processed or copied.
+	 *
 	 * @tparam T		Type of object to be enqueued.
 	 * @tparam size		Maximum queue size (maximum amount of object to store).
+	 * @tparam support_emplace	Enable support emplace constructor.
 	 */
-	template <class T, size_t size = 2>
+	template <class T, size_t size = 2, const bool support_emplace = false>
 	class Queue
 	{
 	protected:
@@ -308,8 +328,9 @@ namespace FreeRTOS
 		uint8_t ucQueueStorageArea[sizeof(T) * size];
 #endif /* STATIC_ALLOCATION */
 		QueueHandle_t handle = nullptr;
-		T buffer;
+		T buffer[support_emplace ? 2 : 1];
 	public:
+		const bool IsEmplaceSupported = support_emplace;
 		/**
 		 * @brief Constructor.
 		 */
@@ -334,6 +355,54 @@ namespace FreeRTOS
 		}
 
 		/**
+		 * @brief Construct an item at the back place of a queue.
+		 *
+		 * The item is queued by copy, not by reference.
+		 * This function must not be called from an interrupt service routine.
+		 *
+		 * @param[in] wait_ms	The maximum amount of time the task should block
+		 *						waiting for space to become available
+		 *						on the queue, should it already be full.
+		 *
+		 * @param[in] args		T constructor arguments.
+		 * @return true if item posted in the queue, false when no space left.
+		 */
+		template <typename... Args>
+		bool TryEmplaceBack(size_t wait_ms, Args &&...args) noexcept (
+			std::is_nothrow_constructible<T, Args &&...>::value) {
+			static_assert(std::is_constructible<T, Args &&...>::value,
+					"T must be constructible with Args&&...");
+			static_assert(support_emplace, "Emplace support is disabled.");
+			new (&buffer[1]) T(std::forward<Args>(args)...);
+			return xQueueSendToBack(handle, (void *)&buffer[1],
+							pdMS_TO_TICKS(wait_ms)) == pdTRUE;
+		}
+
+		/**
+		 * @brief Construct an item at the front place of a queue.
+		 *
+		 * The item is queued by copy, not by reference.
+		 * This function must not be called from an interrupt service routine.
+		 *
+		 * @param[in] wait_ms	The maximum amount of time the task should block
+		 *						waiting for space to become available
+		 *						on the queue, should it already be full.
+		 *
+		 * @param[in] args		T constructor arguments.
+		 * @return true if item posted in the queue, false when no space left.
+		 */
+		template <typename... Args>
+		bool TryEmplaceFront(size_t wait_ms, Args &&...args) noexcept (
+			std::is_nothrow_constructible<T, Args &&...>::value) {
+			static_assert(std::is_constructible<T, Args &&...>::value,
+					"T must be constructible with Args&&...");
+			static_assert(support_emplace, "Emplace support is disabled.");
+			new (&buffer[1]) T(std::forward<Args>(args)...);
+			return xQueueSendToFront(handle, (void *)&buffer[1],
+							pdMS_TO_TICKS(wait_ms)) == pdTRUE;
+		}
+
+		/**
 		 * @brief Post an item to the back of a queue.
 		 *
 		 * The item is queued by copy, not by reference.
@@ -346,8 +415,8 @@ namespace FreeRTOS
 		 *
 		 * @return true if item posted in the queue, false when no space left.
 		 */
-		bool TryPushBack(T *item, size_t wait_ms = 0) {
-			return xQueueSendToBack(handle, (void *)item,
+		bool TryPushBack(const T &item, size_t wait_ms = 0) {
+			return xQueueSendToBack(handle, (const void *)&item,
 				pdMS_TO_TICKS(wait_ms)) == pdTRUE;
 		}
 
@@ -364,8 +433,8 @@ namespace FreeRTOS
 		 *
 		 * @return true if item posted in the queue, false when no space left.
 		 */
-		bool TryPushFront(T *item, size_t wait_ms = 0) {
-			return xQueueSendToFront(handle, (void *)item,
+		bool TryPushFront(const T &item, size_t wait_ms = 0) {
+			return xQueueSendToFront(handle, (const void *)&item,
 				pdMS_TO_TICKS(wait_ms)) == pdTRUE;
 		}
 
@@ -378,13 +447,15 @@ namespace FreeRTOS
 		 *
 		 * @return Pointer to item in the buffer or nullptr if queue is empty.
 		 */
-		T* TryPop(size_t wait_ms = 0) {
-			return xQueueReceive(handle, const_cast<T *>(&buffer),
+		T* TryPop(size_t wait_ms = 0) noexcept {
+			return xQueueReceive(handle, const_cast<T *>(&buffer[0]),
 				pdMS_TO_TICKS(wait_ms)) == pdTRUE ? \
-						const_cast<T *>(&buffer) : nullptr;
+						const_cast<T *>(&buffer[0]) : nullptr;
 		}
 
-		/* non-copyable */
+		/**
+		 * @brief Prevent class to be copied.
+		 */
 		Queue(const Queue &) = delete;
 
 		/**
@@ -483,7 +554,9 @@ namespace FreeRTOS
 			return xSemaphoreGive(handle) == pdTRUE;
 		}
 
-		/* non-copyable */
+		/**
+		 * @brief Prevent class to be copied.
+		 */
 		Mutex(const Mutex &) = delete;
 
 		/**
@@ -552,6 +625,7 @@ namespace FreeRTOS
 		 *
 		 * @return Count value.
 		 */
+		FREERTOS_NODISCARD
 		size_t GetCount() {
 			return uxSemaphoreGetCount(handle);
 		}
@@ -607,6 +681,11 @@ namespace FreeRTOS
 		~Timer() {
 			Delete();
 		}
+
+		/**
+		 * @brief Prevent class to be copied.
+		 */
+		Timer(const Timer &) = delete;
 
 		/**
 		 * @brief Delete timer and release allocated memory.

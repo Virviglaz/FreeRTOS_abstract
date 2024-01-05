@@ -57,6 +57,17 @@ auto ret = q.TryPop();
 			std::cout << "Data: " << *ret << std::endl;
 		}
 ~~~
+### Emplace constructor is supported
+~~~cpp
+FreeRTOS::Queue<std::string, 3, true> q;
+
+FreeRTOS::Task<> producer1([](void *) {
+	while (1) {
+		FreeRTOS::Delay_ms(100);
+		q.TryEmplaceBack(0, "Test string");
+	}
+});
+~~~
 
 ## Locks
 ~~~cpp
