@@ -1,10 +1,12 @@
 var searchData=
 [
   ['task_0',['Task',['../class_free_r_t_o_s_1_1_task.html',1,'FreeRTOS::Task&lt; stack_size &gt;'],['../class_free_r_t_o_s_1_1_task.html#a9522e36f2028a89978c5f37c78616a74',1,'FreeRTOS::Task::Task()']]],
-  ['trypop_1',['TryPop',['../class_free_r_t_o_s_1_1_queue.html#a82d4c69b960ba8133e56416c97b4504e',1,'FreeRTOS::Queue']]],
-  ['trypopfromisr_2',['TryPopFromISR',['../class_free_r_t_o_s_1_1_queue.html#a938c19f5a1ee63fed09ae7cd32cbe071',1,'FreeRTOS::Queue']]],
-  ['trypushback_3',['TryPushBack',['../class_free_r_t_o_s_1_1_queue.html#a51b917c51515edcac2f296a0035b8fda',1,'FreeRTOS::Queue']]],
-  ['trypushbackfromisr_4',['TryPushBackFromISR',['../class_free_r_t_o_s_1_1_queue.html#a4d3b745f67a1eae289fb59c298021a7c',1,'FreeRTOS::Queue']]],
-  ['trypushfront_5',['TryPushFront',['../class_free_r_t_o_s_1_1_queue.html#ae1dd38c6f17b5e92c5c414fb08c6e4d2',1,'FreeRTOS::Queue']]],
-  ['trypushfrontfromisr_6',['TryPushFrontFromISR',['../class_free_r_t_o_s_1_1_queue.html#adb113302bac57ac10b7413528eba4767',1,'FreeRTOS::Queue']]]
+  ['tryemplaceback_1',['TryEmplaceBack',['../class_free_r_t_o_s_1_1_queue.html#a9bfabf4f64d92bde6700451e17d2909f',1,'FreeRTOS::Queue']]],
+  ['tryemplacefront_2',['TryEmplaceFront',['../class_free_r_t_o_s_1_1_queue.html#a703ab0a1c19ff40ca535081729c14460',1,'FreeRTOS::Queue']]],
+  ['trypop_3',['TryPop',['../class_free_r_t_o_s_1_1_queue.html#a216eaf54825fdf8d3ab09ba25b357fbe',1,'FreeRTOS::Queue']]],
+  ['trypopfromisr_4',['TryPopFromISR',['../class_free_r_t_o_s_1_1_queue.html#a3c51312e06f11ebdd30162567b0c1d2d',1,'FreeRTOS::Queue']]],
+  ['trypushback_5',['TryPushBack',['../class_free_r_t_o_s_1_1_queue.html#a0fef801ac99350d9702eadbf125aae39',1,'FreeRTOS::Queue']]],
+  ['trypushbackfromisr_6',['TryPushBackFromISR',['../class_free_r_t_o_s_1_1_queue.html#a9cdd1cbcacdb3280c92108c7585e79fb',1,'FreeRTOS::Queue']]],
+  ['trypushfront_7',['TryPushFront',['../class_free_r_t_o_s_1_1_queue.html#a00669503f679ef7697a5d97d819b0ce4',1,'FreeRTOS::Queue']]],
+  ['trypushfrontfromisr_8',['TryPushFrontFromISR',['../class_free_r_t_o_s_1_1_queue.html#a4909e3ea38f3bb307def3f75b9c7ccaf',1,'FreeRTOS::Queue']]]
 ];
