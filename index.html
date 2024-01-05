@@ -134,7 +134,7 @@ Emplace constructor is supported</h2>
 <div class="line"><a class="code hl_class" href="class_free_r_t_o_s_1_1_task.html">FreeRTOS::Task&lt;&gt;</a> producer1([](<span class="keywordtype">void</span> *) {</div>
 <div class="line">    <span class="keywordflow">while</span> (1) {</div>
 <div class="line">        FreeRTOS::Delay_ms(100);</div>
-<div class="line">        q.<a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#a9bfabf4f64d92bde6700451e17d2909f">TryEmplaceBack</a>(0, std::in_place_type&lt;Msg1&gt;, <span class="stringliteral">&quot;Test string&quot;</span>);</div>
+<div class="line">        q.<a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#a9bfabf4f64d92bde6700451e17d2909f">TryEmplaceBack</a>(0, <span class="stringliteral">&quot;Test string&quot;</span>);</div>
 <div class="line">    }</div>
 <div class="line">});</div>
 <div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html_a9bfabf4f64d92bde6700451e17d2909f"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html#a9bfabf4f64d92bde6700451e17d2909f">FreeRTOS::Queue::TryEmplaceBack</a></div><div class="ttdeci">bool TryEmplaceBack(size_t wait_ms, Args &amp;&amp;...args) noexcept(std::is_nothrow_constructible&lt; T, Args &amp;&amp;... &gt;::value)</div><div class="ttdoc">Construct an item at the back place of a queue.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:369</div></div>
