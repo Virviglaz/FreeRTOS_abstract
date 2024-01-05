@@ -229,276 +229,278 @@ $(function() {
 <div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>            taskEXIT_CRITICAL();</div>
 <div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>        }</div>
 <div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span> </div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>        <span class="comment">/* non-copyable */</span></div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>        <a class="code hl_class" href="class_free_r_t_o_s_1_1_task.html">Task</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_free_r_t_o_s_1_1_task.html">Task</a> &amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span> </div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task_1_1_isr.html">  277</a></span>        <span class="keyword">class </span><a class="code hl_class" href="class_free_r_t_o_s_1_1_task_1_1_isr.html">Isr</a></div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>        {</div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>        <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>            <span class="keyword">static</span> <span class="keyword">inline</span> UBaseType_t uxSavedInterruptStatus;</div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>        <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task_1_1_isr.html#a58c7978bd53808a9d1011ac5a444159c">  285</a></span>            <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_task_1_1_isr.html#a58c7978bd53808a9d1011ac5a444159c">EnterCritical</a>() {</div>
-<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>                uxSavedInterruptStatus = taskENTER_CRITICAL_FROM_ISR();</div>
-<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>            }</div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span> </div>
-<div class="line"><a id="l00292" name="l00292"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task_1_1_isr.html#a7f0bdca16bfe91d9b5d9b6f61276c619">  292</a></span>            <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_task_1_1_isr.html#a7f0bdca16bfe91d9b5d9b6f61276c619">ExitCritical</a>() {</div>
-<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>                taskEXIT_CRITICAL_FROM_ISR(uxSavedInterruptStatus);</div>
-<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>            }</div>
-<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>        };</div>
-<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>    };</div>
-<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span> </div>
-<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span><span class="preprocessor">#if (INCLUDE_vTaskDelay == 1)</span></div>
-<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>    <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> Delay_ms(<span class="keywordtype">size_t</span> ms) {</div>
-<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>        vTaskDelay(pdMS_TO_TICKS(ms));</div>
-<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>    }</div>
-<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span><span class="preprocessor">#endif </span><span class="comment">/* INCLUDE_vTaskDelay */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span> </div>
-<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>    <span class="keyword">template</span> &lt;<span class="keyword">class</span> T, <span class="keywordtype">size_t</span> size = 2, const <span class="keywordtype">bool</span> support_emplace = false&gt;</div>
-<div class="line"><a id="l00321" name="l00321"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_queue.html">  321</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_free_r_t_o_s_1_1_queue.html">Queue</a></div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>    {</div>
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>    <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span><span class="preprocessor">#if (configSUPPORT_STATIC_ALLOCATION == 1)</span></div>
-<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>        StaticQueue_t xStaticQueue;</div>
-<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>        uint8_t ucQueueStorageArea[<span class="keyword">sizeof</span>(T) * size];</div>
-<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span><span class="preprocessor">#endif </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>        QueueHandle_t handle = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>        T buffer[support_emplace ? 2 : 1];</div>
-<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>        <span class="keyword">const</span> <span class="keywordtype">bool</span> IsEmplaceSupported = support_emplace;</div>
-<div class="line"><a id="l00335" name="l00335"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_queue.html#ac19f2c7e1e8af74783384f6db93cc812">  335</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#ac19f2c7e1e8af74783384f6db93cc812">Queue</a>() {</div>
-<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span><span class="preprocessor">#if (configSUPPORT_STATIC_ALLOCATION == 1)</span></div>
-<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>            handle = xQueueCreateStatic(size,</div>
-<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>                <span class="keyword">sizeof</span>(T), ucQueueStorageArea,</div>
-<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>                &amp;xStaticQueue);</div>
-<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span><span class="preprocessor">#else </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>            handle = xQueueCreate(size, <span class="keyword">sizeof</span>(T));</div>
-<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span><span class="preprocessor">#endif </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>            configASSERT(handle != <span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>        }</div>
-<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span> </div>
-<div class="line"><a id="l00349" name="l00349"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_queue.html#aa26c476026aa61cd3408d7219c16e1d0">  349</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#aa26c476026aa61cd3408d7219c16e1d0">~Queue</a>() {</div>
-<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>            <span class="keywordflow">if</span> (handle)</div>
-<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>                vQueueDelete(handle);</div>
-<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>            handle = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>        }</div>
-<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span> </div>
-<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span>... Args&gt;</div>
-<div class="line"><a id="l00369" name="l00369"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_queue.html#a9bfabf4f64d92bde6700451e17d2909f">  369</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#a9bfabf4f64d92bde6700451e17d2909f">TryEmplaceBack</a>(<span class="keywordtype">size_t</span> wait_ms, Args &amp;&amp;...args) <span class="keyword">noexcept</span> (</div>
-<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>            std::is_nothrow_constructible&lt;T, Args &amp;&amp;...&gt;::value) {</div>
-<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>            <span class="keyword">static_assert</span>(std::is_constructible&lt;T, Args &amp;&amp;...&gt;::value,</div>
-<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>                    <span class="stringliteral">&quot;T must be constructible with Args&amp;&amp;...&quot;</span>);</div>
-<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>            <span class="keyword">static_assert</span>(support_emplace, <span class="stringliteral">&quot;Emplace support is disabled.&quot;</span>);</div>
-<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span>            <span class="keyword">new</span> (&amp;buffer[1]) T(std::forward&lt;Args&gt;(args)...);</div>
-<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>            <span class="keywordflow">return</span> xQueueSendToBack(handle, (<span class="keywordtype">void</span> *)&amp;buffer[1],</div>
-<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>                            pdMS_TO_TICKS(wait_ms)) == pdTRUE;</div>
-<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>        }</div>
-<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span> </div>
-<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span>... Args&gt;</div>
-<div class="line"><a id="l00393" name="l00393"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_queue.html#a703ab0a1c19ff40ca535081729c14460">  393</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#a703ab0a1c19ff40ca535081729c14460">TryEmplaceFront</a>(<span class="keywordtype">size_t</span> wait_ms, Args &amp;&amp;...args) <span class="keyword">noexcept</span> (</div>
-<div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span>            std::is_nothrow_constructible&lt;T, Args &amp;&amp;...&gt;::value) {</div>
-<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>            <span class="keyword">static_assert</span>(std::is_constructible&lt;T, Args &amp;&amp;...&gt;::value,</div>
-<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>                    <span class="stringliteral">&quot;T must be constructible with Args&amp;&amp;...&quot;</span>);</div>
-<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>            <span class="keyword">static_assert</span>(support_emplace, <span class="stringliteral">&quot;Emplace support is disabled.&quot;</span>);</div>
-<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span>            <span class="keyword">new</span> (&amp;buffer[1]) T(std::forward&lt;Args&gt;(args)...);</div>
-<div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span>            <span class="keywordflow">return</span> xQueueSendToFront(handle, (<span class="keywordtype">void</span> *)&amp;buffer[1],</div>
-<div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span>                            pdMS_TO_TICKS(wait_ms)) == pdTRUE;</div>
-<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span>        }</div>
-<div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span> </div>
-<div class="line"><a id="l00416" name="l00416"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_queue.html#a6f78822f1cb0b3b772fa844b69fd127e">  416</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#a6f78822f1cb0b3b772fa844b69fd127e">TryPushBack</a>(<span class="keyword">const</span> T &amp;item, <span class="keywordtype">size_t</span> wait_ms = 0) {</div>
-<div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span>            <span class="keywordflow">return</span> xQueueSendToBack(handle, (<span class="keyword">const</span> <span class="keywordtype">void</span> *)&amp;item,</div>
-<div class="line"><a id="l00418" name="l00418"></a><span class="lineno">  418</span>                pdMS_TO_TICKS(wait_ms)) == pdTRUE;</div>
-<div class="line"><a id="l00419" name="l00419"></a><span class="lineno">  419</span>        }</div>
-<div class="line"><a id="l00420" name="l00420"></a><span class="lineno">  420</span> </div>
-<div class="line"><a id="l00434" name="l00434"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_queue.html#a35050745dc8fb0fc673de0de5308c8a5">  434</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#a35050745dc8fb0fc673de0de5308c8a5">TryPushFront</a>(<span class="keyword">const</span> T &amp;item, <span class="keywordtype">size_t</span> wait_ms = 0) {</div>
-<div class="line"><a id="l00435" name="l00435"></a><span class="lineno">  435</span>            <span class="keywordflow">return</span> xQueueSendToFront(handle, (<span class="keyword">const</span> <span class="keywordtype">void</span> *)&amp;item,</div>
-<div class="line"><a id="l00436" name="l00436"></a><span class="lineno">  436</span>                pdMS_TO_TICKS(wait_ms)) == pdTRUE;</div>
-<div class="line"><a id="l00437" name="l00437"></a><span class="lineno">  437</span>        }</div>
-<div class="line"><a id="l00438" name="l00438"></a><span class="lineno">  438</span> </div>
-<div class="line"><a id="l00448" name="l00448"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_queue.html#ae3c2c7c25301e6cf29e40f8edf9f3a37">  448</a></span>        T* <a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#ae3c2c7c25301e6cf29e40f8edf9f3a37">TryPop</a>(<span class="keywordtype">size_t</span> wait_ms = 0) noexcept {</div>
-<div class="line"><a id="l00449" name="l00449"></a><span class="lineno">  449</span>            <span class="keywordflow">return</span> xQueueReceive(handle, <span class="keyword">const_cast&lt;</span>T *<span class="keyword">&gt;</span>(&amp;buffer[0]),</div>
-<div class="line"><a id="l00450" name="l00450"></a><span class="lineno">  450</span>                pdMS_TO_TICKS(wait_ms)) == pdTRUE ? \</div>
-<div class="line"><a id="l00451" name="l00451"></a><span class="lineno">  451</span>                        const_cast&lt;T *&gt;(&amp;buffer[0]) : <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00452" name="l00452"></a><span class="lineno">  452</span>        }</div>
-<div class="line"><a id="l00453" name="l00453"></a><span class="lineno">  453</span> </div>
-<div class="line"><a id="l00454" name="l00454"></a><span class="lineno">  454</span>        <span class="comment">/* non-copyable */</span></div>
-<div class="line"><a id="l00455" name="l00455"></a><span class="lineno">  455</span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#ac19f2c7e1e8af74783384f6db93cc812">Queue</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_free_r_t_o_s_1_1_queue.html">Queue</a> &amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00456" name="l00456"></a><span class="lineno">  456</span> </div>
-<div class="line"><a id="l00467" name="l00467"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_queue.html#a9cdd1cbcacdb3280c92108c7585e79fb">  467</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#a9cdd1cbcacdb3280c92108c7585e79fb">TryPushBackFromISR</a>(T *item) {</div>
-<div class="line"><a id="l00468" name="l00468"></a><span class="lineno">  468</span>            <span class="keywordflow">return</span> xQueueSendToBackFromISR(Queue::handle,</div>
-<div class="line"><a id="l00469" name="l00469"></a><span class="lineno">  469</span>                (<span class="keywordtype">void</span> *)item, <span class="keyword">nullptr</span>) == pdTRUE;</div>
-<div class="line"><a id="l00470" name="l00470"></a><span class="lineno">  470</span>        }</div>
-<div class="line"><a id="l00471" name="l00471"></a><span class="lineno">  471</span> </div>
-<div class="line"><a id="l00482" name="l00482"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_queue.html#a4909e3ea38f3bb307def3f75b9c7ccaf">  482</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#a4909e3ea38f3bb307def3f75b9c7ccaf">TryPushFrontFromISR</a>(T *item) {</div>
-<div class="line"><a id="l00483" name="l00483"></a><span class="lineno">  483</span>            <span class="keywordflow">return</span> xQueueSendToFrontFromISR(Queue::handle,</div>
-<div class="line"><a id="l00484" name="l00484"></a><span class="lineno">  484</span>                (<span class="keywordtype">void</span> *)item, <span class="keyword">nullptr</span>) == pdTRUE;</div>
-<div class="line"><a id="l00485" name="l00485"></a><span class="lineno">  485</span>        }</div>
-<div class="line"><a id="l00486" name="l00486"></a><span class="lineno">  486</span> </div>
-<div class="line"><a id="l00492" name="l00492"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_queue.html#a3c51312e06f11ebdd30162567b0c1d2d">  492</a></span>        T* <a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#a3c51312e06f11ebdd30162567b0c1d2d">TryPopFromISR</a>() {</div>
-<div class="line"><a id="l00493" name="l00493"></a><span class="lineno">  493</span>            <span class="keywordflow">return</span> xQueueReceiveFromISR(Queue::handle,</div>
-<div class="line"><a id="l00494" name="l00494"></a><span class="lineno">  494</span>                (<span class="keywordtype">void</span> *)&amp;Queue::buffer, <span class="keyword">nullptr</span>) == pdTRUE ?</div>
-<div class="line"><a id="l00495" name="l00495"></a><span class="lineno">  495</span>                                        &amp;Queue::buffer : <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00496" name="l00496"></a><span class="lineno">  496</span>        }</div>
-<div class="line"><a id="l00497" name="l00497"></a><span class="lineno">  497</span>    };</div>
-<div class="line"><a id="l00498" name="l00498"></a><span class="lineno">  498</span> </div>
-<div class="line"><a id="l00503" name="l00503"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_mutex.html">  503</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_free_r_t_o_s_1_1_mutex.html">Mutex</a></div>
-<div class="line"><a id="l00504" name="l00504"></a><span class="lineno">  504</span>    {</div>
-<div class="line"><a id="l00505" name="l00505"></a><span class="lineno">  505</span>    <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00506" name="l00506"></a><span class="lineno">  506</span><span class="preprocessor">#if (configSUPPORT_STATIC_ALLOCATION == 1)</span></div>
-<div class="line"><a id="l00507" name="l00507"></a><span class="lineno">  507</span>        StaticSemaphore_t buffer;</div>
-<div class="line"><a id="l00508" name="l00508"></a><span class="lineno">  508</span><span class="preprocessor">#endif </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00509" name="l00509"></a><span class="lineno">  509</span>        SemaphoreHandle_t handle = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00510" name="l00510"></a><span class="lineno">  510</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00514" name="l00514"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_mutex.html#a31df9a3d06ee22ed89231c0bc9e589e8">  514</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#a31df9a3d06ee22ed89231c0bc9e589e8">Mutex</a>() {</div>
-<div class="line"><a id="l00515" name="l00515"></a><span class="lineno">  515</span><span class="preprocessor">#if (configSUPPORT_STATIC_ALLOCATION == 1)</span></div>
-<div class="line"><a id="l00516" name="l00516"></a><span class="lineno">  516</span>            handle = xSemaphoreCreateMutexStatic(&amp;buffer);</div>
-<div class="line"><a id="l00517" name="l00517"></a><span class="lineno">  517</span><span class="preprocessor">#else </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00518" name="l00518"></a><span class="lineno">  518</span>            handle = xSemaphoreCreateMutex();</div>
-<div class="line"><a id="l00519" name="l00519"></a><span class="lineno">  519</span>            configASSERT(handle != <span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00520" name="l00520"></a><span class="lineno">  520</span><span class="preprocessor">#endif </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00521" name="l00521"></a><span class="lineno">  521</span>        }</div>
-<div class="line"><a id="l00522" name="l00522"></a><span class="lineno">  522</span> </div>
-<div class="line"><a id="l00526" name="l00526"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_mutex.html#adf0a6b9b93fa68a20ef728fc63e0b1e2">  526</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#adf0a6b9b93fa68a20ef728fc63e0b1e2">~Mutex</a>() {</div>
-<div class="line"><a id="l00527" name="l00527"></a><span class="lineno">  527</span>            <span class="keywordflow">if</span> (handle)</div>
-<div class="line"><a id="l00528" name="l00528"></a><span class="lineno">  528</span>                vSemaphoreDelete(handle);</div>
-<div class="line"><a id="l00529" name="l00529"></a><span class="lineno">  529</span>            handle = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00530" name="l00530"></a><span class="lineno">  530</span>        }</div>
-<div class="line"><a id="l00531" name="l00531"></a><span class="lineno">  531</span> </div>
-<div class="line"><a id="l00540" name="l00540"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_mutex.html#a95ab2ce0ab807a6de35c95a991ce02e9">  540</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#a95ab2ce0ab807a6de35c95a991ce02e9">Lock</a>(<span class="keywordtype">size_t</span> wait_ms = 0) {</div>
-<div class="line"><a id="l00541" name="l00541"></a><span class="lineno">  541</span>            <span class="keywordflow">return</span> xSemaphoreTake(handle, pdMS_TO_TICKS(wait_ms)) == pdTRUE;</div>
-<div class="line"><a id="l00542" name="l00542"></a><span class="lineno">  542</span>        }</div>
-<div class="line"><a id="l00543" name="l00543"></a><span class="lineno">  543</span> </div>
-<div class="line"><a id="l00549" name="l00549"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_mutex.html#abebd78712e4394604d7508e8f99abd30">  549</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#abebd78712e4394604d7508e8f99abd30">Unlock</a>() {</div>
-<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span>            <span class="keywordflow">return</span> xSemaphoreGive(handle) == pdTRUE;</div>
-<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span>        }</div>
-<div class="line"><a id="l00552" name="l00552"></a><span class="lineno">  552</span> </div>
-<div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span>        <span class="comment">/* non-copyable */</span></div>
-<div class="line"><a id="l00554" name="l00554"></a><span class="lineno">  554</span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#a31df9a3d06ee22ed89231c0bc9e589e8">Mutex</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_free_r_t_o_s_1_1_mutex.html">Mutex</a> &amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span> </div>
-<div class="line"><a id="l00561" name="l00561"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_mutex.html#ac4860e7216b0d7944643b2bba96afefa">  561</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#ac4860e7216b0d7944643b2bba96afefa">LockFromISR</a>() {</div>
-<div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span>            <span class="keywordflow">return</span> xSemaphoreTakeFromISR(handle, <span class="keyword">nullptr</span>) == pdTRUE;</div>
-<div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span>        }</div>
-<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span> </div>
-<div class="line"><a id="l00570" name="l00570"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_mutex.html#a0cd126cdf0aeec979954cee947b18176">  570</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#a0cd126cdf0aeec979954cee947b18176">UnlockFromISR</a>() {</div>
-<div class="line"><a id="l00571" name="l00571"></a><span class="lineno">  571</span>            <span class="keywordflow">return</span> xSemaphoreGiveFromISR(handle, <span class="keyword">nullptr</span>) == pdTRUE;</div>
-<div class="line"><a id="l00572" name="l00572"></a><span class="lineno">  572</span>        }</div>
-<div class="line"><a id="l00573" name="l00573"></a><span class="lineno">  573</span>    };</div>
-<div class="line"><a id="l00574" name="l00574"></a><span class="lineno">  574</span> </div>
-<div class="line"><a id="l00578" name="l00578"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_binary_semaphore.html">  578</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_free_r_t_o_s_1_1_binary_semaphore.html">BinarySemaphore</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_free_r_t_o_s_1_1_mutex.html">Mutex</a></div>
-<div class="line"><a id="l00579" name="l00579"></a><span class="lineno">  579</span>    {</div>
-<div class="line"><a id="l00580" name="l00580"></a><span class="lineno">  580</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00584" name="l00584"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_binary_semaphore.html#a8c648c44a12bfe12366cb286826acde9">  584</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_binary_semaphore.html#a8c648c44a12bfe12366cb286826acde9">BinarySemaphore</a>() {</div>
-<div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span><span class="preprocessor">#if (configSUPPORT_STATIC_ALLOCATION == 1)</span></div>
-<div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span>            handle = xSemaphoreCreateBinaryStatic(&amp;buffer);</div>
-<div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span><span class="preprocessor">#else </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00588" name="l00588"></a><span class="lineno">  588</span>            handle = xSemaphoreCreateBinary();</div>
-<div class="line"><a id="l00589" name="l00589"></a><span class="lineno">  589</span>            configASSERT(handle != <span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00590" name="l00590"></a><span class="lineno">  590</span><span class="preprocessor">#endif </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>        }</div>
-<div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span>    };</div>
-<div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span> </div>
-<div class="line"><a id="l00597" name="l00597"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_counting_semaphore.html">  597</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_free_r_t_o_s_1_1_counting_semaphore.html">CountingSemaphore</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_free_r_t_o_s_1_1_mutex.html">Mutex</a></div>
-<div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span>    {</div>
-<div class="line"><a id="l00599" name="l00599"></a><span class="lineno">  599</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00608" name="l00608"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_counting_semaphore.html#a2e704713cbec85b863dbb34918e91b7d">  608</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_counting_semaphore.html#a2e704713cbec85b863dbb34918e91b7d">CountingSemaphore</a>(<span class="keywordtype">size_t</span> initial, <span class="keywordtype">size_t</span> max) {</div>
-<div class="line"><a id="l00609" name="l00609"></a><span class="lineno">  609</span><span class="preprocessor">#if (configSUPPORT_STATIC_ALLOCATION == 1)</span></div>
-<div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span>            handle = xSemaphoreCreateCountingStatic(max, initial, &amp;buffer);</div>
-<div class="line"><a id="l00611" name="l00611"></a><span class="lineno">  611</span><span class="preprocessor">#else </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span>            handle = xSemaphoreCreateCounting(max, initial);</div>
-<div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span>            configASSERT(handle != <span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00614" name="l00614"></a><span class="lineno">  614</span><span class="preprocessor">#endif </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00615" name="l00615"></a><span class="lineno">  615</span>        }</div>
-<div class="line"><a id="l00616" name="l00616"></a><span class="lineno">  616</span> </div>
-<div class="line"><a id="l00622" name="l00622"></a><span class="lineno">  622</span>        FREERTOS_NODISCARD</div>
-<div class="line"><a id="l00623" name="l00623"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_counting_semaphore.html#acddd37f38a4c4dc5e1dca0304d9a9487">  623</a></span>        <span class="keywordtype">size_t</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_counting_semaphore.html#acddd37f38a4c4dc5e1dca0304d9a9487">GetCount</a>() {</div>
-<div class="line"><a id="l00624" name="l00624"></a><span class="lineno">  624</span>            <span class="keywordflow">return</span> uxSemaphoreGetCount(handle);</div>
-<div class="line"><a id="l00625" name="l00625"></a><span class="lineno">  625</span>        }</div>
-<div class="line"><a id="l00626" name="l00626"></a><span class="lineno">  626</span>    };</div>
-<div class="line"><a id="l00627" name="l00627"></a><span class="lineno">  627</span> </div>
-<div class="line"><a id="l00628" name="l00628"></a><span class="lineno">  628</span><span class="preprocessor">#if (configUSE_TIMERS == 1)</span></div>
-<div class="line"><a id="l00632" name="l00632"></a><span class="lineno">  632</span>    <span class="keyword">class </span>Timer</div>
-<div class="line"><a id="l00633" name="l00633"></a><span class="lineno">  633</span>    {</div>
-<div class="line"><a id="l00634" name="l00634"></a><span class="lineno">  634</span>    <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00635" name="l00635"></a><span class="lineno">  635</span>        TimerHandle_t handle = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00636" name="l00636"></a><span class="lineno">  636</span><span class="preprocessor">#if (configSUPPORT_STATIC_ALLOCATION == 1)</span></div>
-<div class="line"><a id="l00637" name="l00637"></a><span class="lineno">  637</span>        StaticTimer_t xTimerBuffers;</div>
-<div class="line"><a id="l00638" name="l00638"></a><span class="lineno">  638</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00639" name="l00639"></a><span class="lineno">  639</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00653" name="l00653"></a><span class="lineno">  653</span>        Timer(<span class="keywordtype">void</span> (*callback)(TimerHandle_t handle),</div>
-<div class="line"><a id="l00654" name="l00654"></a><span class="lineno">  654</span>            <span class="keywordtype">size_t</span> period_ms,</div>
-<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span>            <span class="keywordtype">bool</span> autoreload = <span class="keyword">true</span>,</div>
-<div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span>            <span class="keyword">const</span> <span class="keywordtype">char</span> *name = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span>            <span class="keywordtype">void</span> *timer_id = <span class="keyword">nullptr</span>) {</div>
-<div class="line"><a id="l00658" name="l00658"></a><span class="lineno">  658</span><span class="preprocessor">#if (configSUPPORT_STATIC_ALLOCATION == 1)</span></div>
-<div class="line"><a id="l00659" name="l00659"></a><span class="lineno">  659</span>            handle = xTimerCreateStatic(name,</div>
-<div class="line"><a id="l00660" name="l00660"></a><span class="lineno">  660</span>                pdMS_TO_TICKS(period_ms),</div>
-<div class="line"><a id="l00661" name="l00661"></a><span class="lineno">  661</span>                autoreload, timer_id,</div>
-<div class="line"><a id="l00662" name="l00662"></a><span class="lineno">  662</span>                callback, &amp;xTimerBuffers);</div>
-<div class="line"><a id="l00663" name="l00663"></a><span class="lineno">  663</span><span class="preprocessor">#else </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00664" name="l00664"></a><span class="lineno">  664</span>            handle = xTimerCreate(name,</div>
-<div class="line"><a id="l00665" name="l00665"></a><span class="lineno">  665</span>                pdMS_TO_TICKS(period_ms),</div>
-<div class="line"><a id="l00666" name="l00666"></a><span class="lineno">  666</span>                autoreload, timer_id,</div>
-<div class="line"><a id="l00667" name="l00667"></a><span class="lineno">  667</span>                callback);</div>
-<div class="line"><a id="l00668" name="l00668"></a><span class="lineno">  668</span><span class="preprocessor">#endif </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00669" name="l00669"></a><span class="lineno">  669</span>            configASSERT(handle != <span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00670" name="l00670"></a><span class="lineno">  670</span>        }</div>
-<div class="line"><a id="l00671" name="l00671"></a><span class="lineno">  671</span> </div>
-<div class="line"><a id="l00675" name="l00675"></a><span class="lineno">  675</span>        ~Timer() {</div>
-<div class="line"><a id="l00676" name="l00676"></a><span class="lineno">  676</span>            Delete();</div>
-<div class="line"><a id="l00677" name="l00677"></a><span class="lineno">  677</span>        }</div>
-<div class="line"><a id="l00678" name="l00678"></a><span class="lineno">  678</span> </div>
-<div class="line"><a id="l00682" name="l00682"></a><span class="lineno">  682</span>        <span class="keywordtype">void</span> Delete(<span class="keywordtype">size_t</span> wait_ms = 0) {</div>
-<div class="line"><a id="l00683" name="l00683"></a><span class="lineno">  683</span>            <span class="keywordflow">if</span> (handle)</div>
-<div class="line"><a id="l00684" name="l00684"></a><span class="lineno">  684</span>                configASSERT(xTimerDelete(handle,</div>
-<div class="line"><a id="l00685" name="l00685"></a><span class="lineno">  685</span>                        pdMS_TO_TICKS(wait_ms)) == pdPASS);</div>
-<div class="line"><a id="l00686" name="l00686"></a><span class="lineno">  686</span>            handle = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00687" name="l00687"></a><span class="lineno">  687</span>        }</div>
-<div class="line"><a id="l00688" name="l00688"></a><span class="lineno">  688</span> </div>
-<div class="line"><a id="l00694" name="l00694"></a><span class="lineno">  694</span>        <span class="keywordtype">void</span> Start(<span class="keywordtype">size_t</span> wait_ms = 0) {</div>
-<div class="line"><a id="l00695" name="l00695"></a><span class="lineno">  695</span>            configASSERT(xTimerStart(handle,</div>
-<div class="line"><a id="l00696" name="l00696"></a><span class="lineno">  696</span>                pdMS_TO_TICKS(wait_ms)) == pdPASS);</div>
-<div class="line"><a id="l00697" name="l00697"></a><span class="lineno">  697</span>        }</div>
-<div class="line"><a id="l00698" name="l00698"></a><span class="lineno">  698</span> </div>
-<div class="line"><a id="l00708" name="l00708"></a><span class="lineno">  708</span>        <span class="keywordtype">void</span> Stop(<span class="keywordtype">size_t</span> wait_ms = 0) {</div>
-<div class="line"><a id="l00709" name="l00709"></a><span class="lineno">  709</span>            configASSERT(xTimerStop(handle,</div>
-<div class="line"><a id="l00710" name="l00710"></a><span class="lineno">  710</span>                pdMS_TO_TICKS(wait_ms)) == pdPASS);</div>
-<div class="line"><a id="l00711" name="l00711"></a><span class="lineno">  711</span>        }</div>
-<div class="line"><a id="l00712" name="l00712"></a><span class="lineno">  712</span>    };</div>
-<div class="line"><a id="l00713" name="l00713"></a><span class="lineno">  713</span><span class="preprocessor">#endif </span><span class="comment">/* configUSE_TIMERS */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00714" name="l00714"></a><span class="lineno">  714</span>}</div>
-<div class="line"><a id="l00715" name="l00715"></a><span class="lineno">  715</span> </div>
-<div class="line"><a id="l00716" name="l00716"></a><span class="lineno">  716</span><span class="preprocessor">#endif </span><span class="comment">/* __FREERTOS_ABSTRACT__ */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_binary_semaphore_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_binary_semaphore.html">FreeRTOS::BinarySemaphore</a></div><div class="ttdoc">Create binary semaphore.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:579</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_binary_semaphore_html_a8c648c44a12bfe12366cb286826acde9"><div class="ttname"><a href="class_free_r_t_o_s_1_1_binary_semaphore.html#a8c648c44a12bfe12366cb286826acde9">FreeRTOS::BinarySemaphore::BinarySemaphore</a></div><div class="ttdeci">BinarySemaphore()</div><div class="ttdoc">Create a binary semaphore.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:584</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_counting_semaphore_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_counting_semaphore.html">FreeRTOS::CountingSemaphore</a></div><div class="ttdoc">Create counting semaphore.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:598</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_counting_semaphore_html_a2e704713cbec85b863dbb34918e91b7d"><div class="ttname"><a href="class_free_r_t_o_s_1_1_counting_semaphore.html#a2e704713cbec85b863dbb34918e91b7d">FreeRTOS::CountingSemaphore::CountingSemaphore</a></div><div class="ttdeci">CountingSemaphore(size_t initial, size_t max)</div><div class="ttdoc">Create counting semaphore with initial count and max value.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:608</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_counting_semaphore_html_acddd37f38a4c4dc5e1dca0304d9a9487"><div class="ttname"><a href="class_free_r_t_o_s_1_1_counting_semaphore.html#acddd37f38a4c4dc5e1dca0304d9a9487">FreeRTOS::CountingSemaphore::GetCount</a></div><div class="ttdeci">FREERTOS_NODISCARD size_t GetCount()</div><div class="ttdoc">Read current count value.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:623</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html">FreeRTOS::Mutex</a></div><div class="ttdoc">Implement locking mechanism between tasks to protect shared resources against race conditions.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:504</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html_a0cd126cdf0aeec979954cee947b18176"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html#a0cd126cdf0aeec979954cee947b18176">FreeRTOS::Mutex::UnlockFromISR</a></div><div class="ttdeci">bool UnlockFromISR()</div><div class="ttdoc">Release an obtained mutex from interrupt context.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:570</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html_a31df9a3d06ee22ed89231c0bc9e589e8"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html#a31df9a3d06ee22ed89231c0bc9e589e8">FreeRTOS::Mutex::Mutex</a></div><div class="ttdeci">Mutex()</div><div class="ttdoc">Creates an instance of mutex.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:514</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html_a95ab2ce0ab807a6de35c95a991ce02e9"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html#a95ab2ce0ab807a6de35c95a991ce02e9">FreeRTOS::Mutex::Lock</a></div><div class="ttdeci">bool Lock(size_t wait_ms=0)</div><div class="ttdoc">Obtain a mutex.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:540</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html_abebd78712e4394604d7508e8f99abd30"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html#abebd78712e4394604d7508e8f99abd30">FreeRTOS::Mutex::Unlock</a></div><div class="ttdeci">bool Unlock()</div><div class="ttdoc">Release an obtained mutex.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:549</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html_ac4860e7216b0d7944643b2bba96afefa"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html#ac4860e7216b0d7944643b2bba96afefa">FreeRTOS::Mutex::LockFromISR</a></div><div class="ttdeci">bool LockFromISR()</div><div class="ttdoc">Obtain a mutex from interrupt context.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:561</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html_adf0a6b9b93fa68a20ef728fc63e0b1e2"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html#adf0a6b9b93fa68a20ef728fc63e0b1e2">FreeRTOS::Mutex::~Mutex</a></div><div class="ttdeci">~Mutex()</div><div class="ttdoc">Deletes the instance and release allocated memory.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:526</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html">FreeRTOS::Queue</a></div><div class="ttdoc">Creates a new FreeRTOS queue instance.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:322</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html_a35050745dc8fb0fc673de0de5308c8a5"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html#a35050745dc8fb0fc673de0de5308c8a5">FreeRTOS::Queue::TryPushFront</a></div><div class="ttdeci">bool TryPushFront(const T &amp;item, size_t wait_ms=0)</div><div class="ttdoc">Post an item to the front of a queue.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:434</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html_a3c51312e06f11ebdd30162567b0c1d2d"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html#a3c51312e06f11ebdd30162567b0c1d2d">FreeRTOS::Queue::TryPopFromISR</a></div><div class="ttdeci">T * TryPopFromISR()</div><div class="ttdoc">Receive an item from a queue from interrupt context.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:492</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html_a4909e3ea38f3bb307def3f75b9c7ccaf"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html#a4909e3ea38f3bb307def3f75b9c7ccaf">FreeRTOS::Queue::TryPushFrontFromISR</a></div><div class="ttdeci">bool TryPushFrontFromISR(T *item)</div><div class="ttdoc">Post an item to the front of a queue from interrupt context.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:482</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html_a6f78822f1cb0b3b772fa844b69fd127e"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html#a6f78822f1cb0b3b772fa844b69fd127e">FreeRTOS::Queue::TryPushBack</a></div><div class="ttdeci">bool TryPushBack(const T &amp;item, size_t wait_ms=0)</div><div class="ttdoc">Post an item to the back of a queue.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:416</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html_a703ab0a1c19ff40ca535081729c14460"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html#a703ab0a1c19ff40ca535081729c14460">FreeRTOS::Queue::TryEmplaceFront</a></div><div class="ttdeci">bool TryEmplaceFront(size_t wait_ms, Args &amp;&amp;...args) noexcept(std::is_nothrow_constructible&lt; T, Args &amp;&amp;... &gt;::value)</div><div class="ttdoc">Construct an item at the front place of a queue.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:393</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html_a9bfabf4f64d92bde6700451e17d2909f"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html#a9bfabf4f64d92bde6700451e17d2909f">FreeRTOS::Queue::TryEmplaceBack</a></div><div class="ttdeci">bool TryEmplaceBack(size_t wait_ms, Args &amp;&amp;...args) noexcept(std::is_nothrow_constructible&lt; T, Args &amp;&amp;... &gt;::value)</div><div class="ttdoc">Construct an item at the back place of a queue.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:369</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html_a9cdd1cbcacdb3280c92108c7585e79fb"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html#a9cdd1cbcacdb3280c92108c7585e79fb">FreeRTOS::Queue::TryPushBackFromISR</a></div><div class="ttdeci">bool TryPushBackFromISR(T *item)</div><div class="ttdoc">Post an item to the back of a queue from interrupt context.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:467</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html_aa26c476026aa61cd3408d7219c16e1d0"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html#aa26c476026aa61cd3408d7219c16e1d0">FreeRTOS::Queue::~Queue</a></div><div class="ttdeci">~Queue()</div><div class="ttdoc">Deletes the queue and releases allocated memory.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:349</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html_ac19f2c7e1e8af74783384f6db93cc812"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html#ac19f2c7e1e8af74783384f6db93cc812">FreeRTOS::Queue::Queue</a></div><div class="ttdeci">Queue()</div><div class="ttdoc">Constructor.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:335</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html_ae3c2c7c25301e6cf29e40f8edf9f3a37"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html#ae3c2c7c25301e6cf29e40f8edf9f3a37">FreeRTOS::Queue::TryPop</a></div><div class="ttdeci">T * TryPop(size_t wait_ms=0) noexcept</div><div class="ttdoc">Receive an item from a queue.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:448</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_1_1_isr_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task_1_1_isr.html">FreeRTOS::Task::Isr</a></div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:278</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_1_1_isr_html_a58c7978bd53808a9d1011ac5a444159c"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task_1_1_isr.html#a58c7978bd53808a9d1011ac5a444159c">FreeRTOS::Task::Isr::EnterCritical</a></div><div class="ttdeci">static void EnterCritical()</div><div class="ttdoc">See Task::EnterCritical()</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:285</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_1_1_isr_html_a7f0bdca16bfe91d9b5d9b6f61276c619"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task_1_1_isr.html#a7f0bdca16bfe91d9b5d9b6f61276c619">FreeRTOS::Task::Isr::ExitCritical</a></div><div class="ttdeci">static void ExitCritical()</div><div class="ttdoc">See Task::ExitCritical()</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:292</div></div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task.html#ac5c09246df5766e249ef8fef921b5c6f">  274</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_task.html#ac5c09246df5766e249ef8fef921b5c6f">Task</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_free_r_t_o_s_1_1_task.html">Task</a> &amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span> </div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task_1_1_isr.html">  279</a></span>        <span class="keyword">class </span><a class="code hl_class" href="class_free_r_t_o_s_1_1_task_1_1_isr.html">Isr</a></div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>        {</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>        <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>            <span class="keyword">static</span> <span class="keyword">inline</span> UBaseType_t uxSavedInterruptStatus;</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>        <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task_1_1_isr.html#a58c7978bd53808a9d1011ac5a444159c">  287</a></span>            <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_task_1_1_isr.html#a58c7978bd53808a9d1011ac5a444159c">EnterCritical</a>() {</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>                uxSavedInterruptStatus = taskENTER_CRITICAL_FROM_ISR();</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>            }</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span> </div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task_1_1_isr.html#a7f0bdca16bfe91d9b5d9b6f61276c619">  294</a></span>            <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_task_1_1_isr.html#a7f0bdca16bfe91d9b5d9b6f61276c619">ExitCritical</a>() {</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>                taskEXIT_CRITICAL_FROM_ISR(uxSavedInterruptStatus);</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>            }</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>        };</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>    };</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span> </div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span><span class="preprocessor">#if (INCLUDE_vTaskDelay == 1)</span></div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>    <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> Delay_ms(<span class="keywordtype">size_t</span> ms) {</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>        vTaskDelay(pdMS_TO_TICKS(ms));</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>    }</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span><span class="preprocessor">#endif </span><span class="comment">/* INCLUDE_vTaskDelay */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span> </div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>    <span class="keyword">template</span> &lt;<span class="keyword">class</span> T, <span class="keywordtype">size_t</span> size = 2, const <span class="keywordtype">bool</span> support_emplace = false&gt;</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_queue.html">  323</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_free_r_t_o_s_1_1_queue.html">Queue</a></div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>    {</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>    <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span><span class="preprocessor">#if (configSUPPORT_STATIC_ALLOCATION == 1)</span></div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>        StaticQueue_t xStaticQueue;</div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>        uint8_t ucQueueStorageArea[<span class="keyword">sizeof</span>(T) * size];</div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span><span class="preprocessor">#endif </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>        QueueHandle_t handle = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>        T buffer[support_emplace ? 2 : 1];</div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>        <span class="keyword">const</span> <span class="keywordtype">bool</span> IsEmplaceSupported = support_emplace;</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_queue.html#ac19f2c7e1e8af74783384f6db93cc812">  337</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#ac19f2c7e1e8af74783384f6db93cc812">Queue</a>() {</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span><span class="preprocessor">#if (configSUPPORT_STATIC_ALLOCATION == 1)</span></div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>            handle = xQueueCreateStatic(size,</div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>                <span class="keyword">sizeof</span>(T), ucQueueStorageArea,</div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>                &amp;xStaticQueue);</div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span><span class="preprocessor">#else </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>            handle = xQueueCreate(size, <span class="keyword">sizeof</span>(T));</div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span><span class="preprocessor">#endif </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>            configASSERT(handle != <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>        }</div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span> </div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_queue.html#aa26c476026aa61cd3408d7219c16e1d0">  351</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#aa26c476026aa61cd3408d7219c16e1d0">~Queue</a>() {</div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>            <span class="keywordflow">if</span> (handle)</div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>                vQueueDelete(handle);</div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>            handle = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>        }</div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span> </div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span>... Args&gt;</div>
+<div class="line"><a id="l00371" name="l00371"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_queue.html#a9bfabf4f64d92bde6700451e17d2909f">  371</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#a9bfabf4f64d92bde6700451e17d2909f">TryEmplaceBack</a>(<span class="keywordtype">size_t</span> wait_ms, Args &amp;&amp;...args) <span class="keyword">noexcept</span> (</div>
+<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>            std::is_nothrow_constructible&lt;T, Args &amp;&amp;...&gt;::value) {</div>
+<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>            <span class="keyword">static_assert</span>(std::is_constructible&lt;T, Args &amp;&amp;...&gt;::value,</div>
+<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span>                    <span class="stringliteral">&quot;T must be constructible with Args&amp;&amp;...&quot;</span>);</div>
+<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>            <span class="keyword">static_assert</span>(support_emplace, <span class="stringliteral">&quot;Emplace support is disabled.&quot;</span>);</div>
+<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>            <span class="keyword">new</span> (&amp;buffer[1]) T(std::forward&lt;Args&gt;(args)...);</div>
+<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>            <span class="keywordflow">return</span> xQueueSendToBack(handle, (<span class="keywordtype">void</span> *)&amp;buffer[1],</div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>                            pdMS_TO_TICKS(wait_ms)) == pdTRUE;</div>
+<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>        }</div>
+<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span> </div>
+<div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span>... Args&gt;</div>
+<div class="line"><a id="l00395" name="l00395"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_queue.html#a703ab0a1c19ff40ca535081729c14460">  395</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#a703ab0a1c19ff40ca535081729c14460">TryEmplaceFront</a>(<span class="keywordtype">size_t</span> wait_ms, Args &amp;&amp;...args) <span class="keyword">noexcept</span> (</div>
+<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>            std::is_nothrow_constructible&lt;T, Args &amp;&amp;...&gt;::value) {</div>
+<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>            <span class="keyword">static_assert</span>(std::is_constructible&lt;T, Args &amp;&amp;...&gt;::value,</div>
+<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span>                    <span class="stringliteral">&quot;T must be constructible with Args&amp;&amp;...&quot;</span>);</div>
+<div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span>            <span class="keyword">static_assert</span>(support_emplace, <span class="stringliteral">&quot;Emplace support is disabled.&quot;</span>);</div>
+<div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span>            <span class="keyword">new</span> (&amp;buffer[1]) T(std::forward&lt;Args&gt;(args)...);</div>
+<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span>            <span class="keywordflow">return</span> xQueueSendToFront(handle, (<span class="keywordtype">void</span> *)&amp;buffer[1],</div>
+<div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span>                            pdMS_TO_TICKS(wait_ms)) == pdTRUE;</div>
+<div class="line"><a id="l00403" name="l00403"></a><span class="lineno">  403</span>        }</div>
+<div class="line"><a id="l00404" name="l00404"></a><span class="lineno">  404</span> </div>
+<div class="line"><a id="l00418" name="l00418"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_queue.html#a6f78822f1cb0b3b772fa844b69fd127e">  418</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#a6f78822f1cb0b3b772fa844b69fd127e">TryPushBack</a>(<span class="keyword">const</span> T &amp;item, <span class="keywordtype">size_t</span> wait_ms = 0) {</div>
+<div class="line"><a id="l00419" name="l00419"></a><span class="lineno">  419</span>            <span class="keywordflow">return</span> xQueueSendToBack(handle, (<span class="keyword">const</span> <span class="keywordtype">void</span> *)&amp;item,</div>
+<div class="line"><a id="l00420" name="l00420"></a><span class="lineno">  420</span>                pdMS_TO_TICKS(wait_ms)) == pdTRUE;</div>
+<div class="line"><a id="l00421" name="l00421"></a><span class="lineno">  421</span>        }</div>
+<div class="line"><a id="l00422" name="l00422"></a><span class="lineno">  422</span> </div>
+<div class="line"><a id="l00436" name="l00436"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_queue.html#a35050745dc8fb0fc673de0de5308c8a5">  436</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#a35050745dc8fb0fc673de0de5308c8a5">TryPushFront</a>(<span class="keyword">const</span> T &amp;item, <span class="keywordtype">size_t</span> wait_ms = 0) {</div>
+<div class="line"><a id="l00437" name="l00437"></a><span class="lineno">  437</span>            <span class="keywordflow">return</span> xQueueSendToFront(handle, (<span class="keyword">const</span> <span class="keywordtype">void</span> *)&amp;item,</div>
+<div class="line"><a id="l00438" name="l00438"></a><span class="lineno">  438</span>                pdMS_TO_TICKS(wait_ms)) == pdTRUE;</div>
+<div class="line"><a id="l00439" name="l00439"></a><span class="lineno">  439</span>        }</div>
+<div class="line"><a id="l00440" name="l00440"></a><span class="lineno">  440</span> </div>
+<div class="line"><a id="l00450" name="l00450"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_queue.html#ae3c2c7c25301e6cf29e40f8edf9f3a37">  450</a></span>        T* <a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#ae3c2c7c25301e6cf29e40f8edf9f3a37">TryPop</a>(<span class="keywordtype">size_t</span> wait_ms = 0) noexcept {</div>
+<div class="line"><a id="l00451" name="l00451"></a><span class="lineno">  451</span>            <span class="keywordflow">return</span> xQueueReceive(handle, <span class="keyword">const_cast&lt;</span>T *<span class="keyword">&gt;</span>(&amp;buffer[0]),</div>
+<div class="line"><a id="l00452" name="l00452"></a><span class="lineno">  452</span>                pdMS_TO_TICKS(wait_ms)) == pdTRUE ? \</div>
+<div class="line"><a id="l00453" name="l00453"></a><span class="lineno">  453</span>                        const_cast&lt;T *&gt;(&amp;buffer[0]) : <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00454" name="l00454"></a><span class="lineno">  454</span>        }</div>
+<div class="line"><a id="l00455" name="l00455"></a><span class="lineno">  455</span> </div>
+<div class="line"><a id="l00459" name="l00459"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_queue.html#adff4d860cb39c2ff5ff40277b14e283a">  459</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#adff4d860cb39c2ff5ff40277b14e283a">Queue</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_free_r_t_o_s_1_1_queue.html">Queue</a> &amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00460" name="l00460"></a><span class="lineno">  460</span> </div>
+<div class="line"><a id="l00471" name="l00471"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_queue.html#a9cdd1cbcacdb3280c92108c7585e79fb">  471</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#a9cdd1cbcacdb3280c92108c7585e79fb">TryPushBackFromISR</a>(T *item) {</div>
+<div class="line"><a id="l00472" name="l00472"></a><span class="lineno">  472</span>            <span class="keywordflow">return</span> xQueueSendToBackFromISR(Queue::handle,</div>
+<div class="line"><a id="l00473" name="l00473"></a><span class="lineno">  473</span>                (<span class="keywordtype">void</span> *)item, <span class="keyword">nullptr</span>) == pdTRUE;</div>
+<div class="line"><a id="l00474" name="l00474"></a><span class="lineno">  474</span>        }</div>
+<div class="line"><a id="l00475" name="l00475"></a><span class="lineno">  475</span> </div>
+<div class="line"><a id="l00486" name="l00486"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_queue.html#a4909e3ea38f3bb307def3f75b9c7ccaf">  486</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#a4909e3ea38f3bb307def3f75b9c7ccaf">TryPushFrontFromISR</a>(T *item) {</div>
+<div class="line"><a id="l00487" name="l00487"></a><span class="lineno">  487</span>            <span class="keywordflow">return</span> xQueueSendToFrontFromISR(Queue::handle,</div>
+<div class="line"><a id="l00488" name="l00488"></a><span class="lineno">  488</span>                (<span class="keywordtype">void</span> *)item, <span class="keyword">nullptr</span>) == pdTRUE;</div>
+<div class="line"><a id="l00489" name="l00489"></a><span class="lineno">  489</span>        }</div>
+<div class="line"><a id="l00490" name="l00490"></a><span class="lineno">  490</span> </div>
+<div class="line"><a id="l00496" name="l00496"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_queue.html#a3c51312e06f11ebdd30162567b0c1d2d">  496</a></span>        T* <a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#a3c51312e06f11ebdd30162567b0c1d2d">TryPopFromISR</a>() {</div>
+<div class="line"><a id="l00497" name="l00497"></a><span class="lineno">  497</span>            <span class="keywordflow">return</span> xQueueReceiveFromISR(Queue::handle,</div>
+<div class="line"><a id="l00498" name="l00498"></a><span class="lineno">  498</span>                (<span class="keywordtype">void</span> *)&amp;Queue::buffer, <span class="keyword">nullptr</span>) == pdTRUE ?</div>
+<div class="line"><a id="l00499" name="l00499"></a><span class="lineno">  499</span>                                        &amp;Queue::buffer : <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00500" name="l00500"></a><span class="lineno">  500</span>        }</div>
+<div class="line"><a id="l00501" name="l00501"></a><span class="lineno">  501</span>    };</div>
+<div class="line"><a id="l00502" name="l00502"></a><span class="lineno">  502</span> </div>
+<div class="line"><a id="l00507" name="l00507"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_mutex.html">  507</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_free_r_t_o_s_1_1_mutex.html">Mutex</a></div>
+<div class="line"><a id="l00508" name="l00508"></a><span class="lineno">  508</span>    {</div>
+<div class="line"><a id="l00509" name="l00509"></a><span class="lineno">  509</span>    <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00510" name="l00510"></a><span class="lineno">  510</span><span class="preprocessor">#if (configSUPPORT_STATIC_ALLOCATION == 1)</span></div>
+<div class="line"><a id="l00511" name="l00511"></a><span class="lineno">  511</span>        StaticSemaphore_t buffer;</div>
+<div class="line"><a id="l00512" name="l00512"></a><span class="lineno">  512</span><span class="preprocessor">#endif </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00513" name="l00513"></a><span class="lineno">  513</span>        SemaphoreHandle_t handle = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00514" name="l00514"></a><span class="lineno">  514</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00518" name="l00518"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_mutex.html#a31df9a3d06ee22ed89231c0bc9e589e8">  518</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#a31df9a3d06ee22ed89231c0bc9e589e8">Mutex</a>() {</div>
+<div class="line"><a id="l00519" name="l00519"></a><span class="lineno">  519</span><span class="preprocessor">#if (configSUPPORT_STATIC_ALLOCATION == 1)</span></div>
+<div class="line"><a id="l00520" name="l00520"></a><span class="lineno">  520</span>            handle = xSemaphoreCreateMutexStatic(&amp;buffer);</div>
+<div class="line"><a id="l00521" name="l00521"></a><span class="lineno">  521</span><span class="preprocessor">#else </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00522" name="l00522"></a><span class="lineno">  522</span>            handle = xSemaphoreCreateMutex();</div>
+<div class="line"><a id="l00523" name="l00523"></a><span class="lineno">  523</span>            configASSERT(handle != <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00524" name="l00524"></a><span class="lineno">  524</span><span class="preprocessor">#endif </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00525" name="l00525"></a><span class="lineno">  525</span>        }</div>
+<div class="line"><a id="l00526" name="l00526"></a><span class="lineno">  526</span> </div>
+<div class="line"><a id="l00530" name="l00530"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_mutex.html#adf0a6b9b93fa68a20ef728fc63e0b1e2">  530</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#adf0a6b9b93fa68a20ef728fc63e0b1e2">~Mutex</a>() {</div>
+<div class="line"><a id="l00531" name="l00531"></a><span class="lineno">  531</span>            <span class="keywordflow">if</span> (handle)</div>
+<div class="line"><a id="l00532" name="l00532"></a><span class="lineno">  532</span>                vSemaphoreDelete(handle);</div>
+<div class="line"><a id="l00533" name="l00533"></a><span class="lineno">  533</span>            handle = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00534" name="l00534"></a><span class="lineno">  534</span>        }</div>
+<div class="line"><a id="l00535" name="l00535"></a><span class="lineno">  535</span> </div>
+<div class="line"><a id="l00544" name="l00544"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_mutex.html#a95ab2ce0ab807a6de35c95a991ce02e9">  544</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#a95ab2ce0ab807a6de35c95a991ce02e9">Lock</a>(<span class="keywordtype">size_t</span> wait_ms = 0) {</div>
+<div class="line"><a id="l00545" name="l00545"></a><span class="lineno">  545</span>            <span class="keywordflow">return</span> xSemaphoreTake(handle, pdMS_TO_TICKS(wait_ms)) == pdTRUE;</div>
+<div class="line"><a id="l00546" name="l00546"></a><span class="lineno">  546</span>        }</div>
+<div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span> </div>
+<div class="line"><a id="l00553" name="l00553"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_mutex.html#abebd78712e4394604d7508e8f99abd30">  553</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#abebd78712e4394604d7508e8f99abd30">Unlock</a>() {</div>
+<div class="line"><a id="l00554" name="l00554"></a><span class="lineno">  554</span>            <span class="keywordflow">return</span> xSemaphoreGive(handle) == pdTRUE;</div>
+<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span>        }</div>
+<div class="line"><a id="l00556" name="l00556"></a><span class="lineno">  556</span> </div>
+<div class="line"><a id="l00560" name="l00560"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_mutex.html#a92ea0a38fb3a023b38455798117de9d5">  560</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#a92ea0a38fb3a023b38455798117de9d5">Mutex</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_free_r_t_o_s_1_1_mutex.html">Mutex</a> &amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span> </div>
+<div class="line"><a id="l00567" name="l00567"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_mutex.html#ac4860e7216b0d7944643b2bba96afefa">  567</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#ac4860e7216b0d7944643b2bba96afefa">LockFromISR</a>() {</div>
+<div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span>            <span class="keywordflow">return</span> xSemaphoreTakeFromISR(handle, <span class="keyword">nullptr</span>) == pdTRUE;</div>
+<div class="line"><a id="l00569" name="l00569"></a><span class="lineno">  569</span>        }</div>
+<div class="line"><a id="l00570" name="l00570"></a><span class="lineno">  570</span> </div>
+<div class="line"><a id="l00576" name="l00576"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_mutex.html#a0cd126cdf0aeec979954cee947b18176">  576</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#a0cd126cdf0aeec979954cee947b18176">UnlockFromISR</a>() {</div>
+<div class="line"><a id="l00577" name="l00577"></a><span class="lineno">  577</span>            <span class="keywordflow">return</span> xSemaphoreGiveFromISR(handle, <span class="keyword">nullptr</span>) == pdTRUE;</div>
+<div class="line"><a id="l00578" name="l00578"></a><span class="lineno">  578</span>        }</div>
+<div class="line"><a id="l00579" name="l00579"></a><span class="lineno">  579</span>    };</div>
+<div class="line"><a id="l00580" name="l00580"></a><span class="lineno">  580</span> </div>
+<div class="line"><a id="l00584" name="l00584"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_binary_semaphore.html">  584</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_free_r_t_o_s_1_1_binary_semaphore.html">BinarySemaphore</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_free_r_t_o_s_1_1_mutex.html">Mutex</a></div>
+<div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span>    {</div>
+<div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00590" name="l00590"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_binary_semaphore.html#a8c648c44a12bfe12366cb286826acde9">  590</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_binary_semaphore.html#a8c648c44a12bfe12366cb286826acde9">BinarySemaphore</a>() {</div>
+<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span><span class="preprocessor">#if (configSUPPORT_STATIC_ALLOCATION == 1)</span></div>
+<div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span>            handle = xSemaphoreCreateBinaryStatic(&amp;buffer);</div>
+<div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span><span class="preprocessor">#else </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00594" name="l00594"></a><span class="lineno">  594</span>            handle = xSemaphoreCreateBinary();</div>
+<div class="line"><a id="l00595" name="l00595"></a><span class="lineno">  595</span>            configASSERT(handle != <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00596" name="l00596"></a><span class="lineno">  596</span><span class="preprocessor">#endif </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00597" name="l00597"></a><span class="lineno">  597</span>        }</div>
+<div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span>    };</div>
+<div class="line"><a id="l00599" name="l00599"></a><span class="lineno">  599</span> </div>
+<div class="line"><a id="l00603" name="l00603"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_counting_semaphore.html">  603</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_free_r_t_o_s_1_1_counting_semaphore.html">CountingSemaphore</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_free_r_t_o_s_1_1_mutex.html">Mutex</a></div>
+<div class="line"><a id="l00604" name="l00604"></a><span class="lineno">  604</span>    {</div>
+<div class="line"><a id="l00605" name="l00605"></a><span class="lineno">  605</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00614" name="l00614"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_counting_semaphore.html#a2e704713cbec85b863dbb34918e91b7d">  614</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_counting_semaphore.html#a2e704713cbec85b863dbb34918e91b7d">CountingSemaphore</a>(<span class="keywordtype">size_t</span> initial, <span class="keywordtype">size_t</span> max) {</div>
+<div class="line"><a id="l00615" name="l00615"></a><span class="lineno">  615</span><span class="preprocessor">#if (configSUPPORT_STATIC_ALLOCATION == 1)</span></div>
+<div class="line"><a id="l00616" name="l00616"></a><span class="lineno">  616</span>            handle = xSemaphoreCreateCountingStatic(max, initial, &amp;buffer);</div>
+<div class="line"><a id="l00617" name="l00617"></a><span class="lineno">  617</span><span class="preprocessor">#else </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00618" name="l00618"></a><span class="lineno">  618</span>            handle = xSemaphoreCreateCounting(max, initial);</div>
+<div class="line"><a id="l00619" name="l00619"></a><span class="lineno">  619</span>            configASSERT(handle != <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00620" name="l00620"></a><span class="lineno">  620</span><span class="preprocessor">#endif </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00621" name="l00621"></a><span class="lineno">  621</span>        }</div>
+<div class="line"><a id="l00622" name="l00622"></a><span class="lineno">  622</span> </div>
+<div class="line"><a id="l00628" name="l00628"></a><span class="lineno">  628</span>        FREERTOS_NODISCARD</div>
+<div class="line"><a id="l00629" name="l00629"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_counting_semaphore.html#acddd37f38a4c4dc5e1dca0304d9a9487">  629</a></span>        <span class="keywordtype">size_t</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_counting_semaphore.html#acddd37f38a4c4dc5e1dca0304d9a9487">GetCount</a>() {</div>
+<div class="line"><a id="l00630" name="l00630"></a><span class="lineno">  630</span>            <span class="keywordflow">return</span> uxSemaphoreGetCount(handle);</div>
+<div class="line"><a id="l00631" name="l00631"></a><span class="lineno">  631</span>        }</div>
+<div class="line"><a id="l00632" name="l00632"></a><span class="lineno">  632</span>    };</div>
+<div class="line"><a id="l00633" name="l00633"></a><span class="lineno">  633</span> </div>
+<div class="line"><a id="l00634" name="l00634"></a><span class="lineno">  634</span><span class="preprocessor">#if (configUSE_TIMERS == 1)</span></div>
+<div class="line"><a id="l00638" name="l00638"></a><span class="lineno">  638</span>    <span class="keyword">class </span>Timer</div>
+<div class="line"><a id="l00639" name="l00639"></a><span class="lineno">  639</span>    {</div>
+<div class="line"><a id="l00640" name="l00640"></a><span class="lineno">  640</span>    <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00641" name="l00641"></a><span class="lineno">  641</span>        TimerHandle_t handle = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00642" name="l00642"></a><span class="lineno">  642</span><span class="preprocessor">#if (configSUPPORT_STATIC_ALLOCATION == 1)</span></div>
+<div class="line"><a id="l00643" name="l00643"></a><span class="lineno">  643</span>        StaticTimer_t xTimerBuffers;</div>
+<div class="line"><a id="l00644" name="l00644"></a><span class="lineno">  644</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00645" name="l00645"></a><span class="lineno">  645</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00659" name="l00659"></a><span class="lineno">  659</span>        Timer(<span class="keywordtype">void</span> (*callback)(TimerHandle_t handle),</div>
+<div class="line"><a id="l00660" name="l00660"></a><span class="lineno">  660</span>            <span class="keywordtype">size_t</span> period_ms,</div>
+<div class="line"><a id="l00661" name="l00661"></a><span class="lineno">  661</span>            <span class="keywordtype">bool</span> autoreload = <span class="keyword">true</span>,</div>
+<div class="line"><a id="l00662" name="l00662"></a><span class="lineno">  662</span>            <span class="keyword">const</span> <span class="keywordtype">char</span> *name = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00663" name="l00663"></a><span class="lineno">  663</span>            <span class="keywordtype">void</span> *timer_id = <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a id="l00664" name="l00664"></a><span class="lineno">  664</span><span class="preprocessor">#if (configSUPPORT_STATIC_ALLOCATION == 1)</span></div>
+<div class="line"><a id="l00665" name="l00665"></a><span class="lineno">  665</span>            handle = xTimerCreateStatic(name,</div>
+<div class="line"><a id="l00666" name="l00666"></a><span class="lineno">  666</span>                pdMS_TO_TICKS(period_ms),</div>
+<div class="line"><a id="l00667" name="l00667"></a><span class="lineno">  667</span>                autoreload, timer_id,</div>
+<div class="line"><a id="l00668" name="l00668"></a><span class="lineno">  668</span>                callback, &amp;xTimerBuffers);</div>
+<div class="line"><a id="l00669" name="l00669"></a><span class="lineno">  669</span><span class="preprocessor">#else </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00670" name="l00670"></a><span class="lineno">  670</span>            handle = xTimerCreate(name,</div>
+<div class="line"><a id="l00671" name="l00671"></a><span class="lineno">  671</span>                pdMS_TO_TICKS(period_ms),</div>
+<div class="line"><a id="l00672" name="l00672"></a><span class="lineno">  672</span>                autoreload, timer_id,</div>
+<div class="line"><a id="l00673" name="l00673"></a><span class="lineno">  673</span>                callback);</div>
+<div class="line"><a id="l00674" name="l00674"></a><span class="lineno">  674</span><span class="preprocessor">#endif </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00675" name="l00675"></a><span class="lineno">  675</span>            configASSERT(handle != <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00676" name="l00676"></a><span class="lineno">  676</span>        }</div>
+<div class="line"><a id="l00677" name="l00677"></a><span class="lineno">  677</span> </div>
+<div class="line"><a id="l00681" name="l00681"></a><span class="lineno">  681</span>        ~Timer() {</div>
+<div class="line"><a id="l00682" name="l00682"></a><span class="lineno">  682</span>            Delete();</div>
+<div class="line"><a id="l00683" name="l00683"></a><span class="lineno">  683</span>        }</div>
+<div class="line"><a id="l00684" name="l00684"></a><span class="lineno">  684</span> </div>
+<div class="line"><a id="l00688" name="l00688"></a><span class="lineno">  688</span>        Timer(<span class="keyword">const</span> Timer &amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00689" name="l00689"></a><span class="lineno">  689</span> </div>
+<div class="line"><a id="l00693" name="l00693"></a><span class="lineno">  693</span>        <span class="keywordtype">void</span> Delete(<span class="keywordtype">size_t</span> wait_ms = 0) {</div>
+<div class="line"><a id="l00694" name="l00694"></a><span class="lineno">  694</span>            <span class="keywordflow">if</span> (handle)</div>
+<div class="line"><a id="l00695" name="l00695"></a><span class="lineno">  695</span>                configASSERT(xTimerDelete(handle,</div>
+<div class="line"><a id="l00696" name="l00696"></a><span class="lineno">  696</span>                        pdMS_TO_TICKS(wait_ms)) == pdPASS);</div>
+<div class="line"><a id="l00697" name="l00697"></a><span class="lineno">  697</span>            handle = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00698" name="l00698"></a><span class="lineno">  698</span>        }</div>
+<div class="line"><a id="l00699" name="l00699"></a><span class="lineno">  699</span> </div>
+<div class="line"><a id="l00705" name="l00705"></a><span class="lineno">  705</span>        <span class="keywordtype">void</span> Start(<span class="keywordtype">size_t</span> wait_ms = 0) {</div>
+<div class="line"><a id="l00706" name="l00706"></a><span class="lineno">  706</span>            configASSERT(xTimerStart(handle,</div>
+<div class="line"><a id="l00707" name="l00707"></a><span class="lineno">  707</span>                pdMS_TO_TICKS(wait_ms)) == pdPASS);</div>
+<div class="line"><a id="l00708" name="l00708"></a><span class="lineno">  708</span>        }</div>
+<div class="line"><a id="l00709" name="l00709"></a><span class="lineno">  709</span> </div>
+<div class="line"><a id="l00719" name="l00719"></a><span class="lineno">  719</span>        <span class="keywordtype">void</span> Stop(<span class="keywordtype">size_t</span> wait_ms = 0) {</div>
+<div class="line"><a id="l00720" name="l00720"></a><span class="lineno">  720</span>            configASSERT(xTimerStop(handle,</div>
+<div class="line"><a id="l00721" name="l00721"></a><span class="lineno">  721</span>                pdMS_TO_TICKS(wait_ms)) == pdPASS);</div>
+<div class="line"><a id="l00722" name="l00722"></a><span class="lineno">  722</span>        }</div>
+<div class="line"><a id="l00723" name="l00723"></a><span class="lineno">  723</span>    };</div>
+<div class="line"><a id="l00724" name="l00724"></a><span class="lineno">  724</span><span class="preprocessor">#endif </span><span class="comment">/* configUSE_TIMERS */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00725" name="l00725"></a><span class="lineno">  725</span>}</div>
+<div class="line"><a id="l00726" name="l00726"></a><span class="lineno">  726</span> </div>
+<div class="line"><a id="l00727" name="l00727"></a><span class="lineno">  727</span><span class="preprocessor">#endif </span><span class="comment">/* __FREERTOS_ABSTRACT__ */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_binary_semaphore_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_binary_semaphore.html">FreeRTOS::BinarySemaphore</a></div><div class="ttdoc">Create binary semaphore.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:585</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_binary_semaphore_html_a8c648c44a12bfe12366cb286826acde9"><div class="ttname"><a href="class_free_r_t_o_s_1_1_binary_semaphore.html#a8c648c44a12bfe12366cb286826acde9">FreeRTOS::BinarySemaphore::BinarySemaphore</a></div><div class="ttdeci">BinarySemaphore()</div><div class="ttdoc">Create a binary semaphore.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:590</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_counting_semaphore_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_counting_semaphore.html">FreeRTOS::CountingSemaphore</a></div><div class="ttdoc">Create counting semaphore.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:604</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_counting_semaphore_html_a2e704713cbec85b863dbb34918e91b7d"><div class="ttname"><a href="class_free_r_t_o_s_1_1_counting_semaphore.html#a2e704713cbec85b863dbb34918e91b7d">FreeRTOS::CountingSemaphore::CountingSemaphore</a></div><div class="ttdeci">CountingSemaphore(size_t initial, size_t max)</div><div class="ttdoc">Create counting semaphore with initial count and max value.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:614</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_counting_semaphore_html_acddd37f38a4c4dc5e1dca0304d9a9487"><div class="ttname"><a href="class_free_r_t_o_s_1_1_counting_semaphore.html#acddd37f38a4c4dc5e1dca0304d9a9487">FreeRTOS::CountingSemaphore::GetCount</a></div><div class="ttdeci">FREERTOS_NODISCARD size_t GetCount()</div><div class="ttdoc">Read current count value.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:629</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html">FreeRTOS::Mutex</a></div><div class="ttdoc">Implement locking mechanism between tasks to protect shared resources against race conditions.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:508</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html_a0cd126cdf0aeec979954cee947b18176"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html#a0cd126cdf0aeec979954cee947b18176">FreeRTOS::Mutex::UnlockFromISR</a></div><div class="ttdeci">bool UnlockFromISR()</div><div class="ttdoc">Release an obtained mutex from interrupt context.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:576</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html_a31df9a3d06ee22ed89231c0bc9e589e8"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html#a31df9a3d06ee22ed89231c0bc9e589e8">FreeRTOS::Mutex::Mutex</a></div><div class="ttdeci">Mutex()</div><div class="ttdoc">Creates an instance of mutex.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:518</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html_a92ea0a38fb3a023b38455798117de9d5"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html#a92ea0a38fb3a023b38455798117de9d5">FreeRTOS::Mutex::Mutex</a></div><div class="ttdeci">Mutex(const Mutex &amp;)=delete</div><div class="ttdoc">Prevent class to be copied.</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html_a95ab2ce0ab807a6de35c95a991ce02e9"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html#a95ab2ce0ab807a6de35c95a991ce02e9">FreeRTOS::Mutex::Lock</a></div><div class="ttdeci">bool Lock(size_t wait_ms=0)</div><div class="ttdoc">Obtain a mutex.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:544</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html_abebd78712e4394604d7508e8f99abd30"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html#abebd78712e4394604d7508e8f99abd30">FreeRTOS::Mutex::Unlock</a></div><div class="ttdeci">bool Unlock()</div><div class="ttdoc">Release an obtained mutex.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:553</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html_ac4860e7216b0d7944643b2bba96afefa"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html#ac4860e7216b0d7944643b2bba96afefa">FreeRTOS::Mutex::LockFromISR</a></div><div class="ttdeci">bool LockFromISR()</div><div class="ttdoc">Obtain a mutex from interrupt context.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:567</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html_adf0a6b9b93fa68a20ef728fc63e0b1e2"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html#adf0a6b9b93fa68a20ef728fc63e0b1e2">FreeRTOS::Mutex::~Mutex</a></div><div class="ttdeci">~Mutex()</div><div class="ttdoc">Deletes the instance and release allocated memory.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:530</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html">FreeRTOS::Queue</a></div><div class="ttdoc">Creates a new FreeRTOS queue instance.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:324</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html_a35050745dc8fb0fc673de0de5308c8a5"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html#a35050745dc8fb0fc673de0de5308c8a5">FreeRTOS::Queue::TryPushFront</a></div><div class="ttdeci">bool TryPushFront(const T &amp;item, size_t wait_ms=0)</div><div class="ttdoc">Post an item to the front of a queue.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:436</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html_a3c51312e06f11ebdd30162567b0c1d2d"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html#a3c51312e06f11ebdd30162567b0c1d2d">FreeRTOS::Queue::TryPopFromISR</a></div><div class="ttdeci">T * TryPopFromISR()</div><div class="ttdoc">Receive an item from a queue from interrupt context.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:496</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html_a4909e3ea38f3bb307def3f75b9c7ccaf"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html#a4909e3ea38f3bb307def3f75b9c7ccaf">FreeRTOS::Queue::TryPushFrontFromISR</a></div><div class="ttdeci">bool TryPushFrontFromISR(T *item)</div><div class="ttdoc">Post an item to the front of a queue from interrupt context.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:486</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html_a6f78822f1cb0b3b772fa844b69fd127e"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html#a6f78822f1cb0b3b772fa844b69fd127e">FreeRTOS::Queue::TryPushBack</a></div><div class="ttdeci">bool TryPushBack(const T &amp;item, size_t wait_ms=0)</div><div class="ttdoc">Post an item to the back of a queue.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:418</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html_a703ab0a1c19ff40ca535081729c14460"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html#a703ab0a1c19ff40ca535081729c14460">FreeRTOS::Queue::TryEmplaceFront</a></div><div class="ttdeci">bool TryEmplaceFront(size_t wait_ms, Args &amp;&amp;...args) noexcept(std::is_nothrow_constructible&lt; T, Args &amp;&amp;... &gt;::value)</div><div class="ttdoc">Construct an item at the front place of a queue.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:395</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html_a9bfabf4f64d92bde6700451e17d2909f"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html#a9bfabf4f64d92bde6700451e17d2909f">FreeRTOS::Queue::TryEmplaceBack</a></div><div class="ttdeci">bool TryEmplaceBack(size_t wait_ms, Args &amp;&amp;...args) noexcept(std::is_nothrow_constructible&lt; T, Args &amp;&amp;... &gt;::value)</div><div class="ttdoc">Construct an item at the back place of a queue.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:371</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html_a9cdd1cbcacdb3280c92108c7585e79fb"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html#a9cdd1cbcacdb3280c92108c7585e79fb">FreeRTOS::Queue::TryPushBackFromISR</a></div><div class="ttdeci">bool TryPushBackFromISR(T *item)</div><div class="ttdoc">Post an item to the back of a queue from interrupt context.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:471</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html_aa26c476026aa61cd3408d7219c16e1d0"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html#aa26c476026aa61cd3408d7219c16e1d0">FreeRTOS::Queue::~Queue</a></div><div class="ttdeci">~Queue()</div><div class="ttdoc">Deletes the queue and releases allocated memory.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:351</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html_ac19f2c7e1e8af74783384f6db93cc812"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html#ac19f2c7e1e8af74783384f6db93cc812">FreeRTOS::Queue::Queue</a></div><div class="ttdeci">Queue()</div><div class="ttdoc">Constructor.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:337</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html_adff4d860cb39c2ff5ff40277b14e283a"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html#adff4d860cb39c2ff5ff40277b14e283a">FreeRTOS::Queue::Queue</a></div><div class="ttdeci">Queue(const Queue &amp;)=delete</div><div class="ttdoc">Prevent class to be copied.</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html_ae3c2c7c25301e6cf29e40f8edf9f3a37"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html#ae3c2c7c25301e6cf29e40f8edf9f3a37">FreeRTOS::Queue::TryPop</a></div><div class="ttdeci">T * TryPop(size_t wait_ms=0) noexcept</div><div class="ttdoc">Receive an item from a queue.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:450</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_1_1_isr_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task_1_1_isr.html">FreeRTOS::Task::Isr</a></div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:280</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_1_1_isr_html_a58c7978bd53808a9d1011ac5a444159c"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task_1_1_isr.html#a58c7978bd53808a9d1011ac5a444159c">FreeRTOS::Task::Isr::EnterCritical</a></div><div class="ttdeci">static void EnterCritical()</div><div class="ttdoc">See Task::EnterCritical()</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:287</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_1_1_isr_html_a7f0bdca16bfe91d9b5d9b6f61276c619"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task_1_1_isr.html#a7f0bdca16bfe91d9b5d9b6f61276c619">FreeRTOS::Task::Isr::ExitCritical</a></div><div class="ttdeci">static void ExitCritical()</div><div class="ttdoc">See Task::ExitCritical()</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:294</div></div>
 <div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html">FreeRTOS::Task</a></div><div class="ttdoc">Responsible for creating, control and delete FreeRTOS tasks.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:141</div></div>
 <div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html_a026c97a31108347b80a105a59920fa6a"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html#a026c97a31108347b80a105a59920fa6a">FreeRTOS::Task::DoYield</a></div><div class="ttdeci">static void DoYield()</div><div class="ttdoc">taskYIELD() is used to request a context switch to another task. However, if there are no other tasks...</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:244</div></div>
 <div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html_a594300025cc39e3142208ec6e132ce14"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html#a594300025cc39e3142208ec6e132ce14">FreeRTOS::Task::SuspendAll</a></div><div class="ttdeci">static void SuspendAll()</div><div class="ttdoc">Suspends the scheduler.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:226</div></div>
 <div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html_a718584a6070a4b5979b5e4f6980cc068"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html#a718584a6070a4b5979b5e4f6980cc068">FreeRTOS::Task::ResumeAll</a></div><div class="ttdeci">static void ResumeAll()</div><div class="ttdoc">Resumes the scheduler after it was suspended using a call to vTaskSuspendAll().</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:234</div></div>
 <div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html_a9522e36f2028a89978c5f37c78616a74"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html#a9522e36f2028a89978c5f37c78616a74">FreeRTOS::Task::Task</a></div><div class="ttdeci">Task(void(*handler)(void *), void *params=nullptr, const char *name=nullptr, int priority=tskIDLE_PRIORITY+1)</div><div class="ttdoc">Create a new task and add it to the list of tasks that are ready to run.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:160</div></div>
 <div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html_abe252dac2fb6e563182212f6d7a36056"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html#abe252dac2fb6e563182212f6d7a36056">FreeRTOS::Task::ExitCritical</a></div><div class="ttdeci">static void ExitCritical()</div><div class="ttdoc">Critical sections are entered by calling taskENTER_CRITICAL(), and subsequently exited by calling tas...</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:267</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html_ac5c09246df5766e249ef8fef921b5c6f"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html#ac5c09246df5766e249ef8fef921b5c6f">FreeRTOS::Task::Task</a></div><div class="ttdeci">Task(const Task &amp;)=delete</div><div class="ttdoc">Prevent class to be copied.</div></div>
 <div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html_aeac72b24ef62f1c64d14351674c9932a"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html#aeac72b24ef62f1c64d14351674c9932a">FreeRTOS::Task::EnterCritical</a></div><div class="ttdeci">static void EnterCritical()</div><div class="ttdoc">Critical sections are entered by calling taskENTER_CRITICAL(), and subsequently exited by calling tas...</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:252</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
