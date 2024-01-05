@@ -131,11 +131,11 @@ TaskHandle_t&#160;</td><td class="memItemRight" valign="bottom"><b>handle</b> = 
 <tr class="separator:a5d2aefbb5accf4357bef550a6568f206"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;const size_t stack_size = FREERTOS_TASK_DEFAULT_TASK_STACK_SIZE&gt;<br />
+<div class="textblock"><div class="compoundTemplParams">template&lt;const size_t stack_size = FREERTOS_DEFAULT_TASK_STACK_SIZE&gt;<br />
 class FreeRTOS::Task&lt; stack_size &gt;</div><p >Responsible for creating, control and delete FreeRTOS tasks. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">stack_size</td><td>[Optional] The number of words (not bytes!) for use as the task's stack. </td></tr>
+    <tr><td class="paramname">stack_size</td><td>[Optional] The number of words (not bytes) for use as the task's stack. </td></tr>
   </table>
   </dd>
 </dl>
@@ -146,7 +146,7 @@ class FreeRTOS::Task&lt; stack_size &gt;</div><p >Responsible for creating, cont
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;const size_t stack_size = FREERTOS_TASK_DEFAULT_TASK_STACK_SIZE&gt; </div>
+template&lt;const size_t stack_size = FREERTOS_DEFAULT_TASK_STACK_SIZE&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -194,7 +194,7 @@ template&lt;const size_t stack_size = FREERTOS_TASK_DEFAULT_TASK_STACK_SIZE&gt; 
     <tr><td class="paramdir">[in]</td><td class="paramname">handler</td><td>Pointer to the task entry function. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">params</td><td>[Optional] A value that is passed as the paramater to the created task. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>[Optional] <a class="el" href="class_free_r_t_o_s_1_1_task.html" title="Responsible for creating, control and delete FreeRTOS tasks.">Task</a> name string. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">priority</td><td>[Optional] The priority at which the created task will execute. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">priority</td><td>[Optional] The priority at which the task will execute. </td></tr>
   </table>
   </dd>
 </dl>
@@ -208,7 +208,7 @@ template&lt;const size_t stack_size = FREERTOS_TASK_DEFAULT_TASK_STACK_SIZE&gt; 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;const size_t stack_size = FREERTOS_TASK_DEFAULT_TASK_STACK_SIZE&gt; </div>
+template&lt;const size_t stack_size = FREERTOS_DEFAULT_TASK_STACK_SIZE&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -238,7 +238,7 @@ template&lt;const size_t stack_size = FREERTOS_TASK_DEFAULT_TASK_STACK_SIZE&gt; 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;const size_t stack_size = FREERTOS_TASK_DEFAULT_TASK_STACK_SIZE&gt; </div>
+template&lt;const size_t stack_size = FREERTOS_DEFAULT_TASK_STACK_SIZE&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
