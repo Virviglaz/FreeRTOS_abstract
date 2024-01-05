@@ -12,8 +12,8 @@
 /* LIBC */
 #include <stdint.h>
 
-#ifndef FREERTOS_TASK_DEFAULT_TASK_STACK_SIZE
-#define FREERTOS_TASK_DEFAULT_TASK_STACK_SIZE		configMINIMAL_STACK_SIZE
+#ifndef FREERTOS_DEFAULT_TASK_STACK_SIZE
+#define FREERTOS_DEFAULT_TASK_STACK_SIZE		configMINIMAL_STACK_SIZE
 #endif
 
 #define WAIT_MAX					portMAX_DELAY
@@ -133,10 +133,10 @@ namespace FreeRTOS
 	/**
 	 * @brief Responsible for creating, control and delete FreeRTOS tasks.
 	 *
-	 * @tparam stack_size		[Optional] The number of words (not bytes!)
-	 *							for use as the task's stack.
+	 * @tparam stack_size		[Optional] The number of words
+	 *				(not bytes) for use as the task's stack.
 	 */
-	template <const size_t stack_size = FREERTOS_TASK_DEFAULT_TASK_STACK_SIZE>
+	template <const size_t stack_size = FREERTOS_DEFAULT_TASK_STACK_SIZE>
 	class Task
 	{
 	protected:
@@ -152,24 +152,33 @@ namespace FreeRTOS
 		 *
 		 * @param[in] handler	Pointer to the task entry function.
 		 * @param[in] params	[Optional] A value that is passed as the
-		 *						paramater to the created task.
-		 * @param[in] name		[Optional] Task name string.
-		 * @param[in] priority	[Optional] The priority at which the created
-		 *						task will execute.
+		 *			paramater to the created task.
+		 * @param[in] name	[Optional] Task name string.
+		 * @param[in] priority	[Optional] The priority at which the
+		 *			task will execute.
 		 */
 		Task(void (*handler)(void *),
 			void *params = nullptr,
 			const char *name = nullptr,
 			int priority = tskIDLE_PRIORITY + 1) {
 #if (configSUPPORT_STATIC_ALLOCATION == 1)
-				handle = xTaskCreateStatic(handler, name, stack_size,
-					params, tskIDLE_PRIORITY + priority, xStack, &xTaskBuffer);
-				configASSERT(handle != nullptr);
+			handle = xTaskCreateStatic(handler,
+			                           name,
+			                           stack_size,
+			                           params,
+			                           tskIDLE_PRIORITY + priority,
+			                           xStack,
+			                           &xTaskBuffer);
+			configASSERT(handle != nullptr);
 #else /* STATIC_ALLOCATION */
-				configASSERT(xTaskCreate(handler, name, stack_size, params,
-					tskIDLE_PRIORITY + priority, &handle) == pdPASS);
+			configASSERT(xTaskCreate(handler,
+			                         name,
+			                         stack_size,
+			                         params,
+			                         tskIDLE_PRIORITY + priority,
+			                         &handle) == pdPASS);
 #endif /* STATIC_ALLOCATION */
-			}
+		}
 
 		~Task() { Delete(); }
 
@@ -217,11 +226,11 @@ namespace FreeRTOS
 		/**
 		 * @brief Suspends the scheduler.
 		 *
-		 * Suspending the scheduler prevents a context switch from occurring
-		 * but leaves interrupts enabled.  If an interrupt requests a context
-		 * switch while the scheduler is suspended, then the request is held
-		 * pending and is performed only when the scheduler is resumed
-		 * (un-suspended).
+		 * Suspending the scheduler prevents a context switch from
+		 * occurring but leaves interrupts enabled. If an interrupt
+		 * requests a context switch while the scheduler is suspended,
+		 * then the request is held pending and is performed only when
+		 * the scheduler is resumed (un-suspended).
 		 */
 		static inline void SuspendAll() {
 			vTaskSuspendAll();
@@ -236,33 +245,36 @@ namespace FreeRTOS
 		}
 
 		/**
-		 * @brief taskYIELD() is used to request a context switch to another
-		 * task. However, if there are no other tasks at a higher or equal
-		 * priority to the task that calls taskYIELD() then the RTOS scheduler
-		 * will simply select the task that called taskYIELD() to run again.
+		 * @brief taskYIELD() is used to request a context switch to
+		 * another task. However, if there are no other tasks at a
+		 * higher or equal priority to the task that calls taskYIELD()
+		 * then the RTOS scheduler will simply select the task that
+		 * called taskYIELD() to run again.
 		 */
 		static inline void DoYield() {
 			taskYIELD();
 		}
 
 		/**
-		 * @brief Critical sections are entered by calling taskENTER_CRITICAL(),
-		 * and subsequently exited by calling taskEXIT_CRITICAL().
+		 * @brief Critical sections are entered by calling
+		 * taskENTER_CRITICAL(), and subsequently exited by calling
+		 * taskEXIT_CRITICAL().
 		 */
 		static inline void EnterCritical() {
 			taskENTER_CRITICAL();
 		}
 
 		/**
-		 * @brief Critical sections are entered by calling taskENTER_CRITICAL(),
-		 * and subsequently exited by calling taskEXIT_CRITICAL().
+		 * @brief Critical sections are entered by calling
+		 * taskENTER_CRITICAL(), and subsequently exited by calling
+		 * taskEXIT_CRITICAL().
 		 *
-		 * The taskENTER_CRITICAL() and taskEXIT_CRITICAL() macros provide
-		 * a basic critical section implementation that works by simply
-		 * disabling interrupts, either globally, or up to a specific interrupt
-		 * priority level. See the vTaskSuspendAll() RTOS API function
-		 * for information on creating a critical section without disabling
-		 * interrupts.
+		 * The taskENTER_CRITICAL() and taskEXIT_CRITICAL() macros
+		 * provide a basic critical section implementation that works
+		 * by simply disabling interrupts, either globally, or up to a
+		 * specific interrupt priority level. See the vTaskSuspendAll()
+		 * RTOS API function for information on creating a critical
+		 * section without disabling interrupts.
 		 */
 		static inline void ExitCritical() {
 			taskEXIT_CRITICAL();
@@ -285,7 +297,8 @@ namespace FreeRTOS
 			 * @brief See Task::EnterCritical()
 			 */
 			static void EnterCritical() {
-				uxSavedInterruptStatus = taskENTER_CRITICAL_FROM_ISR();
+				uxSavedInterruptStatus =
+						taskENTER_CRITICAL_FROM_ISR();
 			}
 
 			/**
@@ -316,7 +329,8 @@ namespace FreeRTOS
 	 * popped pointer is processed or copied.
 	 *
 	 * @tparam T		Type of object to be enqueued.
-	 * @tparam size		Maximum queue size (maximum amount of object to store).
+	 * @tparam size		Maximum queue size
+	 *			(maximum amount of object to store).
 	 * @tparam support_emplace	Enable support emplace constructor.
 	 */
 	template <class T, size_t size = 2, const bool support_emplace = false>
@@ -358,62 +372,75 @@ namespace FreeRTOS
 		 * @brief Construct an item at the back place of a queue.
 		 *
 		 * The item is queued by copy, not by reference.
-		 * This function must not be called from an interrupt service routine.
+		 * This function must not be called from an interrupt service
+		 * routine.
 		 *
-		 * @param[in] wait_ms	The maximum amount of time the task should block
-		 *						waiting for space to become available
-		 *						on the queue, should it already be full.
+		 * @param[in] wait_ms	The maximum amount of time the task
+		 *			should block waiting for space to become
+		 *			available on the queue,
+		 *			should it already be full.
 		 *
-		 * @param[in] args		T constructor arguments.
-		 * @return true if item posted in the queue, false when no space left.
+		 * @param[in] args	T constructor arguments.
+		 * @return true if item posted in the queue,
+		 * false when no space left.
 		 */
 		template <typename... Args>
 		bool TryEmplaceBack(size_t wait_ms, Args &&...args) noexcept (
 			std::is_nothrow_constructible<T, Args &&...>::value) {
-			static_assert(std::is_constructible<T, Args &&...>::value,
-					"T must be constructible with Args&&...");
-			static_assert(support_emplace, "Emplace support is disabled.");
+			static_assert(
+				std::is_constructible<T, Args &&...>::value,
+				"T must be constructible with Args&&...");
+			static_assert(support_emplace,
+			              "Emplace support is disabled.");
 			new (&buffer[1]) T(std::forward<Args>(args)...);
 			return xQueueSendToBack(handle, (void *)&buffer[1],
-							pdMS_TO_TICKS(wait_ms)) == pdTRUE;
+				pdMS_TO_TICKS(wait_ms)) == pdTRUE;
 		}
 
 		/**
 		 * @brief Construct an item at the front place of a queue.
 		 *
 		 * The item is queued by copy, not by reference.
-		 * This function must not be called from an interrupt service routine.
+		 * This function must not be called from an interrupt service
+		 * routine.
 		 *
-		 * @param[in] wait_ms	The maximum amount of time the task should block
-		 *						waiting for space to become available
-		 *						on the queue, should it already be full.
+		 * @param[in] wait_ms	The maximum amount of time the task
+		 *			should block waiting for space to become
+		 *			available on the queue,
+		 *			should it already be full.
 		 *
-		 * @param[in] args		T constructor arguments.
-		 * @return true if item posted in the queue, false when no space left.
+		 * @param[in] args	T constructor arguments.
+		 * @return true if item posted in the queue, false when no space
+		 * left.
 		 */
 		template <typename... Args>
 		bool TryEmplaceFront(size_t wait_ms, Args &&...args) noexcept (
 			std::is_nothrow_constructible<T, Args &&...>::value) {
-			static_assert(std::is_constructible<T, Args &&...>::value,
-					"T must be constructible with Args&&...");
-			static_assert(support_emplace, "Emplace support is disabled.");
+			static_assert(
+				std::is_constructible<T, Args &&...>::value,
+				"T must be constructible with Args&&...");
+			static_assert(support_emplace,
+			              "Emplace support is disabled.");
 			new (&buffer[1]) T(std::forward<Args>(args)...);
 			return xQueueSendToFront(handle, (void *)&buffer[1],
-							pdMS_TO_TICKS(wait_ms)) == pdTRUE;
+				pdMS_TO_TICKS(wait_ms)) == pdTRUE;
 		}
 
 		/**
 		 * @brief Post an item to the back of a queue.
 		 *
 		 * The item is queued by copy, not by reference.
-		 * This function must not be called from an interrupt service routine.
+		 * This function must not be called from an interrupt service
+		 * routine.
 		 *
-		 * @param[in] item		Pointer to item to post.
-		 * @param[in] wait_ms	[Optional] The maximum amount of time the task
-		 *						should block waiting for space to become
-		 *						available on the queue, should it already be full.
+		 * @param[in] item	Pointer to item to post.
+		 * @param[in] wait_ms	[Optional] The maximum amount of time
+		 *			the task should block waiting for space
+		 *			to become available on the queue,
+		 *			should it already be full.
 		 *
-		 * @return true if item posted in the queue, false when no space left.
+		 * @return true if item posted in the queue, false when
+		 * no space left.
 		 */
 		bool TryPushBack(const T &item, size_t wait_ms = 0) {
 			return xQueueSendToBack(handle, (const void *)&item,
@@ -424,14 +451,17 @@ namespace FreeRTOS
 		 * @brief Post an item to the front of a queue.
 		 *
 		 * The item is queued by copy, not by reference.
-		 * This function must not be called from an interrupt service routine.
+		 * This function must not be called from an interrupt service
+		 * routine.
 		 *
-		 * @param[in] item		Pointer to item to post.
-		 * @param[in] wait_ms	[Optional] The maximum amount of time the task
-		 *						should block waiting for space to become
-		 *						available on the queue, should it already be full.
+		 * @param[in] item	Pointer to item to post.
+		 * @param[in] wait_ms	[Optional] The maximum amount of time
+		 *			the task should block waiting for space
+		 *			to become available on the queue, should
+		 *			it already be full.
 		 *
-		 * @return true if item posted in the queue, false when no space left.
+		 * @return true if item posted in the queue, false when no space
+		 * left.
 		 */
 		bool TryPushFront(const T &item, size_t wait_ms = 0) {
 			return xQueueSendToFront(handle, (const void *)&item,
@@ -441,16 +471,18 @@ namespace FreeRTOS
 		/**
 		 * @brief Receive an item from a queue.
 		 *
-		 * @param[in] wait_ms	[Optional] The maximum amount of time the task
-		 *						should block waiting for an item to appear in
-		 *						the queue.
+		 * @param[in] wait_ms	[Optional] The maximum amount of time
+		 *			the task should block waiting for an
+		 *			item to appear in the queue.
 		 *
-		 * @return Pointer to item in the buffer or nullptr if queue is empty.
+		 * @return Pointer to item in the buffer or nullptr if queue is
+		 * empty.
 		 */
 		T* TryPop(size_t wait_ms = 0) noexcept {
-			return xQueueReceive(handle, const_cast<T *>(&buffer[0]),
+			return xQueueReceive(handle,
+			        const_cast<T *>(&buffer[0]),
 				pdMS_TO_TICKS(wait_ms)) == pdTRUE ? \
-						const_cast<T *>(&buffer[0]) : nullptr;
+				const_cast<T *>(&buffer[0]) : nullptr;
 		}
 
 		/**
@@ -459,44 +491,52 @@ namespace FreeRTOS
 		Queue(const Queue &) = delete;
 
 		/**
-		 * @brief Post an item to the back of a queue from interrupt context.
+		 * @brief Post an item to the back of a queue from interrupt
+		 * context.
 		 *
 		 * The item is queued by copy, not by reference.
-		 * This function must not be called from an interrupt service routine.
+		 * This function must not be called from an interrupt service
+		 * routine.
 		 *
 		 * @param[in] item		Pointer to item to post.
 		 *
-		 * @return true if item posted in the queue, false when no space left.
+		 * @return true if item posted in the queue, false when no space
+		 * left.
 		 */
-		bool TryPushBackFromISR(T *item) {
+		bool TryPushBackFromISR(const T &item) {
 			return xQueueSendToBackFromISR(Queue::handle,
-				(void *)item, nullptr) == pdTRUE;
+				(const void *)&item, nullptr) == pdTRUE;
 		}
 
 		/**
-		 * @brief Post an item to the front of a queue from interrupt context.
+		 * @brief Post an item to the front of a queue from interrupt
+		 * context.
 		 *
 		 * The item is queued by copy, not by reference.
-		 * This function must not be called from an interrupt service routine.
+		 * This function must not be called from an interrupt service
+		 * routine.
 		 *
 		 * @param[in] item		Pointer to item to post.
 		 *
-		 * @return true if item posted in the queue, false when no space left.
+		 * @return true if item posted in the queue, false when no space
+		 * left.
 		 */
-		bool TryPushFrontFromISR(T *item) {
-			return xQueueSendToFrontFromISR(Queue::handle,
-				(void *)item, nullptr) == pdTRUE;
+		bool TryPushFrontFromISR(const T &item) {
+			return xQueueSendToFrontFromISR(handle,
+				(const void *)&item, nullptr) == pdTRUE;
 		}
 
 		/**
 		 * @brief Receive an item from a queue from interrupt context.
 		 *
-		 * @return Pointer to item in the buffer or nullptr if queue is empty.
+		 * @return Pointer to item in the buffer or nullptr if queue is
+		 * empty.
 		 */
 		T* TryPopFromISR() {
-			return xQueueReceiveFromISR(Queue::handle,
-				(void *)&Queue::buffer, nullptr) == pdTRUE ?
-										&Queue::buffer : nullptr;
+			return xQueueReceiveFromISR(handle,
+				const_cast<T *>(&buffer[0]), nullptr) == \
+					pdTRUE ? const_cast<T *>(&buffer[0]) \
+							: nullptr;
 		}
 	};
 
@@ -536,19 +576,21 @@ namespace FreeRTOS
 		/**
 		 * @brief Obtain a mutex.
 		 *
-		 * @param[in] wait_ms	[Optional] Amount of milliseconds to wait for
-		 *						resource to be available.
+		 * @param[in] wait_ms	[Optional] Amount of milliseconds to
+		 *			wait for resource to be available.
 		 *
 		 * @return true if success, false on timeout.
 		 */
 		bool Lock(size_t wait_ms = 0) {
-			return xSemaphoreTake(handle, pdMS_TO_TICKS(wait_ms)) == pdTRUE;
+			return xSemaphoreTake(handle,
+			                      pdMS_TO_TICKS(wait_ms)) == pdTRUE;
 		}
 
 		/**
 		 * @brief Release an obtained mutex.
 		 *
-		 * @return true if success, false if no mutex was obtained before.
+		 * @return true if success,
+		 * false if no mutex was obtained before.
 		 */
 		bool Unlock() {
 			return xSemaphoreGive(handle) == pdTRUE;
@@ -571,7 +613,8 @@ namespace FreeRTOS
 		/**
 		 * @brief Release an obtained mutex from interrupt context.
 		 *
-		 * @return true if success, false if no mutex was obtained before.
+		 * @return true if success,
+		 * false if no mutex was obtained before.
 		 */
 		bool UnlockFromISR() {
 			return xSemaphoreGiveFromISR(handle, nullptr) == pdTRUE;
@@ -604,16 +647,19 @@ namespace FreeRTOS
 	{
 	public:
 		/**
-		 * @brief Create counting semaphore with initial count and max value.
+		 * @brief Create counting semaphore with initial count and max
+		 * value.
 		 *
 		 * @param[in] initial		Initial count value.
-		 * @param[in] max			The maximum count value that can be reached.
-		 *							When the semaphore reaches this value it can
-		 *							no longer be 'given'.
+		 * @param[in] max		The maximum count value that can
+		 *				be reached. When the semaphore
+		 *				reaches this value it can no
+		 *				longer be 'given'.
 		 */
 		CountingSemaphore(size_t initial, size_t max) {
 #if (configSUPPORT_STATIC_ALLOCATION == 1)
-			handle = xSemaphoreCreateCountingStatic(max, initial, &buffer);
+			handle = xSemaphoreCreateCountingStatic(max, initial,
+			                                        &buffer);
 #else /* STATIC_ALLOCATION */
 			handle = xSemaphoreCreateCounting(max, initial);
 			configASSERT(handle != nullptr);
@@ -646,15 +692,21 @@ namespace FreeRTOS
 		/**
 		 * @brief Creates instance of software timer.
 		 *
-		 * @param[in] callback		The function to call when the timer expires.
+		 * @param[in] callback		The function to call when the
+		 *				timer expires.
 		 * @param[in] period_ms		Timer expire time in [ms].
-		 * @param[in] autoreload	false to single shot, true for repeat.
-		 * @param[in] name			Timer name string for debugging purpose.
-		 * @param[in] timer_id		An identifier that is assigned to the timer
-		 *							being created. Typically this would be used
-		 *							in the timer callback function to identify
-		 *							which timer expired when the same callback
-		 *							function is assigned to more than one timer.
+		 * @param[in] autoreload	false to single shot, true for
+		 *				repeat.
+		 * @param[in] name		Timer name string for debugging
+		 *				purpose.
+		 * @param[in] timer_id		An identifier that is assigned
+		 *				to the timer being created.
+		 *				Typically this would be used
+		 *				in the timer callback function
+		 *				to identify which timer expired
+		 *				when the same callback function
+		 *				is assigned to more than one
+		 *				timer.
 		 */
 		Timer(void (*callback)(TimerHandle_t handle),
 			size_t period_ms,
@@ -693,14 +745,15 @@ namespace FreeRTOS
 		void Delete(size_t wait_ms = 0) {
 			if (handle)
 				configASSERT(xTimerDelete(handle,
-						pdMS_TO_TICKS(wait_ms)) == pdPASS);
+					pdMS_TO_TICKS(wait_ms)) == pdPASS);
 			handle = nullptr;
 		}
 
 		/**
 		 * @brief Start the timer.
 		 *
-		 * wait_ms		[Optional] Time after the timer should start.
+		 * wait_ms		[Optional] Time after the timer should
+		 *			start.
 		 */
 		void Start(size_t wait_ms = 0) {
 			configASSERT(xTimerStart(handle,
@@ -710,10 +763,11 @@ namespace FreeRTOS
 		/**
 		 * @brief Stop the timer.
 		 *
-		 * @param[int] wait_ms		[Optional] Specifies the time, in [ms],
-		 *							that the calling task should be held in
-		 *							the Blocked state to wait for the stop
-		 *							command to be successfully.
+		 * @param[int] wait_ms		[Optional] Specifies the time,
+		 *				in [ms], that the calling task
+		 *				should be held in the Blocked
+		 *				state to wait for the stop
+		 *				command to be successfully.
 		 */
 
 		void Stop(size_t wait_ms = 0) {
