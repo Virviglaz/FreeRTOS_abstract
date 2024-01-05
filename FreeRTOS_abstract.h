@@ -7,6 +7,7 @@
 #include "queue.h"
 #include "semphr.h"
 #include "timers.h"
+#include "croutine.h"
 #include "FreeRTOSConfig.h"
 
 /* LIBC */
@@ -30,11 +31,11 @@
 namespace FreeRTOS
 {
 	/**
-     * @brief Starts the RTOS scheduler.
-     *
-     * After calling the RTOS kernel has control
-     * over which tasks are executed and when.
-     */
+	 * @brief Starts the RTOS scheduler.
+	 *
+	 * After calling the RTOS kernel has control
+	 * over which tasks are executed and when.
+	 */
 	inline void StartScheduler() {
 		vTaskStartScheduler();
 	}
@@ -191,6 +192,10 @@ namespace FreeRTOS
 				vTaskDelete(handle);
 			handle = nullptr;
 		}
+
+		static void SelfDelete() {
+			vTaskDelete(nullptr);
+		}
 #endif /* INCLUDE_vTaskDelete */
 
 #if (INCLUDE_vTaskSuspend == 1)
@@ -284,6 +289,64 @@ namespace FreeRTOS
 		 * @brief Prevent class to be copied.
 		 */
 		Task(const Task &) = delete;
+
+#if (configUSE_TASK_NOTIFICATIONS == 1)
+		/**
+		 * @brief Send notify to task.
+		 *
+		 * @param[in] index		[Optional] he index within the
+		 *				target task's array of
+		 *				notification values to which the
+		 *				notification is to be sent.
+		 */
+		void NotifyGive(int index = -1) {
+			if (index >= 0) {
+				configASSERT(xTaskNotifyGiveIndexed(handle,
+					index) == pdPASS);
+			} else {
+				configASSERT(xTaskNotifyGive(handle) == pdPASS);
+			}
+		}
+
+		/**
+		 * @brief Send notify to task from ISR.
+		 *
+		 * @param[in] index		[Optional] he index within the
+		 *				target task's array of
+		 *				notification values to which the
+		 *				notification is to be sent.
+		 */
+		void NotifyGiveFromISR(int index = -1) {
+			if (index >= 0) {
+				vTaskNotifyGiveIndexedFromISR(handle, index,
+				                              nullptr);
+			} else {
+				vTaskNotifyGiveFromISR(handle, nullptr);
+			}
+		}
+
+		/**
+		 * @brief Wait for notify.
+		 *
+		 * @param wait_ms		Time to wait in [ms].
+		 * @param reset			[Optional] Reset notify after.
+		 * @param index			[Optional] Index to wait for.
+		 *
+		 * @return The value of the task's notification value before it
+		 * is decremented or cleared.
+		 */
+		uint32_t NotifyTake(size_t wait_ms,
+		                    bool reset = true,
+		                    int index = -1) {
+			if (index >= 0) {
+				return ulTaskNotifyTakeIndexed(index, reset,
+					pdMS_TO_TICKS(wait_ms));
+			} else {
+				return ulTaskNotifyTake(reset,
+					pdMS_TO_TICKS(wait_ms));
+			}
+		}
+#endif /* configUSE_TASK_NOTIFICATIONS */
 
 		/**
 		 * Critical section control can be used from interrupt context.
@@ -763,7 +826,7 @@ namespace FreeRTOS
 		/**
 		 * @brief Stop the timer.
 		 *
-		 * @param[int] wait_ms		[Optional] Specifies the time,
+		 * @param[in] wait_ms		[Optional] Specifies the time,
 		 *				in [ms], that the calling task
 		 *				should be held in the Blocked
 		 *				state to wait for the stop
