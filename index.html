@@ -153,12 +153,14 @@ Locks</h1>
 <div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html_abebd78712e4394604d7508e8f99abd30"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html#abebd78712e4394604d7508e8f99abd30">FreeRTOS::Mutex::Unlock</a></div><div class="ttdeci">bool Unlock()</div><div class="ttdoc">Release an obtained mutex.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:658</div></div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md9"></a>
 Timer</h1>
-<div class="fragment"><div class="line">FreeRTOS::Timer tim([](TimerHandle_t t) {</div>
+<div class="fragment"><div class="line"><a class="code hl_class" href="class_free_r_t_o_s_1_1_timer.html">FreeRTOS::Timer</a> tim([](TimerHandle_t t) {</div>
 <div class="line">    (void)t;</div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;Timer callback&quot;</span> &lt;&lt; std::endl;</div>
 <div class="line">}, 1000); <span class="comment">/* every 1s */</span></div>
 <div class="line"> </div>
-<div class="line">tim.Start();</div>
+<div class="line">tim.<a class="code hl_function" href="class_free_r_t_o_s_1_1_timer.html#a6a3a1b42666ae2339eff9ee5ee16e227">Start</a>();</div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_timer_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_timer.html">FreeRTOS::Timer</a></div><div class="ttdoc">FreeRTOS software timer.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:748</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_timer_html_a6a3a1b42666ae2339eff9ee5ee16e227"><div class="ttname"><a href="class_free_r_t_o_s_1_1_timer.html#a6a3a1b42666ae2339eff9ee5ee16e227">FreeRTOS::Timer::Start</a></div><div class="ttdeci">void Start(size_t wait_ms=0)</div><div class="ttdoc">Start the timer.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:821</div></div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md10"></a>
 Misc</h1>
 <div class="fragment"><div class="line"><span class="comment">/* Start kernel scheduler */</span></div>
@@ -207,7 +209,7 @@ Testing</h1>
 <div class="line">    }</div>
 <div class="line">});</div>
 <div class="line"> </div>
-<div class="line">FreeRTOS::Timer tim([](TimerHandle_t t) {</div>
+<div class="line"><a class="code hl_class" href="class_free_r_t_o_s_1_1_timer.html">FreeRTOS::Timer</a> tim([](TimerHandle_t t) {</div>
 <div class="line">    (void)t;</div>
 <div class="line">    lock.<a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#a95ab2ce0ab807a6de35c95a991ce02e9">Lock</a>();</div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;Timer callback&quot;</span> &lt;&lt; std::endl;</div>
@@ -215,7 +217,7 @@ Testing</h1>
 <div class="line">    lock.<a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#abebd78712e4394604d7508e8f99abd30">Unlock</a>();</div>
 <div class="line">}, 100);</div>
 <div class="line"> </div>
-<div class="line">FreeRTOS::Timer job_done([](TimerHandle_t t) {</div>
+<div class="line"><a class="code hl_class" href="class_free_r_t_o_s_1_1_timer.html">FreeRTOS::Timer</a> job_done([](TimerHandle_t t) {</div>
 <div class="line">    (void)t;</div>
 <div class="line">    FreeRTOS::StopScheduler();</div>
 <div class="line">}, 500);</div>
