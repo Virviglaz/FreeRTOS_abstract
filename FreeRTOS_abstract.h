@@ -689,6 +689,12 @@ namespace FreeRTOS
 	 */
 	class BinarySemaphore : public Mutex
 	{
+	private:
+		using Mutex::Mutex;
+		using Mutex::Lock;
+		using Mutex::LockFromISR;
+		using Mutex::Unlock;
+		using Mutex::UnlockFromISR;
 	public:
 		/**
 		 * @brief Create a binary semaphore.
@@ -701,12 +707,52 @@ namespace FreeRTOS
 			configASSERT(handle != nullptr);
 #endif /* STATIC_ALLOCATION */
 		}
+
+		/**
+		 * @brief Give semaphore.
+		 *
+		 * @return true if given, false if already given before.
+		 */
+		inline bool Give() {
+			return Mutex::Unlock();
+		}
+
+		/**
+		 * @brief Wait for semaphore to be given.
+		 *
+		 * @param[in] wait_ms	[Optional] Time to wait in [ms].
+		 *
+		 * @return true if semaphore obtained successfully, false
+		 * on timeout.
+		 */
+		inline bool Take(size_t wait_ms = 0) {
+			return Mutex::Lock(wait_ms);
+		}
+
+		/**
+		 * @brief Give semaphore from ISR.
+		 *
+		 * @return true if given, false if already given before.
+		 */
+		inline bool GiveFromISR() {
+			return Mutex::UnlockFromISR();
+		}
+
+		/**
+		 * @brief Wait for semaphore to be given from ISR.
+		 *
+		 * @return true if semaphore obtained successfully, false
+		 * on timeout.
+		 */
+		inline bool TakeFromISR() {
+			return Mutex::LockFromISR();
+		}
 	};
 
 	/**
 	 * @brief Create counting semaphore.
 	 */
-	class CountingSemaphore : public Mutex
+	class CountingSemaphore : public BinarySemaphore
 	{
 	public:
 		/**
@@ -719,7 +765,7 @@ namespace FreeRTOS
 		 *				reaches this value it can no
 		 *				longer be 'given'.
 		 */
-		CountingSemaphore(size_t initial, size_t max) {
+		CountingSemaphore(size_t initial = 0, size_t max = 100) {
 #if (configSUPPORT_STATIC_ALLOCATION == 1)
 			handle = xSemaphoreCreateCountingStatic(max, initial,
 			                                        &buffer);
