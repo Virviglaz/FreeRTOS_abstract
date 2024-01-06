@@ -90,7 +90,8 @@ Inheritance diagram for FreeRTOS::BinarySemaphore:</div>
  <div class="center">
   <img src="class_free_r_t_o_s_1_1_binary_semaphore.png" usemap="#FreeRTOS::BinarySemaphore_map" alt=""/>
   <map id="FreeRTOS::BinarySemaphore_map" name="FreeRTOS::BinarySemaphore_map">
-<area href="class_free_r_t_o_s_1_1_mutex.html" title="Implement locking mechanism between tasks to protect shared resources against race conditions." alt="FreeRTOS::Mutex" shape="rect" coords="0,0,179,24"/>
+<area href="class_free_r_t_o_s_1_1_mutex.html" title="Implement locking mechanism between tasks to protect shared resources against race conditions." alt="FreeRTOS::Mutex" shape="rect" coords="0,0,192,24"/>
+<area href="class_free_r_t_o_s_1_1_counting_semaphore.html" title="Create counting semaphore." alt="FreeRTOS::CountingSemaphore" shape="rect" coords="0,112,192,136"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -100,6 +101,18 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>BinarySemaphore</b> ()</td></tr>
 <tr class="memdesc:a8c648c44a12bfe12366cb286826acde9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a binary semaphore. <br /></td></tr>
 <tr class="separator:a8c648c44a12bfe12366cb286826acde9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a961750935145c11d42b8e639bf549a24"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_binary_semaphore.html#a961750935145c11d42b8e639bf549a24">Give</a> ()</td></tr>
+<tr class="memdesc:a961750935145c11d42b8e639bf549a24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Give semaphore.  <a href="class_free_r_t_o_s_1_1_binary_semaphore.html#a961750935145c11d42b8e639bf549a24">More...</a><br /></td></tr>
+<tr class="separator:a961750935145c11d42b8e639bf549a24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ed3ea51c18b2b979ab5b25b39eadcc3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_binary_semaphore.html#a4ed3ea51c18b2b979ab5b25b39eadcc3">Take</a> (size_t wait_ms=0)</td></tr>
+<tr class="memdesc:a4ed3ea51c18b2b979ab5b25b39eadcc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wait for semaphore to be given.  <a href="class_free_r_t_o_s_1_1_binary_semaphore.html#a4ed3ea51c18b2b979ab5b25b39eadcc3">More...</a><br /></td></tr>
+<tr class="separator:a4ed3ea51c18b2b979ab5b25b39eadcc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc5dbcb6bf747ee56044acb70c3cc4f6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_binary_semaphore.html#adc5dbcb6bf747ee56044acb70c3cc4f6">GiveFromISR</a> ()</td></tr>
+<tr class="memdesc:adc5dbcb6bf747ee56044acb70c3cc4f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Give semaphore from ISR.  <a href="class_free_r_t_o_s_1_1_binary_semaphore.html#adc5dbcb6bf747ee56044acb70c3cc4f6">More...</a><br /></td></tr>
+<tr class="separator:adc5dbcb6bf747ee56044acb70c3cc4f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5ac56aaa6c08999672a1cca7844843b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_binary_semaphore.html#ad5ac56aaa6c08999672a1cca7844843b">TakeFromISR</a> ()</td></tr>
+<tr class="memdesc:ad5ac56aaa6c08999672a1cca7844843b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wait for semaphore to be given from ISR.  <a href="class_free_r_t_o_s_1_1_binary_semaphore.html#ad5ac56aaa6c08999672a1cca7844843b">More...</a><br /></td></tr>
+<tr class="separator:ad5ac56aaa6c08999672a1cca7844843b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_free_r_t_o_s_1_1_mutex"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_free_r_t_o_s_1_1_mutex')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_free_r_t_o_s_1_1_mutex.html">FreeRTOS::Mutex</a></td></tr>
 <tr class="memitem:a31df9a3d06ee22ed89231c0bc9e589e8 inherit pub_methods_class_free_r_t_o_s_1_1_mutex"><td class="memItemLeft" align="right" valign="top"><a id="a31df9a3d06ee22ed89231c0bc9e589e8" name="a31df9a3d06ee22ed89231c0bc9e589e8"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Mutex</b> ()</td></tr>
@@ -138,7 +151,127 @@ SemaphoreHandle_t&#160;</td><td class="memItemRight" valign="bottom"><b>handle</
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Create binary semaphore. </p>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a961750935145c11d42b8e639bf549a24" name="a961750935145c11d42b8e639bf549a24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a961750935145c11d42b8e639bf549a24">&#9670;&#160;</a></span>Give()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FreeRTOS::BinarySemaphore::Give </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Give semaphore. </p>
+<dl class="section return"><dt>Returns</dt><dd>true if given, false if already given before. </dd></dl>
+
+</div>
+</div>
+<a id="adc5dbcb6bf747ee56044acb70c3cc4f6" name="adc5dbcb6bf747ee56044acb70c3cc4f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc5dbcb6bf747ee56044acb70c3cc4f6">&#9670;&#160;</a></span>GiveFromISR()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FreeRTOS::BinarySemaphore::GiveFromISR </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Give semaphore from ISR. </p>
+<dl class="section return"><dt>Returns</dt><dd>true if given, false if already given before. </dd></dl>
+
+</div>
+</div>
+<a id="a4ed3ea51c18b2b979ab5b25b39eadcc3" name="a4ed3ea51c18b2b979ab5b25b39eadcc3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ed3ea51c18b2b979ab5b25b39eadcc3">&#9670;&#160;</a></span>Take()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FreeRTOS::BinarySemaphore::Take </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>wait_ms</em> = <code>0</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Wait for semaphore to be given. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">wait_ms</td><td>[Optional] Time to wait in [ms].</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if semaphore obtained successfully, false on timeout. </dd></dl>
+
+</div>
+</div>
+<a id="ad5ac56aaa6c08999672a1cca7844843b" name="ad5ac56aaa6c08999672a1cca7844843b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5ac56aaa6c08999672a1cca7844843b">&#9670;&#160;</a></span>TakeFromISR()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FreeRTOS::BinarySemaphore::TakeFromISR </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Wait for semaphore to be given from ISR. </p>
+<dl class="section return"><dt>Returns</dt><dd>true if semaphore obtained successfully, false on timeout. </dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="_free_r_t_o_s__abstract_8h_source.html">FreeRTOS_abstract.h</a></li>
 </ul>
 </div><!-- contents -->
