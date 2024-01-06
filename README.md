@@ -44,6 +44,14 @@ from any place you want. This is handy for embedded systems.
 	});
 ~~~
 
+## Async execution
+~~~cpp
+FreeRTOS::Task<>::DoAsync async([]{
+		FreeRTOS::Delay_ms(100);
+		std::cout << "Async job done!" << std::endl;
+});
+~~~
+
 ## Queue
 ~~~cpp
 FreeRTOS::Queue<std::string, 10> q;

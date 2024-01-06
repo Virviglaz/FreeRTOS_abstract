@@ -12,6 +12,7 @@
 
 /* LIBC */
 #include <stdint.h>
+#include <string.h>
 
 #ifndef FREERTOS_DEFAULT_TASK_STACK_SIZE
 #define FREERTOS_DEFAULT_TASK_STACK_SIZE		configMINIMAL_STACK_SIZE
@@ -132,6 +133,189 @@ namespace FreeRTOS
 	}
 
 	/**
+	 * @brief Implement locking mechanism between tasks to protect shared
+	 * resources against race conditions.
+	 */
+	class Mutex
+	{
+	protected:
+#if (configSUPPORT_STATIC_ALLOCATION == 1)
+		StaticSemaphore_t buffer;
+#endif /* STATIC_ALLOCATION */
+		SemaphoreHandle_t handle = nullptr;
+	public:
+		/**
+		 * @brief Creates an instance of mutex.
+		 */
+		Mutex() {
+#if (configSUPPORT_STATIC_ALLOCATION == 1)
+			handle = xSemaphoreCreateMutexStatic(&buffer);
+#else /* STATIC_ALLOCATION */
+			handle = xSemaphoreCreateMutex();
+			configASSERT(handle != nullptr);
+#endif /* STATIC_ALLOCATION */
+		}
+
+		/**
+		 * @brief Deletes the instance and release allocated memory.
+		 */
+		~Mutex() {
+			if (handle)
+				vSemaphoreDelete(handle);
+			handle = nullptr;
+		}
+
+		/**
+		 * @brief Obtain a mutex.
+		 *
+		 * @param[in] wait_ms	[Optional] Amount of milliseconds to
+		 *			wait for resource to be available.
+		 *
+		 * @return true if success, false on timeout.
+		 */
+		bool Lock(size_t wait_ms = 0) {
+			return xSemaphoreTake(handle,
+			                      pdMS_TO_TICKS(wait_ms)) == pdTRUE;
+		}
+
+		/**
+		 * @brief Release an obtained mutex.
+		 *
+		 * @return true if success,
+		 * false if no mutex was obtained before.
+		 */
+		bool Unlock() {
+			return xSemaphoreGive(handle) == pdTRUE;
+		}
+
+		/**
+		 * @brief Prevent class to be copied.
+		 */
+		Mutex(const Mutex &) = delete;
+
+		/**
+		 * @brief Obtain a mutex from interrupt context.
+		 *
+		 * @return true if success, false if failed.
+		 */
+		bool LockFromISR() {
+			return xSemaphoreTakeFromISR(handle, nullptr) == pdTRUE;
+		}
+
+		/**
+		 * @brief Release an obtained mutex from interrupt context.
+		 *
+		 * @return true if success,
+		 * false if no mutex was obtained before.
+		 */
+		bool UnlockFromISR() {
+			return xSemaphoreGiveFromISR(handle, nullptr) == pdTRUE;
+		}
+	};
+
+	/**
+	 * @brief Create binary semaphore.
+	 */
+	class BinarySemaphore : public Mutex
+	{
+	private:
+		using Mutex::Mutex;
+		using Mutex::Lock;
+		using Mutex::LockFromISR;
+		using Mutex::Unlock;
+		using Mutex::UnlockFromISR;
+	public:
+		/**
+		 * @brief Create a binary semaphore.
+		 */
+		BinarySemaphore() {
+#if (configSUPPORT_STATIC_ALLOCATION == 1)
+			handle = xSemaphoreCreateBinaryStatic(&buffer);
+#else /* STATIC_ALLOCATION */
+			handle = xSemaphoreCreateBinary();
+			configASSERT(handle != nullptr);
+#endif /* STATIC_ALLOCATION */
+		}
+
+		/**
+		 * @brief Give semaphore.
+		 *
+		 * @return true if given, false if already given before.
+		 */
+		inline bool Give() {
+			return Mutex::Unlock();
+		}
+
+		/**
+		 * @brief Wait for semaphore to be given.
+		 *
+		 * @param[in] wait_ms	[Optional] Time to wait in [ms].
+		 *
+		 * @return true if semaphore obtained successfully, false
+		 * on timeout.
+		 */
+		inline bool Take(size_t wait_ms = 0) {
+			return Mutex::Lock(wait_ms);
+		}
+
+		/**
+		 * @brief Give semaphore from ISR.
+		 *
+		 * @return true if given, false if already given before.
+		 */
+		inline bool GiveFromISR() {
+			return Mutex::UnlockFromISR();
+		}
+
+		/**
+		 * @brief Wait for semaphore to be given from ISR.
+		 *
+		 * @return true if semaphore obtained successfully, false
+		 * on timeout.
+		 */
+		inline bool TakeFromISR() {
+			return Mutex::LockFromISR();
+		}
+	};
+
+	/**
+	 * @brief Create counting semaphore.
+	 */
+	class CountingSemaphore : public BinarySemaphore
+	{
+	public:
+		/**
+		 * @brief Create counting semaphore with initial count and max
+		 * value.
+		 *
+		 * @param[in] initial		Initial count value.
+		 * @param[in] max		The maximum count value that can
+		 *				be reached. When the semaphore
+		 *				reaches this value it can no
+		 *				longer be 'given'.
+		 */
+		CountingSemaphore(size_t initial = 0, size_t max = 100) {
+#if (configSUPPORT_STATIC_ALLOCATION == 1)
+			handle = xSemaphoreCreateCountingStatic(max, initial,
+			                                        &buffer);
+#else /* STATIC_ALLOCATION */
+			handle = xSemaphoreCreateCounting(max, initial);
+			configASSERT(handle != nullptr);
+#endif /* STATIC_ALLOCATION */
+		}
+
+		/**
+		 * @brief Read current count value.
+		 *
+		 * @return Count value.
+		 */
+		FREERTOS_NODISCARD
+		size_t GetCount() {
+			return uxSemaphoreGetCount(handle);
+		}
+	};
+
+	/**
 	 * @brief Responsible for creating, control and delete FreeRTOS tasks.
 	 *
 	 * @tparam stack_size		[Optional] The number of words
@@ -153,7 +337,7 @@ namespace FreeRTOS
 		 *
 		 * @param[in] handler	Pointer to the task entry function.
 		 * @param[in] params	[Optional] A value that is passed as the
-		 *			paramater to the created task.
+		 *			parameter to the created task.
 		 * @param[in] name	[Optional] Task name string.
 		 * @param[in] priority	[Optional] The priority at which the
 		 *			task will execute.
@@ -371,6 +555,60 @@ namespace FreeRTOS
 				taskEXIT_CRITICAL_FROM_ISR(uxSavedInterruptStatus);
 			}
 		};
+
+#if (INCLUDE_vTaskDelete == 1)
+		/**
+		 * Class to execute code asynchronously.
+		 */
+		class DoAsync
+		{
+		protected:
+			void (*async_job)();
+			BinarySemaphore done;
+#if (configSUPPORT_STATIC_ALLOCATION == 1)
+			StackType_t xStack[stack_size];
+			StaticTask_t xTaskBuffer;
+#endif /* STATIC_ALLOCATION */
+			static void handler(void *args) {
+				DoAsync *c = static_cast<DoAsync *>(args);
+				c->async_job();
+				c->done.Give();
+				Task::SelfDelete();
+			}
+		public:
+			/**
+			 * @brief Calls pointer to function from new task.
+			 * After job is done, task is self deleted.
+			 *
+			 * @param job		Callback function to call
+			 *			asynchronously.
+			 * @param priority	[Optional] Priority
+			 */
+			DoAsync(void (*job)(),
+			        size_t priority = 1) {
+				async_job = job;
+#if (configSUPPORT_STATIC_ALLOCATION == 1)
+				configASSERT(xTaskCreateStatic(handler,
+			                           nullptr,
+			                           stack_size,
+			                           this,
+			                           tskIDLE_PRIORITY + priority,
+			                           xStack,
+			                           &xTaskBuffer) != nullptr);
+#else /* STATIC_ALLOCATION */
+				configASSERT(xTaskCreate(handler,
+			                         nullptr,
+			                         stack_size,
+			                         this,
+			                         tskIDLE_PRIORITY + priority,
+			                         nullptr) == pdPASS);
+#endif /* STATIC_ALLOCATION */
+			}
+			~DoAsync() {
+				done.Take(WAIT_MAX);
+			}
+		};
+#endif /* INCLUDE_vTaskDelete */
 	};
 
 #if (INCLUDE_vTaskDelay == 1)
@@ -600,189 +838,6 @@ namespace FreeRTOS
 				const_cast<T *>(&buffer[0]), nullptr) == \
 					pdTRUE ? const_cast<T *>(&buffer[0]) \
 							: nullptr;
-		}
-	};
-
-	/**
-	 * @brief Implement locking mechanism between tasks to protect shared
-	 * resources against race conditions.
-	 */
-	class Mutex
-	{
-	protected:
-#if (configSUPPORT_STATIC_ALLOCATION == 1)
-		StaticSemaphore_t buffer;
-#endif /* STATIC_ALLOCATION */
-		SemaphoreHandle_t handle = nullptr;
-	public:
-		/**
-		 * @brief Creates an instance of mutex.
-		 */
-		Mutex() {
-#if (configSUPPORT_STATIC_ALLOCATION == 1)
-			handle = xSemaphoreCreateMutexStatic(&buffer);
-#else /* STATIC_ALLOCATION */
-			handle = xSemaphoreCreateMutex();
-			configASSERT(handle != nullptr);
-#endif /* STATIC_ALLOCATION */
-		}
-
-		/**
-		 * @brief Deletes the instance and release allocated memory.
-		 */
-		~Mutex() {
-			if (handle)
-				vSemaphoreDelete(handle);
-			handle = nullptr;
-		}
-
-		/**
-		 * @brief Obtain a mutex.
-		 *
-		 * @param[in] wait_ms	[Optional] Amount of milliseconds to
-		 *			wait for resource to be available.
-		 *
-		 * @return true if success, false on timeout.
-		 */
-		bool Lock(size_t wait_ms = 0) {
-			return xSemaphoreTake(handle,
-			                      pdMS_TO_TICKS(wait_ms)) == pdTRUE;
-		}
-
-		/**
-		 * @brief Release an obtained mutex.
-		 *
-		 * @return true if success,
-		 * false if no mutex was obtained before.
-		 */
-		bool Unlock() {
-			return xSemaphoreGive(handle) == pdTRUE;
-		}
-
-		/**
-		 * @brief Prevent class to be copied.
-		 */
-		Mutex(const Mutex &) = delete;
-
-		/**
-		 * @brief Obtain a mutex from interrupt context.
-		 *
-		 * @return true if success, false if failed.
-		 */
-		bool LockFromISR() {
-			return xSemaphoreTakeFromISR(handle, nullptr) == pdTRUE;
-		}
-
-		/**
-		 * @brief Release an obtained mutex from interrupt context.
-		 *
-		 * @return true if success,
-		 * false if no mutex was obtained before.
-		 */
-		bool UnlockFromISR() {
-			return xSemaphoreGiveFromISR(handle, nullptr) == pdTRUE;
-		}
-	};
-
-	/**
-	 * @brief Create binary semaphore.
-	 */
-	class BinarySemaphore : public Mutex
-	{
-	private:
-		using Mutex::Mutex;
-		using Mutex::Lock;
-		using Mutex::LockFromISR;
-		using Mutex::Unlock;
-		using Mutex::UnlockFromISR;
-	public:
-		/**
-		 * @brief Create a binary semaphore.
-		 */
-		BinarySemaphore() {
-#if (configSUPPORT_STATIC_ALLOCATION == 1)
-			handle = xSemaphoreCreateBinaryStatic(&buffer);
-#else /* STATIC_ALLOCATION */
-			handle = xSemaphoreCreateBinary();
-			configASSERT(handle != nullptr);
-#endif /* STATIC_ALLOCATION */
-		}
-
-		/**
-		 * @brief Give semaphore.
-		 *
-		 * @return true if given, false if already given before.
-		 */
-		inline bool Give() {
-			return Mutex::Unlock();
-		}
-
-		/**
-		 * @brief Wait for semaphore to be given.
-		 *
-		 * @param[in] wait_ms	[Optional] Time to wait in [ms].
-		 *
-		 * @return true if semaphore obtained successfully, false
-		 * on timeout.
-		 */
-		inline bool Take(size_t wait_ms = 0) {
-			return Mutex::Lock(wait_ms);
-		}
-
-		/**
-		 * @brief Give semaphore from ISR.
-		 *
-		 * @return true if given, false if already given before.
-		 */
-		inline bool GiveFromISR() {
-			return Mutex::UnlockFromISR();
-		}
-
-		/**
-		 * @brief Wait for semaphore to be given from ISR.
-		 *
-		 * @return true if semaphore obtained successfully, false
-		 * on timeout.
-		 */
-		inline bool TakeFromISR() {
-			return Mutex::LockFromISR();
-		}
-	};
-
-	/**
-	 * @brief Create counting semaphore.
-	 */
-	class CountingSemaphore : public BinarySemaphore
-	{
-	public:
-		/**
-		 * @brief Create counting semaphore with initial count and max
-		 * value.
-		 *
-		 * @param[in] initial		Initial count value.
-		 * @param[in] max		The maximum count value that can
-		 *				be reached. When the semaphore
-		 *				reaches this value it can no
-		 *				longer be 'given'.
-		 */
-		CountingSemaphore(size_t initial = 0, size_t max = 100) {
-#if (configSUPPORT_STATIC_ALLOCATION == 1)
-			handle = xSemaphoreCreateCountingStatic(max, initial,
-			                                        &buffer);
-#else /* STATIC_ALLOCATION */
-			handle = xSemaphoreCreateCounting(max, initial);
-			configASSERT(handle != nullptr);
-#endif /* STATIC_ALLOCATION */
-		}
-
-		/**
-		 * @brief Read current count value.
-		 *
-		 * @return Count value.
-		 */
-		FREERTOS_NODISCARD
-		size_t GetCount() {
-			return uxSemaphoreGetCount(handle);
 		}
 	};
 
