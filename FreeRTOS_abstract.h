@@ -173,7 +173,7 @@ namespace FreeRTOS
 		 *
 		 * @return true if success, false on timeout.
 		 */
-		bool Lock(size_t wait_ms = 0) {
+		bool Lock(size_t wait_ms = WAIT_MAX) {
 			return xSemaphoreTake(handle,
 			                      pdMS_TO_TICKS(wait_ms)) == pdTRUE;
 		}
@@ -254,7 +254,7 @@ namespace FreeRTOS
 		 * @return true if semaphore obtained successfully, false
 		 * on timeout.
 		 */
-		inline bool Take(size_t wait_ms = 0) {
+		inline bool Take(size_t wait_ms = WAIT_MAX) {
 			return Mutex::Lock(wait_ms);
 		}
 
