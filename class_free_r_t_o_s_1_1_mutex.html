@@ -106,9 +106,9 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>~Mutex</b> ()</td></tr>
 <tr class="memdesc:adf0a6b9b93fa68a20ef728fc63e0b1e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the instance and release allocated memory. <br /></td></tr>
 <tr class="separator:adf0a6b9b93fa68a20ef728fc63e0b1e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a95ab2ce0ab807a6de35c95a991ce02e9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_mutex.html#a95ab2ce0ab807a6de35c95a991ce02e9">Lock</a> (size_t wait_ms=0)</td></tr>
-<tr class="memdesc:a95ab2ce0ab807a6de35c95a991ce02e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtain a mutex.  <a href="class_free_r_t_o_s_1_1_mutex.html#a95ab2ce0ab807a6de35c95a991ce02e9">More...</a><br /></td></tr>
-<tr class="separator:a95ab2ce0ab807a6de35c95a991ce02e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71ef58fb5c9500d264aa6a0bc67a3d63"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_mutex.html#a71ef58fb5c9500d264aa6a0bc67a3d63">Lock</a> (size_t wait_ms=WAIT_MAX)</td></tr>
+<tr class="memdesc:a71ef58fb5c9500d264aa6a0bc67a3d63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtain a mutex.  <a href="class_free_r_t_o_s_1_1_mutex.html#a71ef58fb5c9500d264aa6a0bc67a3d63">More...</a><br /></td></tr>
+<tr class="separator:a71ef58fb5c9500d264aa6a0bc67a3d63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abebd78712e4394604d7508e8f99abd30"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_mutex.html#abebd78712e4394604d7508e8f99abd30">Unlock</a> ()</td></tr>
 <tr class="memdesc:abebd78712e4394604d7508e8f99abd30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Release an obtained mutex.  <a href="class_free_r_t_o_s_1_1_mutex.html#abebd78712e4394604d7508e8f99abd30">More...</a><br /></td></tr>
 <tr class="separator:abebd78712e4394604d7508e8f99abd30"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -135,8 +135,8 @@ SemaphoreHandle_t&#160;</td><td class="memItemRight" valign="bottom"><b>handle</
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Implement locking mechanism between tasks to protect shared resources against race conditions. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a95ab2ce0ab807a6de35c95a991ce02e9" name="a95ab2ce0ab807a6de35c95a991ce02e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a95ab2ce0ab807a6de35c95a991ce02e9">&#9670;&#160;</a></span>Lock()</h2>
+<a id="a71ef58fb5c9500d264aa6a0bc67a3d63" name="a71ef58fb5c9500d264aa6a0bc67a3d63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71ef58fb5c9500d264aa6a0bc67a3d63">&#9670;&#160;</a></span>Lock()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -148,7 +148,7 @@ SemaphoreHandle_t&#160;</td><td class="memItemRight" valign="bottom"><b>handle</
           <td class="memname">bool FreeRTOS::Mutex::Lock </td>
           <td>(</td>
           <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>wait_ms</em> = <code>0</code></td><td>)</td>
+          <td class="paramname"><em>wait_ms</em> = <code>WAIT_MAX</code></td><td>)</td>
           <td></td>
         </tr>
       </table>
