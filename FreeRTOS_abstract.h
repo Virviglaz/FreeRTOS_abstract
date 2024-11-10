@@ -13,6 +13,28 @@
 /* LIBC */
 #include <stdint.h>
 #include <string.h>
+#include <type_traits>
+#include <utility>
+
+/**
+ * @Note
+ * To use FreeRTOS memory allocations:
+ * 1. Add linker flag: -Wl,--wrap,malloc
+ * 2. Add wrapper functions: (use extern "C" if placed in cpp file)
+ *		void *__wrap_malloc(size_t size) { return pvPortMalloc(size); }
+ *		void __wrap_free(void *ptr) { vPortFree(ptr); }
+ *
+ * if configSUPPORT_STATIC_ALLOCATION is set, add this function:
+ *	void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer,
+ *		StackType_t **ppxIdleTaskStackBuffer, uint32_t *pulIdleTaskStackSize )
+ *	{
+ *		static StaticTask_t xIdleTaskTCBBuffer;
+ *		static StackType_t xIdleStack[configMINIMAL_STACK_SIZE];
+ *		*ppxIdleTaskTCBBuffer = &xIdleTaskTCBBuffer;
+ *		*ppxIdleTaskStackBuffer = xIdleStack;
+ *		*pulIdleTaskStackSize = configMINIMAL_STACK_SIZE;
+ *	}
+ */
 
 #ifndef FREERTOS_DEFAULT_TASK_STACK_SIZE
 #define FREERTOS_DEFAULT_TASK_STACK_SIZE		configMINIMAL_STACK_SIZE
@@ -51,85 +73,6 @@ namespace FreeRTOS
 	 */
 	inline void StopScheduler() {
 		vTaskEndScheduler();
-	}
-
-	/**
-	 * @brief Allocate memory for object. Return nullptr if failed.
-	 *
-	 * @param[in] size		Size of requested memory.
-	 * @return Pointer to allocated memory or nullptr.
-	 */
-	FREERTOS_NODISCARD
-	void *malloc(size_t size) {
-		void *ret = pvPortMalloc(size);
-		configASSERT(ret != nullptr);
-		return ret;
-	}
-
-	/**
-	 * @brief Allocate memory for object. Return nullptr if failed.
-	 *
-	 * @param[in] size		Size of requested memory.
-	 * @return Pointer to allocated object or nullptr.
-	 */
-	template <typename T>
-	FREERTOS_NODISCARD
-	T malloc(size_t size) {
-		void *ret = pvPortMalloc(size);
-		configASSERT(ret != nullptr);
-		return (T)ret;
-	}
-
-	/**
-	 * @brief Allocate memory for object. Set all allocated memory to zeros.
-	 * Return nullptr if failed.
-	 *
-	 * @param[in] size		Size of requested memory.
-	 * @return Pointer to allocated object or nullptr.
-	 */
-	FREERTOS_NODISCARD
-	void *zalloc(size_t size) {
-		void *ret = pvPortMalloc(size);
-		configASSERT(ret != nullptr);
-		if (ret)
-			memset(ret, 0, size);
-		return ret;
-	}
-
-	/**
-	 * @brief Allocate memory for object. Set all allocated memory to zeros.
-	 * Return nullptr if failed.
-	 *
-	 * @param[in] size		Size of requested memory.
-	 * @return Pointer to allocated object or nullptr.
-	 */
-	template <typename T>
-	FREERTOS_NODISCARD
-	T zalloc(size_t size) {
-		void *ret = pvPortMalloc(size);
-		configASSERT(ret != nullptr);
-		if (ret)
-			memset(ret, 0, size);
-		return (T)ret;
-	}
-
-	/**
-	 * @brief Release allocated memory. Do nothing if nullptr provided.
-	 *
-	 * @param[in] Pointer to allocated memory.
-	 */
-	inline void free(void *mem) {
-		vPortFree(mem);
-	}
-
-	/**
-	 * @brief Release allocated memory. Do nothing if nullptr provided.
-	 *
-	 * @param[in] Pointer to allocated memory.
-	 */
-	template <typename T>
-	void free(T mem) {
-		vPortFree((void *)mem);
 	}
 
 	/**
