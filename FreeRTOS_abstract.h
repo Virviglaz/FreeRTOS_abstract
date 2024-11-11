@@ -565,6 +565,43 @@ namespace FreeRTOS
 	}
 #endif /* INCLUDE_vTaskDelay */
 
+#if (INCLUDE_vTaskDelayUntil == 1)
+	/**
+	 * @brief Enables accurate periodic execution.
+	 */
+	class TimerDelay
+	{
+	protected:
+		TickType_t xLastWakeTime = 0;
+	public:
+		/**
+		 * @brief Constructor of TimerDelay class.
+		 *
+		 * @param start		Initiate at the moment of creation if enabled.
+		 */
+		TimerDelay(bool start = true) {
+			if (start)
+				Reset();
+		}
+
+		/**
+		 * @brief Reset the time stamp value.
+		 */
+		void Reset() {
+			xLastWakeTime = xTaskGetTickCount();
+		}
+
+		/**
+		 * Wait given amount ms since last call.
+		 *
+		 * @param ms Maximum waiting time in [ms].
+		 */
+		void Wait(size_t ms) {
+			vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(ms));
+		}
+	};
+#endif
+
 	/**
 	 * @brief Creates a new FreeRTOS queue instance.
 	 *
