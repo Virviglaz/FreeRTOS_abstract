@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['queue_0',['Queue',['../class_free_r_t_o_s_1_1_queue.html#ac19f2c7e1e8af74783384f6db93cc812',1,'FreeRTOS::Queue::Queue()'],['../class_free_r_t_o_s_1_1_queue.html#adff4d860cb39c2ff5ff40277b14e283a',1,'FreeRTOS::Queue::Queue(const Queue &amp;)=delete']]]
+  ['notifygive_0',['NotifyGive',['../class_free_r_t_o_s_1_1_task.html#a50498c97387988610bf721148ba8fb94',1,'FreeRTOS::Task']]],
+  ['notifygivefromisr_1',['NotifyGiveFromISR',['../class_free_r_t_o_s_1_1_task.html#adeb60d237e5345710bfd98ad8cb7f616',1,'FreeRTOS::Task']]],
+  ['notifytake_2',['NotifyTake',['../class_free_r_t_o_s_1_1_task.html#aa174e39d9f4421795246b1305f7870db',1,'FreeRTOS::Task']]]
 ];

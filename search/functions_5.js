@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['lock_0',['Lock',['../class_free_r_t_o_s_1_1_mutex.html#a71ef58fb5c9500d264aa6a0bc67a3d63',1,'FreeRTOS::Mutex']]],
-  ['lockfromisr_1',['LockFromISR',['../class_free_r_t_o_s_1_1_mutex.html#ac4860e7216b0d7944643b2bba96afefa',1,'FreeRTOS::Mutex']]]
+  ['getcount_0',['GetCount',['../class_free_r_t_o_s_1_1_counting_semaphore.html#acddd37f38a4c4dc5e1dca0304d9a9487',1,'FreeRTOS::CountingSemaphore']]],
+  ['give_1',['Give',['../class_free_r_t_o_s_1_1_binary_semaphore.html#a961750935145c11d42b8e639bf549a24',1,'FreeRTOS::BinarySemaphore']]],
+  ['givefromisr_2',['GiveFromISR',['../class_free_r_t_o_s_1_1_binary_semaphore.html#adc5dbcb6bf747ee56044acb70c3cc4f6',1,'FreeRTOS::BinarySemaphore']]]
 ];

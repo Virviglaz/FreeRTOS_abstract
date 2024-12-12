@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.5"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Doxygen with github: FreeRTOS::Queue&lt; T, size, support_emplace &gt; Class Template Reference</title>
+<title>Doxygen with github: FreeRTOS::Queue&lt; T, size &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -75,10 +75,9 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="class_free_r_t_o_s_1_1_queue-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">FreeRTOS::Queue&lt; T, size, support_emplace &gt; Class Template Reference</div></div>
+  <div class="headertitle"><div class="title">FreeRTOS::Queue&lt; T, size &gt; Class Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -89,194 +88,74 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac19f2c7e1e8af74783384f6db93cc812"><td class="memItemLeft" align="right" valign="top"><a id="ac19f2c7e1e8af74783384f6db93cc812" name="ac19f2c7e1e8af74783384f6db93cc812"></a>
+<tr class="memitem:af6bc8d1a7c117467dbad953f9a8a8a20"><td class="memItemLeft" align="right" valign="top"><a id="af6bc8d1a7c117467dbad953f9a8a8a20" name="af6bc8d1a7c117467dbad953f9a8a8a20"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Queue</b> ()</td></tr>
-<tr class="memdesc:ac19f2c7e1e8af74783384f6db93cc812"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor. <br /></td></tr>
-<tr class="separator:ac19f2c7e1e8af74783384f6db93cc812"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa26c476026aa61cd3408d7219c16e1d0"><td class="memItemLeft" align="right" valign="top"><a id="aa26c476026aa61cd3408d7219c16e1d0" name="aa26c476026aa61cd3408d7219c16e1d0"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>~Queue</b> ()</td></tr>
-<tr class="memdesc:aa26c476026aa61cd3408d7219c16e1d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the queue and releases allocated memory. <br /></td></tr>
-<tr class="separator:aa26c476026aa61cd3408d7219c16e1d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9bfabf4f64d92bde6700451e17d2909f"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; </td></tr>
-<tr class="memitem:a9bfabf4f64d92bde6700451e17d2909f"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_queue.html#a9bfabf4f64d92bde6700451e17d2909f">TryEmplaceBack</a> (size_t wait_ms, Args &amp;&amp;...args) noexcept(std::is_nothrow_constructible&lt; T, Args &amp;&amp;... &gt;::value)</td></tr>
-<tr class="memdesc:a9bfabf4f64d92bde6700451e17d2909f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an item at the back place of a queue.  <a href="class_free_r_t_o_s_1_1_queue.html#a9bfabf4f64d92bde6700451e17d2909f">More...</a><br /></td></tr>
-<tr class="separator:a9bfabf4f64d92bde6700451e17d2909f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a703ab0a1c19ff40ca535081729c14460"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; </td></tr>
-<tr class="memitem:a703ab0a1c19ff40ca535081729c14460"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_queue.html#a703ab0a1c19ff40ca535081729c14460">TryEmplaceFront</a> (size_t wait_ms, Args &amp;&amp;...args) noexcept(std::is_nothrow_constructible&lt; T, Args &amp;&amp;... &gt;::value)</td></tr>
-<tr class="memdesc:a703ab0a1c19ff40ca535081729c14460"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an item at the front place of a queue.  <a href="class_free_r_t_o_s_1_1_queue.html#a703ab0a1c19ff40ca535081729c14460">More...</a><br /></td></tr>
-<tr class="separator:a703ab0a1c19ff40ca535081729c14460"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f78822f1cb0b3b772fa844b69fd127e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_queue.html#a6f78822f1cb0b3b772fa844b69fd127e">TryPushBack</a> (const T &amp;item, size_t wait_ms=0)</td></tr>
-<tr class="memdesc:a6f78822f1cb0b3b772fa844b69fd127e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Post an item to the back of a queue.  <a href="class_free_r_t_o_s_1_1_queue.html#a6f78822f1cb0b3b772fa844b69fd127e">More...</a><br /></td></tr>
-<tr class="separator:a6f78822f1cb0b3b772fa844b69fd127e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35050745dc8fb0fc673de0de5308c8a5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_queue.html#a35050745dc8fb0fc673de0de5308c8a5">TryPushFront</a> (const T &amp;item, size_t wait_ms=0)</td></tr>
-<tr class="memdesc:a35050745dc8fb0fc673de0de5308c8a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Post an item to the front of a queue.  <a href="class_free_r_t_o_s_1_1_queue.html#a35050745dc8fb0fc673de0de5308c8a5">More...</a><br /></td></tr>
-<tr class="separator:a35050745dc8fb0fc673de0de5308c8a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae3c2c7c25301e6cf29e40f8edf9f3a37"><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_queue.html#ae3c2c7c25301e6cf29e40f8edf9f3a37">TryPop</a> (size_t wait_ms=0) noexcept</td></tr>
-<tr class="memdesc:ae3c2c7c25301e6cf29e40f8edf9f3a37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive an item from a queue.  <a href="class_free_r_t_o_s_1_1_queue.html#ae3c2c7c25301e6cf29e40f8edf9f3a37">More...</a><br /></td></tr>
-<tr class="separator:ae3c2c7c25301e6cf29e40f8edf9f3a37"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adff4d860cb39c2ff5ff40277b14e283a"><td class="memItemLeft" align="right" valign="top"><a id="adff4d860cb39c2ff5ff40277b14e283a" name="adff4d860cb39c2ff5ff40277b14e283a"></a>
+<tr class="memdesc:af6bc8d1a7c117467dbad953f9a8a8a20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor. <br /></td></tr>
+<tr class="separator:af6bc8d1a7c117467dbad953f9a8a8a20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4bdfd503bbda2ac93e7d377415a17a0"><td class="memItemLeft" align="right" valign="top"><a id="ae4bdfd503bbda2ac93e7d377415a17a0" name="ae4bdfd503bbda2ac93e7d377415a17a0"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Queue</b> (const <a class="el" href="class_free_r_t_o_s_1_1_queue.html">Queue</a> &amp;)=delete</td></tr>
-<tr class="memdesc:adff4d860cb39c2ff5ff40277b14e283a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prevent class to be copied. <br /></td></tr>
-<tr class="separator:adff4d860cb39c2ff5ff40277b14e283a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a007af541404ba2cc118a1aede6a29fa1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_queue.html#a007af541404ba2cc118a1aede6a29fa1">TryPushBackFromISR</a> (const T &amp;item)</td></tr>
-<tr class="memdesc:a007af541404ba2cc118a1aede6a29fa1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Post an item to the back of a queue from interrupt context.  <a href="class_free_r_t_o_s_1_1_queue.html#a007af541404ba2cc118a1aede6a29fa1">More...</a><br /></td></tr>
-<tr class="separator:a007af541404ba2cc118a1aede6a29fa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae59319d3c5c00508f0220e0abefab242"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_queue.html#ae59319d3c5c00508f0220e0abefab242">TryPushFrontFromISR</a> (const T &amp;item)</td></tr>
-<tr class="memdesc:ae59319d3c5c00508f0220e0abefab242"><td class="mdescLeft">&#160;</td><td class="mdescRight">Post an item to the front of a queue from interrupt context.  <a href="class_free_r_t_o_s_1_1_queue.html#ae59319d3c5c00508f0220e0abefab242">More...</a><br /></td></tr>
-<tr class="separator:ae59319d3c5c00508f0220e0abefab242"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c51312e06f11ebdd30162567b0c1d2d"><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_queue.html#a3c51312e06f11ebdd30162567b0c1d2d">TryPopFromISR</a> ()</td></tr>
-<tr class="memdesc:a3c51312e06f11ebdd30162567b0c1d2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive an item from a queue from interrupt context.  <a href="class_free_r_t_o_s_1_1_queue.html#a3c51312e06f11ebdd30162567b0c1d2d">More...</a><br /></td></tr>
-<tr class="separator:a3c51312e06f11ebdd30162567b0c1d2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a745e9ad52457eee69bc646007b646f50"><td class="memItemLeft" align="right" valign="top"><a id="a745e9ad52457eee69bc646007b646f50" name="a745e9ad52457eee69bc646007b646f50"></a>
-const bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsEmplaceSupported</b> = support_emplace</td></tr>
-<tr class="separator:a745e9ad52457eee69bc646007b646f50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memdesc:ae4bdfd503bbda2ac93e7d377415a17a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prevent class to be copied or moved. <br /></td></tr>
+<tr class="separator:ae4bdfd503bbda2ac93e7d377415a17a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d9b90b8f83b9a4d0efdce11e9474a6f"><td class="memItemLeft" align="right" valign="top"><a id="a0d9b90b8f83b9a4d0efdce11e9474a6f" name="a0d9b90b8f83b9a4d0efdce11e9474a6f"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Queue</b> (<a class="el" href="class_free_r_t_o_s_1_1_queue.html">Queue</a> &amp;&amp;)=delete</td></tr>
+<tr class="separator:a0d9b90b8f83b9a4d0efdce11e9474a6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62bb65e28e7ee990754ba6fe7881196a"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; </td></tr>
+<tr class="memitem:a62bb65e28e7ee990754ba6fe7881196a"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_queue.html#a62bb65e28e7ee990754ba6fe7881196a">TryEmplaceBack</a> (Args &amp;&amp;...args) noexcept(std::is_nothrow_constructible&lt; T, Args &amp;&amp;... &gt;::value)</td></tr>
+<tr class="memdesc:a62bb65e28e7ee990754ba6fe7881196a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an item at the back place of a queue.  <a href="class_free_r_t_o_s_1_1_queue.html#a62bb65e28e7ee990754ba6fe7881196a">More...</a><br /></td></tr>
+<tr class="separator:a62bb65e28e7ee990754ba6fe7881196a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41381e3c37debcd677aaaa10b56bf2fb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_queue.html#a41381e3c37debcd677aaaa10b56bf2fb">TryPushBack</a> (const T &amp;item) noexcept</td></tr>
+<tr class="memdesc:a41381e3c37debcd677aaaa10b56bf2fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Post an item to the back of a queue.  <a href="class_free_r_t_o_s_1_1_queue.html#a41381e3c37debcd677aaaa10b56bf2fb">More...</a><br /></td></tr>
+<tr class="separator:a41381e3c37debcd677aaaa10b56bf2fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb1f1cf4694d727534c3c77c23ef28e0"><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_queue.html#aeb1f1cf4694d727534c3c77c23ef28e0">Front</a> (size_t wait_ms=0) noexcept</td></tr>
+<tr class="memdesc:aeb1f1cf4694d727534c3c77c23ef28e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive an item from a queue.  <a href="class_free_r_t_o_s_1_1_queue.html#aeb1f1cf4694d727534c3c77c23ef28e0">More...</a><br /></td></tr>
+<tr class="separator:aeb1f1cf4694d727534c3c77c23ef28e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8361d6c10e1f242c8ae0459933034453"><td class="memItemLeft" align="right" valign="top"><a id="a8361d6c10e1f242c8ae0459933034453" name="a8361d6c10e1f242c8ae0459933034453"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Pop</b> () noexcept</td></tr>
+<tr class="separator:a8361d6c10e1f242c8ae0459933034453"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:aa68a2e0aaf420fe9d7f8b980e3dfcc21"><td class="memItemLeft" align="right" valign="top"><a id="aa68a2e0aaf420fe9d7f8b980e3dfcc21" name="aa68a2e0aaf420fe9d7f8b980e3dfcc21"></a>
+<tr class="memitem:ad590554f1ea5005313bdc78c48a4a18c"><td class="memItemLeft" align="right" valign="top"><a id="ad590554f1ea5005313bdc78c48a4a18c" name="ad590554f1ea5005313bdc78c48a4a18c"></a>
 StaticQueue_t&#160;</td><td class="memItemRight" valign="bottom"><b>xStaticQueue</b></td></tr>
-<tr class="separator:aa68a2e0aaf420fe9d7f8b980e3dfcc21"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abaad0790b9d16ba2c31347d6b5c269d9"><td class="memItemLeft" align="right" valign="top"><a id="abaad0790b9d16ba2c31347d6b5c269d9" name="abaad0790b9d16ba2c31347d6b5c269d9"></a>
-uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>ucQueueStorageArea</b> [sizeof(T) *size]</td></tr>
-<tr class="separator:abaad0790b9d16ba2c31347d6b5c269d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a868de6a2b28433dfb24c1eb7d3da9859"><td class="memItemLeft" align="right" valign="top"><a id="a868de6a2b28433dfb24c1eb7d3da9859" name="a868de6a2b28433dfb24c1eb7d3da9859"></a>
-QueueHandle_t&#160;</td><td class="memItemRight" valign="bottom"><b>handle</b> = nullptr</td></tr>
-<tr class="separator:a868de6a2b28433dfb24c1eb7d3da9859"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45f95885288f8ba335ab8ecc2836a71e"><td class="memItemLeft" align="right" valign="top"><a id="a45f95885288f8ba335ab8ecc2836a71e" name="a45f95885288f8ba335ab8ecc2836a71e"></a>
-T&#160;</td><td class="memItemRight" valign="bottom"><b>buffer</b> [support_emplace ? 2 :1]</td></tr>
-<tr class="separator:a45f95885288f8ba335ab8ecc2836a71e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:ad590554f1ea5005313bdc78c48a4a18c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae59aea6e06d0b93937adff7183855f9c"><td class="memItemLeft" align="right" valign="top"><a id="ae59aea6e06d0b93937adff7183855f9c" name="ae59aea6e06d0b93937adff7183855f9c"></a>
+<a class="el" href="class_free_r_t_o_s_1_1_counting_semaphore.html">CountingSemaphore</a>&#160;</td><td class="memItemRight" valign="bottom"><b>semaphore</b> {0, size}</td></tr>
+<tr class="separator:ae59aea6e06d0b93937adff7183855f9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a061b2ccf37dd7009749d1815c62d04a4"><td class="memItemLeft" align="right" valign="top"><a id="a061b2ccf37dd7009749d1815c62d04a4" name="a061b2ccf37dd7009749d1815c62d04a4"></a>
+T&#160;</td><td class="memItemRight" valign="bottom"><b>buffer</b> [size]</td></tr>
+<tr class="separator:a061b2ccf37dd7009749d1815c62d04a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a941aa40c495eab92b62d0c01084ec60f"><td class="memItemLeft" align="right" valign="top"><a id="a941aa40c495eab92b62d0c01084ec60f" name="a941aa40c495eab92b62d0c01084ec60f"></a>
+size_t&#160;</td><td class="memItemRight" valign="bottom"><b>rd_idx</b> = 0</td></tr>
+<tr class="separator:a941aa40c495eab92b62d0c01084ec60f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4aac8dc3da654af89bd104886ed9d283"><td class="memItemLeft" align="right" valign="top"><a id="a4aac8dc3da654af89bd104886ed9d283" name="a4aac8dc3da654af89bd104886ed9d283"></a>
+size_t&#160;</td><td class="memItemRight" valign="bottom"><b>wr_idx</b> = 0</td></tr>
+<tr class="separator:a4aac8dc3da654af89bd104886ed9d283"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;class T, size_t size = 2, const bool support_emplace = false&gt;<br />
-class FreeRTOS::Queue&lt; T, size, support_emplace &gt;</div><p >Creates a new FreeRTOS queue instance. </p>
+<div class="textblock"><div class="compoundTemplParams">template&lt;class T, size_t size = 2&gt;<br />
+class FreeRTOS::Queue&lt; T, size &gt;</div><p >Creates a new FreeRTOS queue instance. </p>
 <p >@Note This is MPSC queue (multi producers, single consumer queue). If you need to use MPMC queue, you have to block the kernel until popped pointer is processed or copied.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">T</td><td>Type of object to be enqueued. </td></tr>
     <tr><td class="paramname">size</td><td>Maximum queue size (maximum amount of object to store). </td></tr>
-    <tr><td class="paramname">support_emplace</td><td>Enable support emplace constructor. </td></tr>
   </table>
   </dd>
 </dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a9bfabf4f64d92bde6700451e17d2909f" name="a9bfabf4f64d92bde6700451e17d2909f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9bfabf4f64d92bde6700451e17d2909f">&#9670;&#160;</a></span>TryEmplaceBack()</h2>
+<a id="aeb1f1cf4694d727534c3c77c23ef28e0" name="aeb1f1cf4694d727534c3c77c23ef28e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb1f1cf4694d727534c3c77c23ef28e0">&#9670;&#160;</a></span>Front()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class T , size_t size = 2, const bool support_emplace = false&gt; </div>
-<div class="memtemplate">
-template&lt;typename... Args&gt; </div>
+template&lt;class T , size_t size = 2&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="class_free_r_t_o_s_1_1_queue.html">FreeRTOS::Queue</a>&lt; T, size, support_emplace &gt;::TryEmplaceBack </td>
-          <td>(</td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>wait_ms</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Args &amp;&amp;...&#160;</td>
-          <td class="paramname"><em>args</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Construct an item at the back place of a queue. </p>
-<p >The item is queued by copy, not by reference. This function must not be called from an interrupt service routine.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">wait_ms</td><td>The maximum amount of time the task should block waiting for space to become available on the queue, should it already be full.</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">args</td><td>T constructor arguments. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true if item posted in the queue, false when no space left. </dd></dl>
-
-</div>
-</div>
-<a id="a703ab0a1c19ff40ca535081729c14460" name="a703ab0a1c19ff40ca535081729c14460"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a703ab0a1c19ff40ca535081729c14460">&#9670;&#160;</a></span>TryEmplaceFront()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T , size_t size = 2, const bool support_emplace = false&gt; </div>
-<div class="memtemplate">
-template&lt;typename... Args&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool <a class="el" href="class_free_r_t_o_s_1_1_queue.html">FreeRTOS::Queue</a>&lt; T, size, support_emplace &gt;::TryEmplaceFront </td>
-          <td>(</td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>wait_ms</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Args &amp;&amp;...&#160;</td>
-          <td class="paramname"><em>args</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Construct an item at the front place of a queue. </p>
-<p >The item is queued by copy, not by reference. This function must not be called from an interrupt service routine.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">wait_ms</td><td>The maximum amount of time the task should block waiting for space to become available on the queue, should it already be full.</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">args</td><td>T constructor arguments. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true if item posted in the queue, false when no space left. </dd></dl>
-
-</div>
-</div>
-<a id="ae3c2c7c25301e6cf29e40f8edf9f3a37" name="ae3c2c7c25301e6cf29e40f8edf9f3a37"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae3c2c7c25301e6cf29e40f8edf9f3a37">&#9670;&#160;</a></span>TryPop()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T , size_t size = 2, const bool support_emplace = false&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">T * <a class="el" href="class_free_r_t_o_s_1_1_queue.html">FreeRTOS::Queue</a>&lt; T, size, support_emplace &gt;::TryPop </td>
+          <td class="memname">T * <a class="el" href="class_free_r_t_o_s_1_1_queue.html">FreeRTOS::Queue</a>&lt; T, size &gt;::Front </td>
           <td>(</td>
           <td class="paramtype">size_t&#160;</td>
           <td class="paramname"><em>wait_ms</em> = <code>0</code></td><td>)</td>
@@ -301,200 +180,74 @@ template&lt;class T , size_t size = 2, const bool support_emplace = false&gt; </
 
 </div>
 </div>
-<a id="a3c51312e06f11ebdd30162567b0c1d2d" name="a3c51312e06f11ebdd30162567b0c1d2d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3c51312e06f11ebdd30162567b0c1d2d">&#9670;&#160;</a></span>TryPopFromISR()</h2>
+<a id="a62bb65e28e7ee990754ba6fe7881196a" name="a62bb65e28e7ee990754ba6fe7881196a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62bb65e28e7ee990754ba6fe7881196a">&#9670;&#160;</a></span>TryEmplaceBack()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class T , size_t size = 2, const bool support_emplace = false&gt; </div>
+template&lt;class T , size_t size = 2&gt; </div>
+<div class="memtemplate">
+template&lt;typename... Args&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">T * <a class="el" href="class_free_r_t_o_s_1_1_queue.html">FreeRTOS::Queue</a>&lt; T, size, support_emplace &gt;::TryPopFromISR </td>
+          <td class="memname">bool <a class="el" href="class_free_r_t_o_s_1_1_queue.html">FreeRTOS::Queue</a>&lt; T, size &gt;::TryEmplaceBack </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">Args &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Receive an item from a queue from interrupt context. </p>
-<dl class="section return"><dt>Returns</dt><dd>Pointer to item in the buffer or nullptr if queue is empty. </dd></dl>
+<p>Construct an item at the back place of a queue. </p>
+<p >This function must not be called from an interrupt service routine.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">args</td><td>T constructor arguments. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if item posted in the queue, false when no space left. </dd></dl>
 
 </div>
 </div>
-<a id="a6f78822f1cb0b3b772fa844b69fd127e" name="a6f78822f1cb0b3b772fa844b69fd127e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6f78822f1cb0b3b772fa844b69fd127e">&#9670;&#160;</a></span>TryPushBack()</h2>
+<a id="a41381e3c37debcd677aaaa10b56bf2fb" name="a41381e3c37debcd677aaaa10b56bf2fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41381e3c37debcd677aaaa10b56bf2fb">&#9670;&#160;</a></span>TryPushBack()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class T , size_t size = 2, const bool support_emplace = false&gt; </div>
+template&lt;class T , size_t size = 2&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="class_free_r_t_o_s_1_1_queue.html">FreeRTOS::Queue</a>&lt; T, size, support_emplace &gt;::TryPushBack </td>
+          <td class="memname">bool <a class="el" href="class_free_r_t_o_s_1_1_queue.html">FreeRTOS::Queue</a>&lt; T, size &gt;::TryPushBack </td>
           <td>(</td>
           <td class="paramtype">const T &amp;&#160;</td>
-          <td class="paramname"><em>item</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>item</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>wait_ms</em> = <code>0</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Post an item to the back of a queue. </p>
-<p >The item is queued by copy, not by reference. This function must not be called from an interrupt service routine.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">item</td><td>Pointer to item to post. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">wait_ms</td><td>[Optional] The maximum amount of time the task should block waiting for space to become available on the queue, should it already be full.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true if item posted in the queue, false when no space left. </dd></dl>
-
-</div>
-</div>
-<a id="a007af541404ba2cc118a1aede6a29fa1" name="a007af541404ba2cc118a1aede6a29fa1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a007af541404ba2cc118a1aede6a29fa1">&#9670;&#160;</a></span>TryPushBackFromISR()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T , size_t size = 2, const bool support_emplace = false&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool <a class="el" href="class_free_r_t_o_s_1_1_queue.html">FreeRTOS::Queue</a>&lt; T, size, support_emplace &gt;::TryPushBackFromISR </td>
-          <td>(</td>
-          <td class="paramtype">const T &amp;&#160;</td>
-          <td class="paramname"><em>item</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Post an item to the back of a queue from interrupt context. </p>
-<p >The item is queued by copy, not by reference. This function must not be called from an interrupt service routine.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">item</td><td>Pointer to item to post.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true if item posted in the queue, false when no space left. </dd></dl>
-
-</div>
-</div>
-<a id="a35050745dc8fb0fc673de0de5308c8a5" name="a35050745dc8fb0fc673de0de5308c8a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a35050745dc8fb0fc673de0de5308c8a5">&#9670;&#160;</a></span>TryPushFront()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T , size_t size = 2, const bool support_emplace = false&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool <a class="el" href="class_free_r_t_o_s_1_1_queue.html">FreeRTOS::Queue</a>&lt; T, size, support_emplace &gt;::TryPushFront </td>
-          <td>(</td>
-          <td class="paramtype">const T &amp;&#160;</td>
-          <td class="paramname"><em>item</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>wait_ms</em> = <code>0</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Post an item to the front of a queue. </p>
-<p >The item is queued by copy, not by reference. This function must not be called from an interrupt service routine.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">item</td><td>Pointer to item to post. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">wait_ms</td><td>[Optional] The maximum amount of time the task should block waiting for space to become available on the queue, should it already be full.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true if item posted in the queue, false when no space left. </dd></dl>
-
-</div>
-</div>
-<a id="ae59319d3c5c00508f0220e0abefab242" name="ae59319d3c5c00508f0220e0abefab242"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae59319d3c5c00508f0220e0abefab242">&#9670;&#160;</a></span>TryPushFrontFromISR()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T , size_t size = 2, const bool support_emplace = false&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool <a class="el" href="class_free_r_t_o_s_1_1_queue.html">FreeRTOS::Queue</a>&lt; T, size, support_emplace &gt;::TryPushFrontFromISR </td>
-          <td>(</td>
-          <td class="paramtype">const T &amp;&#160;</td>
-          <td class="paramname"><em>item</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Post an item to the front of a queue from interrupt context. </p>
-<p >The item is queued by copy, not by reference. This function must not be called from an interrupt service routine.</p>
+<p >This function must not be called from an interrupt service routine.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">item</td><td>Pointer to item to post.</td></tr>

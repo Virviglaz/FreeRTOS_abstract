@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['reset_0',['Reset',['../class_free_r_t_o_s_1_1_timer_delay.html#a1fbe3627f6b44b257bf345362b83a274',1,'FreeRTOS::TimerDelay']]],
-  ['resume_1',['Resume',['../class_free_r_t_o_s_1_1_task.html#af8b7de0060e1fe5084e7cf743ae1af84',1,'FreeRTOS::Task']]],
-  ['resumeall_2',['ResumeAll',['../class_free_r_t_o_s_1_1_task.html#a718584a6070a4b5979b5e4f6980cc068',1,'FreeRTOS::Task']]]
+  ['queue_0',['Queue',['../class_free_r_t_o_s_1_1_queue.html#af6bc8d1a7c117467dbad953f9a8a8a20',1,'FreeRTOS::Queue::Queue()'],['../class_free_r_t_o_s_1_1_queue.html#ae4bdfd503bbda2ac93e7d377415a17a0',1,'FreeRTOS::Queue::Queue(const Queue &amp;)=delete']]]
 ];

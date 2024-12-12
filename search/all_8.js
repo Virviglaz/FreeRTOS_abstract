@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['notifygive_0',['NotifyGive',['../class_free_r_t_o_s_1_1_task.html#a50498c97387988610bf721148ba8fb94',1,'FreeRTOS::Task']]],
-  ['notifygivefromisr_1',['NotifyGiveFromISR',['../class_free_r_t_o_s_1_1_task.html#adeb60d237e5345710bfd98ad8cb7f616',1,'FreeRTOS::Task']]],
-  ['notifytake_2',['NotifyTake',['../class_free_r_t_o_s_1_1_task.html#aa174e39d9f4421795246b1305f7870db',1,'FreeRTOS::Task']]]
+  ['mutex_0',['Mutex',['../class_free_r_t_o_s_1_1_mutex.html',1,'FreeRTOS::Mutex'],['../class_free_r_t_o_s_1_1_mutex.html#a31df9a3d06ee22ed89231c0bc9e589e8',1,'FreeRTOS::Mutex::Mutex()'],['../class_free_r_t_o_s_1_1_mutex.html#a92ea0a38fb3a023b38455798117de9d5',1,'FreeRTOS::Mutex::Mutex(const Mutex &amp;)=delete']]]
 ];
