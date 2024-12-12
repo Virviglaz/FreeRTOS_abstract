@@ -612,141 +612,73 @@ namespace FreeRTOS
 	 * @tparam T		Type of object to be enqueued.
 	 * @tparam size		Maximum queue size
 	 *			(maximum amount of object to store).
-	 * @tparam support_emplace	Enable support emplace constructor.
 	 */
-	template <class T, size_t size = 2, const bool support_emplace = false>
+	template <class T, size_t size = 2>
 	class Queue
 	{
 	protected:
 #if (configSUPPORT_STATIC_ALLOCATION == 1)
 		StaticQueue_t xStaticQueue;
-		uint8_t ucQueueStorageArea[sizeof(T) * size];
 #endif /* STATIC_ALLOCATION */
-		QueueHandle_t handle = nullptr;
-		T buffer[support_emplace ? 2 : 1];
+		CountingSemaphore semaphore {0, size};
+		T buffer[size];
+		size_t rd_idx = 0;
+		size_t wr_idx = 0;
 	public:
-		const bool IsEmplaceSupported = support_emplace;
 		/**
-		 * @brief Constructor.
+		 * @brief Default constructor.
 		 */
-		Queue() {
-#if (configSUPPORT_STATIC_ALLOCATION == 1)
-			handle = xQueueCreateStatic(size,
-				sizeof(T), ucQueueStorageArea,
-				&xStaticQueue);
-#else /* STATIC_ALLOCATION */
-			handle = xQueueCreate(size, sizeof(T));
-#endif /* STATIC_ALLOCATION */
-			configASSERT(handle != nullptr);
-		}
+		Queue() {}
 
 		/**
-		 * @brief Deletes the queue and releases allocated memory.
+		 * @brief Prevent class to be copied or moved.
 		 */
-		~Queue() {
-			if (handle)
-				vQueueDelete(handle);
-			handle = nullptr;
-		}
+		Queue(const Queue&) = delete;
+		Queue(Queue&&) = delete;
 
 		/**
 		 * @brief Construct an item at the back place of a queue.
 		 *
-		 * The item is queued by copy, not by reference.
 		 * This function must not be called from an interrupt service
 		 * routine.
-		 *
-		 * @param[in] wait_ms	The maximum amount of time the task
-		 *			should block waiting for space to become
-		 *			available on the queue,
-		 *			should it already be full.
 		 *
 		 * @param[in] args	T constructor arguments.
 		 * @return true if item posted in the queue,
 		 * false when no space left.
 		 */
 		template <typename... Args>
-		bool TryEmplaceBack(size_t wait_ms, Args &&...args) noexcept (
+		bool TryEmplaceBack(Args &&...args) noexcept (
 			std::is_nothrow_constructible<T, Args &&...>::value) {
 			static_assert(
 				std::is_constructible<T, Args &&...>::value,
 				"T must be constructible with Args&&...");
-			static_assert(support_emplace,
-			              "Emplace support is disabled.");
-			new (&buffer[1]) T(std::forward<Args>(args)...);
-			return xQueueSendToBack(handle, (void *)&buffer[1],
-				pdMS_TO_TICKS(wait_ms)) == pdTRUE;
-		}
 
-		/**
-		 * @brief Construct an item at the front place of a queue.
-		 *
-		 * The item is queued by copy, not by reference.
-		 * This function must not be called from an interrupt service
-		 * routine.
-		 *
-		 * @param[in] wait_ms	The maximum amount of time the task
-		 *			should block waiting for space to become
-		 *			available on the queue,
-		 *			should it already be full.
-		 *
-		 * @param[in] args	T constructor arguments.
-		 * @return true if item posted in the queue, false when no space
-		 * left.
-		 */
-		template <typename... Args>
-		bool TryEmplaceFront(size_t wait_ms, Args &&...args) noexcept (
-			std::is_nothrow_constructible<T, Args &&...>::value) {
-			static_assert(
-				std::is_constructible<T, Args &&...>::value,
-				"T must be constructible with Args&&...");
-			static_assert(support_emplace,
-			              "Emplace support is disabled.");
-			new (&buffer[1]) T(std::forward<Args>(args)...);
-			return xQueueSendToFront(handle, (void *)&buffer[1],
-				pdMS_TO_TICKS(wait_ms)) == pdTRUE;
+			size_t next_wr_idx = wr_idx + 1;
+			if (next_wr_idx == size)
+				next_wr_idx = 0;
+
+			if (next_wr_idx == rd_idx)
+				return false;
+
+			new (&buffer[wr_idx]) T(std::forward<Args>(args)...);
+			semaphore.Give();
+			wr_idx = next_wr_idx;
+			return true;
 		}
 
 		/**
 		 * @brief Post an item to the back of a queue.
 		 *
-		 * The item is queued by copy, not by reference.
 		 * This function must not be called from an interrupt service
 		 * routine.
 		 *
 		 * @param[in] item	Pointer to item to post.
-		 * @param[in] wait_ms	[Optional] The maximum amount of time
-		 *			the task should block waiting for space
-		 *			to become available on the queue,
-		 *			should it already be full.
 		 *
 		 * @return true if item posted in the queue, false when
 		 * no space left.
 		 */
-		bool TryPushBack(const T &item, size_t wait_ms = 0) {
-			return xQueueSendToBack(handle, (const void *)&item,
-				pdMS_TO_TICKS(wait_ms)) == pdTRUE;
-		}
-
-		/**
-		 * @brief Post an item to the front of a queue.
-		 *
-		 * The item is queued by copy, not by reference.
-		 * This function must not be called from an interrupt service
-		 * routine.
-		 *
-		 * @param[in] item	Pointer to item to post.
-		 * @param[in] wait_ms	[Optional] The maximum amount of time
-		 *			the task should block waiting for space
-		 *			to become available on the queue, should
-		 *			it already be full.
-		 *
-		 * @return true if item posted in the queue, false when no space
-		 * left.
-		 */
-		bool TryPushFront(const T &item, size_t wait_ms = 0) {
-			return xQueueSendToFront(handle, (const void *)&item,
-				pdMS_TO_TICKS(wait_ms)) == pdTRUE;
+		bool TryPushBack(const T &item) noexcept {
+			return TryEmplaceBack(item);
 		}
 
 		/**
@@ -759,65 +691,25 @@ namespace FreeRTOS
 		 * @return Pointer to item in the buffer or nullptr if queue is
 		 * empty.
 		 */
-		T* TryPop(size_t wait_ms = 0) noexcept {
-			return xQueueReceive(handle,
-			        const_cast<T *>(&buffer[0]),
-				pdMS_TO_TICKS(wait_ms)) == pdTRUE ? \
-				const_cast<T *>(&buffer[0]) : nullptr;
+		T* Front(size_t wait_ms = 0) noexcept {
+			if (wr_idx == rd_idx) {
+				if (wait_ms) {
+					if (!semaphore.Take(wait_ms))
+						return nullptr;
+				} else
+					return nullptr;
+			}
+
+			return &buffer[rd_idx];
 		}
 
-		/**
-		 * @brief Prevent class to be copied.
-		 */
-		Queue(const Queue &) = delete;
-
-		/**
-		 * @brief Post an item to the back of a queue from interrupt
-		 * context.
-		 *
-		 * The item is queued by copy, not by reference.
-		 * This function must not be called from an interrupt service
-		 * routine.
-		 *
-		 * @param[in] item		Pointer to item to post.
-		 *
-		 * @return true if item posted in the queue, false when no space
-		 * left.
-		 */
-		bool TryPushBackFromISR(const T &item) {
-			return xQueueSendToBackFromISR(Queue::handle,
-				(const void *)&item, nullptr) == pdTRUE;
-		}
-
-		/**
-		 * @brief Post an item to the front of a queue from interrupt
-		 * context.
-		 *
-		 * The item is queued by copy, not by reference.
-		 * This function must not be called from an interrupt service
-		 * routine.
-		 *
-		 * @param[in] item		Pointer to item to post.
-		 *
-		 * @return true if item posted in the queue, false when no space
-		 * left.
-		 */
-		bool TryPushFrontFromISR(const T &item) {
-			return xQueueSendToFrontFromISR(handle,
-				(const void *)&item, nullptr) == pdTRUE;
-		}
-
-		/**
-		 * @brief Receive an item from a queue from interrupt context.
-		 *
-		 * @return Pointer to item in the buffer or nullptr if queue is
-		 * empty.
-		 */
-		T* TryPopFromISR() {
-			return xQueueReceiveFromISR(handle,
-				const_cast<T *>(&buffer[0]), nullptr) == \
-					pdTRUE ? const_cast<T *>(&buffer[0]) \
-							: nullptr;
+		void Pop() noexcept {
+			static_assert(std::is_nothrow_destructible<T>::value,
+					"T must be nothrow destructible");
+			buffer[rd_idx].~T();
+			rd_idx++;
+			if (rd_idx == size)
+				rd_idx = 0;
 		}
 	};
 
