@@ -19,7 +19,7 @@
 /**
  * @Note
  * To use FreeRTOS memory allocations:
- * 1. Add linker flag: -Wl,--wrap,malloc
+ * 1. Add linker flag: -Wl,--wrap,malloc,--wrap,free
  * 2. Add wrapper functions: (use extern "C" if placed in cpp file)
  *		void *__wrap_malloc(size_t size) { return pvPortMalloc(size); }
  *		void __wrap_free(void *ptr) { vPortFree(ptr); }
