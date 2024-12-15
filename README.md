@@ -1,4 +1,4 @@
-# C++ abstract layer for FreeRTOS
+FreeRTOS::Queue<int, 10> q;FreeRTOS::Queue<int, 10> q;# C++ abstract layer for FreeRTOS
 
 ## Doxygen documentation:
 https://virviglaz.github.io/FreeRTOS_abstract/
