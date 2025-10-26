@@ -89,509 +89,504 @@ $(function() {
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;string.h&gt;</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;utility&gt;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#ifndef FREERTOS_DEFAULT_TASK_STACK_SIZE</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">#define FREERTOS_DEFAULT_TASK_STACK_SIZE        configMINIMAL_STACK_SIZE</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">#define WAIT_MAX                    portMAX_DELAY</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#ifdef __has_cpp_attribute</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#if __has_cpp_attribute(nodiscard)</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#define FREERTOS_NODISCARD [[nodiscard]]</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;atomic&gt;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">#ifndef FREERTOS_DEFAULT_TASK_STACK_SIZE</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">#define FREERTOS_DEFAULT_TASK_STACK_SIZE        configMINIMAL_STACK_SIZE</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#define WAIT_MAX                    portMAX_DELAY</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#ifdef __has_cpp_attribute</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#if __has_cpp_attribute(nodiscard)</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#define FREERTOS_NODISCARD [[nodiscard]]</span></div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">#ifndef FREERTOS_NODISCARD</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#define FREERTOS_NODISCARD</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="keyword">namespace </span>FreeRTOS</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>{</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keyword">inline</span> <span class="keywordtype">void</span> StartScheduler() {</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        vTaskStartScheduler();</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    }</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keyword">inline</span> <span class="keywordtype">void</span> StopScheduler() {</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        vTaskEndScheduler();</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    }</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_mutex.html">   82</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_free_r_t_o_s_1_1_mutex.html">Mutex</a></div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    {</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="preprocessor">#if (configSUPPORT_STATIC_ALLOCATION == 1)</span></div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        StaticSemaphore_t buffer;</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="preprocessor">#endif </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        SemaphoreHandle_t handle = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_mutex.html#a31df9a3d06ee22ed89231c0bc9e589e8">   93</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#a31df9a3d06ee22ed89231c0bc9e589e8">Mutex</a>() {</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="preprocessor">#if (configSUPPORT_STATIC_ALLOCATION == 1)</span></div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            handle = xSemaphoreCreateMutexStatic(&amp;buffer);</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="preprocessor">#else </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>            handle = xSemaphoreCreateMutex();</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>            configASSERT(handle != <span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="preprocessor">#endif </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        }</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_mutex.html#adf0a6b9b93fa68a20ef728fc63e0b1e2">  105</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#adf0a6b9b93fa68a20ef728fc63e0b1e2">~Mutex</a>() {</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>            <span class="keywordflow">if</span> (handle)</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                vSemaphoreDelete(handle);</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>            handle = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        }</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_mutex.html#a71ef58fb5c9500d264aa6a0bc67a3d63">  119</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#a71ef58fb5c9500d264aa6a0bc67a3d63">Lock</a>(<span class="keywordtype">size_t</span> wait_ms = WAIT_MAX) {</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>            <span class="keywordflow">return</span> xSemaphoreTake(handle,</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>                                  pdMS_TO_TICKS(wait_ms)) == pdTRUE;</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        }</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_mutex.html#abebd78712e4394604d7508e8f99abd30">  130</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#abebd78712e4394604d7508e8f99abd30">Unlock</a>() {</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>            <span class="keywordflow">return</span> xSemaphoreGive(handle) == pdTRUE;</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        }</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_mutex.html#a92ea0a38fb3a023b38455798117de9d5">  137</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#a92ea0a38fb3a023b38455798117de9d5">Mutex</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_free_r_t_o_s_1_1_mutex.html">Mutex</a> &amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_mutex.html#ac4860e7216b0d7944643b2bba96afefa">  144</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#ac4860e7216b0d7944643b2bba96afefa">LockFromISR</a>() {</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>            <span class="keywordflow">return</span> xSemaphoreTakeFromISR(handle, <span class="keyword">nullptr</span>) == pdTRUE;</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        }</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_mutex.html#a0cd126cdf0aeec979954cee947b18176">  154</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#a0cd126cdf0aeec979954cee947b18176">UnlockFromISR</a>() {</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>            <span class="keywordflow">return</span> xSemaphoreGiveFromISR(handle, <span class="keyword">nullptr</span>) == pdTRUE;</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        }</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    };</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_binary_semaphore.html">  162</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_free_r_t_o_s_1_1_binary_semaphore.html">BinarySemaphore</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_free_r_t_o_s_1_1_mutex.html">Mutex</a></div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    {</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>        <span class="keyword">using </span><a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#a31df9a3d06ee22ed89231c0bc9e589e8">Mutex::Mutex</a>;</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        <span class="keyword">using </span><a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#a71ef58fb5c9500d264aa6a0bc67a3d63">Mutex::Lock</a>;</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>        <span class="keyword">using </span><a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#ac4860e7216b0d7944643b2bba96afefa">Mutex::LockFromISR</a>;</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        <span class="keyword">using </span><a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#abebd78712e4394604d7508e8f99abd30">Mutex::Unlock</a>;</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>        <span class="keyword">using </span><a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#a0cd126cdf0aeec979954cee947b18176">Mutex::UnlockFromISR</a>;</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_binary_semaphore.html#a8c648c44a12bfe12366cb286826acde9">  174</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_binary_semaphore.html#a8c648c44a12bfe12366cb286826acde9">BinarySemaphore</a>() {</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span><span class="preprocessor">#if (configSUPPORT_STATIC_ALLOCATION == 1)</span></div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>            handle = xSemaphoreCreateBinaryStatic(&amp;buffer);</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span><span class="preprocessor">#else </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>            handle = xSemaphoreCreateBinary();</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>            configASSERT(handle != <span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span><span class="preprocessor">#endif </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>        }</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span> </div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_binary_semaphore.html#a961750935145c11d42b8e639bf549a24">  188</a></span>        <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_binary_semaphore.html#a961750935145c11d42b8e639bf549a24">Give</a>() {</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#abebd78712e4394604d7508e8f99abd30">Mutex::Unlock</a>();</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>        }</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span> </div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_binary_semaphore.html#aa6b9226fec2dd3706859b808212d2625">  200</a></span>        <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_binary_semaphore.html#aa6b9226fec2dd3706859b808212d2625">Take</a>(<span class="keywordtype">size_t</span> wait_ms = WAIT_MAX) {</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#a71ef58fb5c9500d264aa6a0bc67a3d63">Mutex::Lock</a>(wait_ms);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#ifndef FREERTOS_NODISCARD</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">#define FREERTOS_NODISCARD</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="keyword">namespace </span>FreeRTOS</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>{</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keyword">inline</span> <span class="keywordtype">void</span> StartScheduler() {</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        vTaskStartScheduler();</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    }</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keyword">inline</span> <span class="keywordtype">void</span> StopScheduler() {</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        vTaskEndScheduler();</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    }</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_mutex.html">   83</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_free_r_t_o_s_1_1_mutex.html">Mutex</a></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    {</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="preprocessor">#if (configSUPPORT_STATIC_ALLOCATION == 1)</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        StaticSemaphore_t buffer;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="preprocessor">#endif </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        SemaphoreHandle_t handle = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_mutex.html#a31df9a3d06ee22ed89231c0bc9e589e8">   94</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#a31df9a3d06ee22ed89231c0bc9e589e8">Mutex</a>() {</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="preprocessor">#if (configSUPPORT_STATIC_ALLOCATION == 1)</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            handle = xSemaphoreCreateMutexStatic(&amp;buffer);</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="preprocessor">#else </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>            handle = xSemaphoreCreateMutex();</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>            configASSERT(handle != <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="preprocessor">#endif </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        }</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_mutex.html#adf0a6b9b93fa68a20ef728fc63e0b1e2">  106</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#adf0a6b9b93fa68a20ef728fc63e0b1e2">~Mutex</a>() {</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>            <span class="keywordflow">if</span> (handle)</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>                vSemaphoreDelete(handle);</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>            handle = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        }</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_mutex.html#a71ef58fb5c9500d264aa6a0bc67a3d63">  120</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#a71ef58fb5c9500d264aa6a0bc67a3d63">Lock</a>(<span class="keywordtype">size_t</span> wait_ms = WAIT_MAX) {</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>            <span class="keywordflow">return</span> xSemaphoreTake(handle,</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>                                  pdMS_TO_TICKS(wait_ms)) == pdTRUE;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        }</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_mutex.html#abebd78712e4394604d7508e8f99abd30">  131</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#abebd78712e4394604d7508e8f99abd30">Unlock</a>() {</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>            <span class="keywordflow">return</span> xSemaphoreGive(handle) == pdTRUE;</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        }</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_mutex.html#a92ea0a38fb3a023b38455798117de9d5">  138</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#a92ea0a38fb3a023b38455798117de9d5">Mutex</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_free_r_t_o_s_1_1_mutex.html">Mutex</a> &amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_mutex.html#ac4860e7216b0d7944643b2bba96afefa">  145</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#ac4860e7216b0d7944643b2bba96afefa">LockFromISR</a>() {</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>            <span class="keywordflow">return</span> xSemaphoreTakeFromISR(handle, <span class="keyword">nullptr</span>) == pdTRUE;</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        }</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span> </div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_mutex.html#a0cd126cdf0aeec979954cee947b18176">  155</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#a0cd126cdf0aeec979954cee947b18176">UnlockFromISR</a>() {</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>            <span class="keywordflow">return</span> xSemaphoreGiveFromISR(handle, <span class="keyword">nullptr</span>) == pdTRUE;</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        }</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    };</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span> </div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_scoped_mutex.html">  166</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_free_r_t_o_s_1_1_scoped_mutex.html">ScopedMutex</a></div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    {</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>        <span class="keyword">explicit</span> <a class="code hl_class" href="class_free_r_t_o_s_1_1_scoped_mutex.html">ScopedMutex</a>(<a class="code hl_class" href="class_free_r_t_o_s_1_1_mutex.html">Mutex</a> &amp;m) : mutex(m) {</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>            mutex.<a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#a71ef58fb5c9500d264aa6a0bc67a3d63">Lock</a>();</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>        }</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span> </div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>        <a class="code hl_class" href="class_free_r_t_o_s_1_1_scoped_mutex.html">~ScopedMutex</a>() {</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>            mutex.<a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#abebd78712e4394604d7508e8f99abd30">Unlock</a>();</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        }</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>        <a class="code hl_class" href="class_free_r_t_o_s_1_1_mutex.html">Mutex</a> &amp;mutex;</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    };</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span> </div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_binary_semaphore.html">  183</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_free_r_t_o_s_1_1_binary_semaphore.html">BinarySemaphore</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_free_r_t_o_s_1_1_mutex.html">Mutex</a></div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    {</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>        <span class="keyword">using </span><a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#a31df9a3d06ee22ed89231c0bc9e589e8">Mutex::Mutex</a>;</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>        <span class="keyword">using </span><a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#a71ef58fb5c9500d264aa6a0bc67a3d63">Mutex::Lock</a>;</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>        <span class="keyword">using </span><a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#ac4860e7216b0d7944643b2bba96afefa">Mutex::LockFromISR</a>;</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>        <span class="keyword">using </span><a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#abebd78712e4394604d7508e8f99abd30">Mutex::Unlock</a>;</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>        <span class="keyword">using </span><a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#a0cd126cdf0aeec979954cee947b18176">Mutex::UnlockFromISR</a>;</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_binary_semaphore.html#a8c648c44a12bfe12366cb286826acde9">  195</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_binary_semaphore.html#a8c648c44a12bfe12366cb286826acde9">BinarySemaphore</a>() {</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span><span class="preprocessor">#if (configSUPPORT_STATIC_ALLOCATION == 1)</span></div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>            handle = xSemaphoreCreateBinaryStatic(&amp;buffer);</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span><span class="preprocessor">#else </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>            handle = xSemaphoreCreateBinary();</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>            configASSERT(handle != <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span><span class="preprocessor">#endif </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
 <div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>        }</div>
 <div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span> </div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_binary_semaphore.html#adc5dbcb6bf747ee56044acb70c3cc4f6">  209</a></span>        <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_binary_semaphore.html#adc5dbcb6bf747ee56044acb70c3cc4f6">GiveFromISR</a>() {</div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#a0cd126cdf0aeec979954cee947b18176">Mutex::UnlockFromISR</a>();</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_binary_semaphore.html#a961750935145c11d42b8e639bf549a24">  209</a></span>        <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_binary_semaphore.html#a961750935145c11d42b8e639bf549a24">Give</a>() {</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#abebd78712e4394604d7508e8f99abd30">Mutex::Unlock</a>();</div>
 <div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>        }</div>
 <div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span> </div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_binary_semaphore.html#ad5ac56aaa6c08999672a1cca7844843b">  219</a></span>        <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_binary_semaphore.html#ad5ac56aaa6c08999672a1cca7844843b">TakeFromISR</a>() {</div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#ac4860e7216b0d7944643b2bba96afefa">Mutex::LockFromISR</a>();</div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>        }</div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    };</div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span> </div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_counting_semaphore.html">  227</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_free_r_t_o_s_1_1_counting_semaphore.html">CountingSemaphore</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_free_r_t_o_s_1_1_binary_semaphore.html">BinarySemaphore</a></div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>    {</div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_counting_semaphore.html#afb1393646482eb0673e9da607011577a">  240</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_counting_semaphore.html#afb1393646482eb0673e9da607011577a">CountingSemaphore</a>(<span class="keywordtype">size_t</span> initial = 0, <span class="keywordtype">size_t</span> max = 100) {</div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span><span class="preprocessor">#if (configSUPPORT_STATIC_ALLOCATION == 1)</span></div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>            handle = xSemaphoreCreateCountingStatic(max, initial,</div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>                                                    &amp;buffer);</div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span><span class="preprocessor">#else </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>            handle = xSemaphoreCreateCounting(max, initial);</div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>            configASSERT(handle != <span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span><span class="preprocessor">#endif </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>        }</div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span> </div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>        FREERTOS_NODISCARD</div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_counting_semaphore.html#acddd37f38a4c4dc5e1dca0304d9a9487">  256</a></span>        <span class="keywordtype">size_t</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_counting_semaphore.html#acddd37f38a4c4dc5e1dca0304d9a9487">GetCount</a>() {</div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>            <span class="keywordflow">return</span> uxSemaphoreGetCount(handle);</div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>        }</div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>    };</div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span> </div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>    <span class="keyword">template</span> &lt;const <span class="keywordtype">size_t</span> stack_size = FREERTOS_DEFAULT_TASK_STACK_SIZE&gt;</div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task.html">  268</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_free_r_t_o_s_1_1_task.html">Task</a></div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    {</div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>        TaskHandle_t handle = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span><span class="preprocessor">#if (configSUPPORT_STATIC_ALLOCATION == 1)</span></div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>        StackType_t xStack[stack_size];</div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>        StaticTask_t xTaskBuffer;</div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span><span class="preprocessor">#endif </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task.html#a9522e36f2028a89978c5f37c78616a74">  288</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_task.html#a9522e36f2028a89978c5f37c78616a74">Task</a>(<span class="keywordtype">void</span> (*handler)(<span class="keywordtype">void</span> *),</div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>            <span class="keywordtype">void</span> *params = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>            <span class="keyword">const</span> <span class="keywordtype">char</span> *name = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>            <span class="keywordtype">int</span> priority = tskIDLE_PRIORITY + 1) {</div>
-<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span><span class="preprocessor">#if (configSUPPORT_STATIC_ALLOCATION == 1)</span></div>
-<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>            handle = xTaskCreateStatic(handler,</div>
-<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>                                       name,</div>
-<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>                                       stack_size,</div>
-<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>                                       params,</div>
-<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>                                       tskIDLE_PRIORITY + priority,</div>
-<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>                                       xStack,</div>
-<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>                                       &amp;xTaskBuffer);</div>
-<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>            configASSERT(handle != <span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span><span class="preprocessor">#else </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>            configASSERT(xTaskCreate(handler,</div>
-<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>                                     name,</div>
-<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>                                     stack_size,</div>
-<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>                                     params,</div>
-<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>                                     tskIDLE_PRIORITY + priority,</div>
-<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>                                     &amp;handle) == pdPASS);</div>
-<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span><span class="preprocessor">#endif </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>        }</div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span> </div>
-<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>        <a class="code hl_class" href="class_free_r_t_o_s_1_1_task.html">~Task</a>() { <a class="code hl_function" href="class_free_r_t_o_s_1_1_task.html#acb02a8f41d28a895958f511b66633cb3">Delete</a>(); }</div>
-<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span> </div>
-<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span><span class="preprocessor">#if (INCLUDE_vTaskDelete == 1)</span></div>
-<div class="line"><a id="l00317" name="l00317"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task.html#acb02a8f41d28a895958f511b66633cb3">  317</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_task.html#acb02a8f41d28a895958f511b66633cb3">Delete</a>() {</div>
-<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>            <span class="keywordflow">if</span> (handle)</div>
-<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>                vTaskDelete(handle);</div>
-<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>            handle = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>        }</div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span> </div>
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> SelfDelete() {</div>
-<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>            vTaskDelete(<span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>        }</div>
-<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span><span class="preprocessor">#endif </span><span class="comment">/* INCLUDE_vTaskDelete */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span> </div>
-<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span><span class="preprocessor">#if (INCLUDE_vTaskSuspend == 1)</span></div>
-<div class="line"><a id="l00332" name="l00332"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task.html#a1fd823bbaac1f96d0ddeddf57bb7fc5c">  332</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_task.html#a1fd823bbaac1f96d0ddeddf57bb7fc5c">Suspend</a>() {</div>
-<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>            vTaskSuspend(handle);</div>
-<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>        }</div>
-<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span><span class="preprocessor">#endif </span><span class="comment">/* INCLUDE_vTaskSuspend */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span> </div>
-<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span><span class="preprocessor">#if (INCLUDE_vTaskSuspend == 1)</span></div>
-<div class="line"><a id="l00341" name="l00341"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task.html#af8b7de0060e1fe5084e7cf743ae1af84">  341</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_task.html#af8b7de0060e1fe5084e7cf743ae1af84">Resume</a>() {</div>
-<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>            vTaskResume(handle);</div>
-<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>        }</div>
-<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span><span class="preprocessor">#endif </span><span class="comment">/* INCLUDE_vTaskSuspend */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span> </div>
-<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span><span class="preprocessor">#if (INCLUDE_eTaskGetState == 1)</span></div>
-<div class="line"><a id="l00350" name="l00350"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task.html#a70e0b60a83794efe7a996c2811679676">  350</a></span>        <span class="keyword">enum</span> <a class="code hl_enumeration" href="class_free_r_t_o_s_1_1_task.html#a70e0b60a83794efe7a996c2811679676">TaskState</a> { Ready, Running, Blocked, Suspended, Deleted };</div>
-<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>        FREERTOS_NODISCARD</div>
-<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>        <a class="code hl_enumeration" href="class_free_r_t_o_s_1_1_task.html#a70e0b60a83794efe7a996c2811679676">TaskState</a> GetState() {</div>
-<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>            eTaskState state = eTaskGetState(handle);</div>
-<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>            <span class="keywordflow">return</span> (<a class="code hl_enumeration" href="class_free_r_t_o_s_1_1_task.html#a70e0b60a83794efe7a996c2811679676">TaskState</a>)state;</div>
-<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>        }</div>
-<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span><span class="preprocessor">#endif </span><span class="comment">/* INCLUDE_eTaskGetState */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span> </div>
-<div class="line"><a id="l00367" name="l00367"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task.html#a594300025cc39e3142208ec6e132ce14">  367</a></span>        <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_task.html#a594300025cc39e3142208ec6e132ce14">SuspendAll</a>() {</div>
-<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>            vTaskSuspendAll();</div>
-<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>        }</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_binary_semaphore.html#aa6b9226fec2dd3706859b808212d2625">  221</a></span>        <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_binary_semaphore.html#aa6b9226fec2dd3706859b808212d2625">Take</a>(<span class="keywordtype">size_t</span> wait_ms = WAIT_MAX) {</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#a71ef58fb5c9500d264aa6a0bc67a3d63">Mutex::Lock</a>(wait_ms);</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>        }</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span> </div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_binary_semaphore.html#adc5dbcb6bf747ee56044acb70c3cc4f6">  230</a></span>        <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_binary_semaphore.html#adc5dbcb6bf747ee56044acb70c3cc4f6">GiveFromISR</a>() {</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#a0cd126cdf0aeec979954cee947b18176">Mutex::UnlockFromISR</a>();</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>        }</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span> </div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_binary_semaphore.html#ad5ac56aaa6c08999672a1cca7844843b">  240</a></span>        <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_binary_semaphore.html#ad5ac56aaa6c08999672a1cca7844843b">TakeFromISR</a>() {</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#ac4860e7216b0d7944643b2bba96afefa">Mutex::LockFromISR</a>();</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>        }</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>    };</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span> </div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_counting_semaphore.html">  248</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_free_r_t_o_s_1_1_counting_semaphore.html">CountingSemaphore</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_free_r_t_o_s_1_1_binary_semaphore.html">BinarySemaphore</a></div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>    {</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_counting_semaphore.html#afb1393646482eb0673e9da607011577a">  261</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_counting_semaphore.html#afb1393646482eb0673e9da607011577a">CountingSemaphore</a>(<span class="keywordtype">size_t</span> initial = 0, <span class="keywordtype">size_t</span> max = 100) {</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span><span class="preprocessor">#if (configSUPPORT_STATIC_ALLOCATION == 1)</span></div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>            handle = xSemaphoreCreateCountingStatic(max, initial,</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>                                                    &amp;buffer);</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span><span class="preprocessor">#else </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>            handle = xSemaphoreCreateCounting(max, initial);</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>            configASSERT(handle != <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span><span class="preprocessor">#endif </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>        }</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span> </div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>        FREERTOS_NODISCARD</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_counting_semaphore.html#acddd37f38a4c4dc5e1dca0304d9a9487">  277</a></span>        <span class="keywordtype">size_t</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_counting_semaphore.html#acddd37f38a4c4dc5e1dca0304d9a9487">GetCount</a>() {</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>            <span class="keywordflow">return</span> uxSemaphoreGetCount(handle);</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>        }</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    };</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span> </div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>    <span class="keyword">template</span> &lt;</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>        <span class="keyword">const</span> <span class="keywordtype">size_t</span> stack_size = FREERTOS_DEFAULT_TASK_STACK_SIZE,</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>        <span class="keyword">typename</span> T = <span class="keywordtype">void</span></div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>    &gt;</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task.html">  294</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_free_r_t_o_s_1_1_task.html">Task</a></div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>    {</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>    <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>        TaskHandle_t task_handle = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>        T *task_params = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>        void (*task_handler)(<span class="keywordtype">void</span> *) = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>        <span class="keyword">static</span> <span class="keyword">inline</span> std::atomic&lt;unsigned int&gt; nof_tasks {0};</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> internal_handler(<span class="keywordtype">void</span> *params) {</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>            <a class="code hl_class" href="class_free_r_t_o_s_1_1_task.html">Task</a> *typed_params = <span class="keyword">static_cast&lt;</span><a class="code hl_class" href="class_free_r_t_o_s_1_1_task.html">Task</a> *<span class="keyword">&gt;</span>(params);</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>            typed_params-&gt;task_handler(typed_params-&gt;task_params);</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>            typed_params-&gt;<a class="code hl_function" href="class_free_r_t_o_s_1_1_task.html#a08381225164a2f897db9baec92ffd774">Delete</a>();</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>            typed_params-&gt;task_handle = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>        }</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span><span class="preprocessor">#if (configSUPPORT_STATIC_ALLOCATION == 1)</span></div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>        StackType_t xStack[stack_size];</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>        StaticTask_t xTaskBuffer;</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span><span class="preprocessor">#endif </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task.html#a552e855d2aa2478e8a21d30ce587128b">  323</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_task.html#a552e855d2aa2478e8a21d30ce587128b">Task</a>(<span class="keywordtype">void</span> (*handler)(T *),</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>            T *params = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>            <span class="keyword">const</span> <span class="keywordtype">char</span> *name = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>            <span class="keywordtype">int</span> priority = tskIDLE_PRIORITY + 1) {</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>            task_handler = handler;</div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>            task_params = params;</div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span><span class="preprocessor">#if (configSUPPORT_STATIC_ALLOCATION == 1)</span></div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>            task_handle = xTaskCreateStatic(internal_handler,</div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>                                       name,</div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>                                       stack_size,</div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>                                       <span class="keyword">this</span>,</div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>                                       tskIDLE_PRIORITY + priority,</div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>                                       xStack,</div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>                                       &amp;xTaskBuffer);</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>            configASSERT(handle != <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>            nof_tasks++;</div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span><span class="preprocessor">#else </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>            configASSERT(xTaskCreate(internal_handler,</div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>                                     name,</div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>                                     stack_size,</div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>                                     <span class="keyword">this</span>,</div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>                                     tskIDLE_PRIORITY + priority,</div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>                                     &amp;task_handle) == pdPASS);</div>
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>            nof_tasks++;</div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span><span class="preprocessor">#endif </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>        }</div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span> </div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>        <a class="code hl_class" href="class_free_r_t_o_s_1_1_task.html">~Task</a>() { <a class="code hl_function" href="class_free_r_t_o_s_1_1_task.html#a08381225164a2f897db9baec92ffd774">Delete</a>(); }</div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span> </div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span><span class="preprocessor">#if (INCLUDE_vTaskDelete == 1)</span></div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task.html#a08381225164a2f897db9baec92ffd774">  356</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_task.html#a08381225164a2f897db9baec92ffd774">Delete</a>() {</div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>            <span class="keywordflow">if</span> (!task_handle)</div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>                <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span> </div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>            TaskHandle_t tmp = task_handle;</div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>            task_handle = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>            nof_tasks--;</div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span> </div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>            <span class="comment">/* No tasks left, stop scheduller */</span></div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>            <span class="keywordflow">if</span> (!nof_tasks)</div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>                StopScheduler();</div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>            vTaskDelete(tmp);</div>
+<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>        }</div>
+<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span><span class="preprocessor">#endif </span><span class="comment">/* INCLUDE_vTaskDelete */</span><span class="preprocessor"></span></div>
 <div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span> </div>
-<div class="line"><a id="l00375" name="l00375"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task.html#a718584a6070a4b5979b5e4f6980cc068">  375</a></span>        <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_task.html#a718584a6070a4b5979b5e4f6980cc068">ResumeAll</a>() {</div>
-<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>            xTaskResumeAll();</div>
+<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span><span class="preprocessor">#if (INCLUDE_vTaskSuspend == 1)</span></div>
+<div class="line"><a id="l00375" name="l00375"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task.html#a6f379657327a9937d5dd628386bfec7f">  375</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_task.html#a6f379657327a9937d5dd628386bfec7f">Suspend</a>() {</div>
+<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>            vTaskSuspend(task_handle);</div>
 <div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>        }</div>
-<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span> </div>
-<div class="line"><a id="l00386" name="l00386"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task.html#a026c97a31108347b80a105a59920fa6a">  386</a></span>        <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_task.html#a026c97a31108347b80a105a59920fa6a">DoYield</a>() {</div>
-<div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span>            taskYIELD();</div>
-<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span>        }</div>
-<div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span> </div>
-<div class="line"><a id="l00395" name="l00395"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task.html#aeac72b24ef62f1c64d14351674c9932a">  395</a></span>        <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_task.html#aeac72b24ef62f1c64d14351674c9932a">EnterCritical</a>() {</div>
-<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>            taskENTER_CRITICAL();</div>
-<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>        }</div>
-<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span> </div>
-<div class="line"><a id="l00411" name="l00411"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task.html#abe252dac2fb6e563182212f6d7a36056">  411</a></span>        <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_task.html#abe252dac2fb6e563182212f6d7a36056">ExitCritical</a>() {</div>
-<div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span>            taskEXIT_CRITICAL();</div>
-<div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span>        }</div>
-<div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span> </div>
-<div class="line"><a id="l00418" name="l00418"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task.html#ac5c09246df5766e249ef8fef921b5c6f">  418</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_task.html#ac5c09246df5766e249ef8fef921b5c6f">Task</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_free_r_t_o_s_1_1_task.html">Task</a> &amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00419" name="l00419"></a><span class="lineno">  419</span> </div>
-<div class="line"><a id="l00420" name="l00420"></a><span class="lineno">  420</span><span class="preprocessor">#if (configUSE_TASK_NOTIFICATIONS == 1)</span></div>
-<div class="line"><a id="l00429" name="l00429"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task.html#a50498c97387988610bf721148ba8fb94">  429</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_task.html#a50498c97387988610bf721148ba8fb94">NotifyGive</a>(<span class="keywordtype">int</span> index = -1) {</div>
-<div class="line"><a id="l00430" name="l00430"></a><span class="lineno">  430</span>            <span class="keywordflow">if</span> (index &gt;= 0) {</div>
-<div class="line"><a id="l00431" name="l00431"></a><span class="lineno">  431</span>                configASSERT(xTaskNotifyGiveIndexed(handle,</div>
-<div class="line"><a id="l00432" name="l00432"></a><span class="lineno">  432</span>                    index) == pdPASS);</div>
-<div class="line"><a id="l00433" name="l00433"></a><span class="lineno">  433</span>            } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00434" name="l00434"></a><span class="lineno">  434</span>                configASSERT(xTaskNotifyGive(handle) == pdPASS);</div>
-<div class="line"><a id="l00435" name="l00435"></a><span class="lineno">  435</span>            }</div>
-<div class="line"><a id="l00436" name="l00436"></a><span class="lineno">  436</span>        }</div>
-<div class="line"><a id="l00437" name="l00437"></a><span class="lineno">  437</span> </div>
-<div class="line"><a id="l00446" name="l00446"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task.html#adeb60d237e5345710bfd98ad8cb7f616">  446</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_task.html#adeb60d237e5345710bfd98ad8cb7f616">NotifyGiveFromISR</a>(<span class="keywordtype">int</span> index = -1) {</div>
-<div class="line"><a id="l00447" name="l00447"></a><span class="lineno">  447</span>            <span class="keywordflow">if</span> (index &gt;= 0) {</div>
-<div class="line"><a id="l00448" name="l00448"></a><span class="lineno">  448</span>                vTaskNotifyGiveIndexedFromISR(handle, index,</div>
-<div class="line"><a id="l00449" name="l00449"></a><span class="lineno">  449</span>                                              <span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00450" name="l00450"></a><span class="lineno">  450</span>            } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00451" name="l00451"></a><span class="lineno">  451</span>                vTaskNotifyGiveFromISR(handle, <span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00452" name="l00452"></a><span class="lineno">  452</span>            }</div>
-<div class="line"><a id="l00453" name="l00453"></a><span class="lineno">  453</span>        }</div>
-<div class="line"><a id="l00454" name="l00454"></a><span class="lineno">  454</span> </div>
-<div class="line"><a id="l00465" name="l00465"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task.html#aa174e39d9f4421795246b1305f7870db">  465</a></span>        uint32_t <a class="code hl_function" href="class_free_r_t_o_s_1_1_task.html#aa174e39d9f4421795246b1305f7870db">NotifyTake</a>(<span class="keywordtype">size_t</span> wait_ms,</div>
-<div class="line"><a id="l00466" name="l00466"></a><span class="lineno">  466</span>                            <span class="keywordtype">bool</span> reset = <span class="keyword">true</span>,</div>
-<div class="line"><a id="l00467" name="l00467"></a><span class="lineno">  467</span>                            <span class="keywordtype">int</span> index = -1) {</div>
-<div class="line"><a id="l00468" name="l00468"></a><span class="lineno">  468</span>            <span class="keywordflow">if</span> (index &gt;= 0) {</div>
-<div class="line"><a id="l00469" name="l00469"></a><span class="lineno">  469</span>                <span class="keywordflow">return</span> ulTaskNotifyTakeIndexed(index, reset,</div>
-<div class="line"><a id="l00470" name="l00470"></a><span class="lineno">  470</span>                    pdMS_TO_TICKS(wait_ms));</div>
-<div class="line"><a id="l00471" name="l00471"></a><span class="lineno">  471</span>            } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00472" name="l00472"></a><span class="lineno">  472</span>                <span class="keywordflow">return</span> ulTaskNotifyTake(reset,</div>
-<div class="line"><a id="l00473" name="l00473"></a><span class="lineno">  473</span>                    pdMS_TO_TICKS(wait_ms));</div>
-<div class="line"><a id="l00474" name="l00474"></a><span class="lineno">  474</span>            }</div>
-<div class="line"><a id="l00475" name="l00475"></a><span class="lineno">  475</span>        }</div>
-<div class="line"><a id="l00476" name="l00476"></a><span class="lineno">  476</span><span class="preprocessor">#endif </span><span class="comment">/* configUSE_TASK_NOTIFICATIONS */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00477" name="l00477"></a><span class="lineno">  477</span> </div>
-<div class="line"><a id="l00481" name="l00481"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task_1_1_isr.html">  481</a></span>        <span class="keyword">class </span><a class="code hl_class" href="class_free_r_t_o_s_1_1_task_1_1_isr.html">Isr</a></div>
-<div class="line"><a id="l00482" name="l00482"></a><span class="lineno">  482</span>        {</div>
-<div class="line"><a id="l00483" name="l00483"></a><span class="lineno">  483</span>        <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00484" name="l00484"></a><span class="lineno">  484</span>            <span class="keyword">static</span> <span class="keyword">inline</span> UBaseType_t uxSavedInterruptStatus;</div>
-<div class="line"><a id="l00485" name="l00485"></a><span class="lineno">  485</span>        <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00489" name="l00489"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task_1_1_isr.html#a58c7978bd53808a9d1011ac5a444159c">  489</a></span>            <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_task_1_1_isr.html#a58c7978bd53808a9d1011ac5a444159c">EnterCritical</a>() {</div>
-<div class="line"><a id="l00490" name="l00490"></a><span class="lineno">  490</span>                uxSavedInterruptStatus =</div>
-<div class="line"><a id="l00491" name="l00491"></a><span class="lineno">  491</span>                        taskENTER_CRITICAL_FROM_ISR();</div>
-<div class="line"><a id="l00492" name="l00492"></a><span class="lineno">  492</span>            }</div>
-<div class="line"><a id="l00493" name="l00493"></a><span class="lineno">  493</span> </div>
-<div class="line"><a id="l00497" name="l00497"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task_1_1_isr.html#a7f0bdca16bfe91d9b5d9b6f61276c619">  497</a></span>            <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_task_1_1_isr.html#a7f0bdca16bfe91d9b5d9b6f61276c619">ExitCritical</a>() {</div>
-<div class="line"><a id="l00498" name="l00498"></a><span class="lineno">  498</span>                taskEXIT_CRITICAL_FROM_ISR(uxSavedInterruptStatus);</div>
-<div class="line"><a id="l00499" name="l00499"></a><span class="lineno">  499</span>            }</div>
-<div class="line"><a id="l00500" name="l00500"></a><span class="lineno">  500</span>        };</div>
-<div class="line"><a id="l00501" name="l00501"></a><span class="lineno">  501</span> </div>
-<div class="line"><a id="l00502" name="l00502"></a><span class="lineno">  502</span><span class="preprocessor">#if (INCLUDE_vTaskDelete == 1)</span></div>
-<div class="line"><a id="l00506" name="l00506"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task_1_1_do_async.html">  506</a></span>        <span class="keyword">class </span><a class="code hl_class" href="class_free_r_t_o_s_1_1_task_1_1_do_async.html">DoAsync</a></div>
-<div class="line"><a id="l00507" name="l00507"></a><span class="lineno">  507</span>        {</div>
-<div class="line"><a id="l00508" name="l00508"></a><span class="lineno">  508</span>        <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00509" name="l00509"></a><span class="lineno">  509</span>            void (*async_job)();</div>
-<div class="line"><a id="l00510" name="l00510"></a><span class="lineno">  510</span>            <a class="code hl_class" href="class_free_r_t_o_s_1_1_binary_semaphore.html">BinarySemaphore</a> done;</div>
-<div class="line"><a id="l00511" name="l00511"></a><span class="lineno">  511</span><span class="preprocessor">#if (configSUPPORT_STATIC_ALLOCATION == 1)</span></div>
-<div class="line"><a id="l00512" name="l00512"></a><span class="lineno">  512</span>            StackType_t xStack[stack_size];</div>
-<div class="line"><a id="l00513" name="l00513"></a><span class="lineno">  513</span>            StaticTask_t xTaskBuffer;</div>
-<div class="line"><a id="l00514" name="l00514"></a><span class="lineno">  514</span><span class="preprocessor">#endif </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00515" name="l00515"></a><span class="lineno">  515</span>            <span class="keyword">static</span> <span class="keywordtype">void</span> handler(<span class="keywordtype">void</span> *args) {</div>
-<div class="line"><a id="l00516" name="l00516"></a><span class="lineno">  516</span>                <a class="code hl_class" href="class_free_r_t_o_s_1_1_task_1_1_do_async.html">DoAsync</a> *c = <span class="keyword">static_cast&lt;</span><a class="code hl_class" href="class_free_r_t_o_s_1_1_task_1_1_do_async.html">DoAsync</a> *<span class="keyword">&gt;</span>(args);</div>
-<div class="line"><a id="l00517" name="l00517"></a><span class="lineno">  517</span>                c-&gt;async_job();</div>
-<div class="line"><a id="l00518" name="l00518"></a><span class="lineno">  518</span>                c-&gt;done.<a class="code hl_function" href="class_free_r_t_o_s_1_1_binary_semaphore.html#a961750935145c11d42b8e639bf549a24">Give</a>();</div>
-<div class="line"><a id="l00519" name="l00519"></a><span class="lineno">  519</span>                Task::SelfDelete();</div>
-<div class="line"><a id="l00520" name="l00520"></a><span class="lineno">  520</span>            }</div>
-<div class="line"><a id="l00521" name="l00521"></a><span class="lineno">  521</span>        <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00530" name="l00530"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task_1_1_do_async.html#a94933a57f5b5d0f4840e74fa6f824f86">  530</a></span>            <a class="code hl_function" href="class_free_r_t_o_s_1_1_task_1_1_do_async.html#a94933a57f5b5d0f4840e74fa6f824f86">DoAsync</a>(<span class="keywordtype">void</span> (*job)(),</div>
-<div class="line"><a id="l00531" name="l00531"></a><span class="lineno">  531</span>                    <span class="keywordtype">size_t</span> priority = 1) {</div>
-<div class="line"><a id="l00532" name="l00532"></a><span class="lineno">  532</span>                async_job = job;</div>
-<div class="line"><a id="l00533" name="l00533"></a><span class="lineno">  533</span><span class="preprocessor">#if (configSUPPORT_STATIC_ALLOCATION == 1)</span></div>
-<div class="line"><a id="l00534" name="l00534"></a><span class="lineno">  534</span>                configASSERT(xTaskCreateStatic(handler,</div>
-<div class="line"><a id="l00535" name="l00535"></a><span class="lineno">  535</span>                                       <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00536" name="l00536"></a><span class="lineno">  536</span>                                       stack_size,</div>
-<div class="line"><a id="l00537" name="l00537"></a><span class="lineno">  537</span>                                       <span class="keyword">this</span>,</div>
-<div class="line"><a id="l00538" name="l00538"></a><span class="lineno">  538</span>                                       tskIDLE_PRIORITY + priority,</div>
-<div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span>                                       xStack,</div>
-<div class="line"><a id="l00540" name="l00540"></a><span class="lineno">  540</span>                                       &amp;xTaskBuffer) != <span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00541" name="l00541"></a><span class="lineno">  541</span><span class="preprocessor">#else </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00542" name="l00542"></a><span class="lineno">  542</span>                configASSERT(xTaskCreate(handler,</div>
-<div class="line"><a id="l00543" name="l00543"></a><span class="lineno">  543</span>                                     <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00544" name="l00544"></a><span class="lineno">  544</span>                                     stack_size,</div>
-<div class="line"><a id="l00545" name="l00545"></a><span class="lineno">  545</span>                                     <span class="keyword">this</span>,</div>
-<div class="line"><a id="l00546" name="l00546"></a><span class="lineno">  546</span>                                     tskIDLE_PRIORITY + priority,</div>
-<div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span>                                     <span class="keyword">nullptr</span>) == pdPASS);</div>
-<div class="line"><a id="l00548" name="l00548"></a><span class="lineno">  548</span><span class="preprocessor">#endif </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span>            }</div>
-<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span>            <a class="code hl_class" href="class_free_r_t_o_s_1_1_task_1_1_do_async.html">~DoAsync</a>() {</div>
-<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span>                done.<a class="code hl_function" href="class_free_r_t_o_s_1_1_binary_semaphore.html#aa6b9226fec2dd3706859b808212d2625">Take</a>(WAIT_MAX);</div>
-<div class="line"><a id="l00552" name="l00552"></a><span class="lineno">  552</span>            }</div>
-<div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span>        };</div>
-<div class="line"><a id="l00554" name="l00554"></a><span class="lineno">  554</span><span class="preprocessor">#endif </span><span class="comment">/* INCLUDE_vTaskDelete */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span>    };</div>
-<div class="line"><a id="l00556" name="l00556"></a><span class="lineno">  556</span> </div>
-<div class="line"><a id="l00557" name="l00557"></a><span class="lineno">  557</span><span class="preprocessor">#if (INCLUDE_vTaskDelay == 1)</span></div>
-<div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span>    <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> Delay_ms(<span class="keywordtype">size_t</span> ms) {</div>
-<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span>        vTaskDelay(pdMS_TO_TICKS(ms));</div>
-<div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span>    }</div>
-<div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span><span class="preprocessor">#endif </span><span class="comment">/* INCLUDE_vTaskDelay */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00567" name="l00567"></a><span class="lineno">  567</span> </div>
-<div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span><span class="preprocessor">#if (INCLUDE_vTaskDelayUntil == 1)</span></div>
-<div class="line"><a id="l00572" name="l00572"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_timer_delay.html">  572</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_free_r_t_o_s_1_1_timer_delay.html">TimerDelay</a></div>
-<div class="line"><a id="l00573" name="l00573"></a><span class="lineno">  573</span>    {</div>
-<div class="line"><a id="l00574" name="l00574"></a><span class="lineno">  574</span>    <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00575" name="l00575"></a><span class="lineno">  575</span>        TickType_t xLastWakeTime = 0;</div>
-<div class="line"><a id="l00576" name="l00576"></a><span class="lineno">  576</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00582" name="l00582"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_timer_delay.html#a226f7857c5bfbed68322b6e324e17bfa">  582</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_timer_delay.html#a226f7857c5bfbed68322b6e324e17bfa">TimerDelay</a>(<span class="keywordtype">bool</span> start = <span class="keyword">true</span>) {</div>
-<div class="line"><a id="l00583" name="l00583"></a><span class="lineno">  583</span>            <span class="keywordflow">if</span> (start)</div>
-<div class="line"><a id="l00584" name="l00584"></a><span class="lineno">  584</span>                <a class="code hl_function" href="class_free_r_t_o_s_1_1_timer_delay.html#a1fbe3627f6b44b257bf345362b83a274">Reset</a>();</div>
-<div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span>        }</div>
-<div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span> </div>
-<div class="line"><a id="l00590" name="l00590"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_timer_delay.html#a1fbe3627f6b44b257bf345362b83a274">  590</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_timer_delay.html#a1fbe3627f6b44b257bf345362b83a274">Reset</a>() {</div>
-<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>            xLastWakeTime = xTaskGetTickCount();</div>
-<div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span>        }</div>
-<div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span> </div>
-<div class="line"><a id="l00599" name="l00599"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_timer_delay.html#ad4e8fe8a81774aad47fcc7020232e65d">  599</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_timer_delay.html#ad4e8fe8a81774aad47fcc7020232e65d">Wait</a>(<span class="keywordtype">size_t</span> ms) {</div>
-<div class="line"><a id="l00600" name="l00600"></a><span class="lineno">  600</span>            vTaskDelayUntil(&amp;xLastWakeTime, pdMS_TO_TICKS(ms));</div>
-<div class="line"><a id="l00601" name="l00601"></a><span class="lineno">  601</span>        }</div>
-<div class="line"><a id="l00602" name="l00602"></a><span class="lineno">  602</span>    };</div>
-<div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00604" name="l00604"></a><span class="lineno">  604</span> </div>
-<div class="line"><a id="l00616" name="l00616"></a><span class="lineno">  616</span>    <span class="keyword">template</span> &lt;<span class="keyword">class</span> T, <span class="keywordtype">size_t</span> size = 2&gt;</div>
-<div class="line"><a id="l00617" name="l00617"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_queue.html">  617</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_free_r_t_o_s_1_1_queue.html">Queue</a></div>
-<div class="line"><a id="l00618" name="l00618"></a><span class="lineno">  618</span>    {</div>
-<div class="line"><a id="l00619" name="l00619"></a><span class="lineno">  619</span>    <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00620" name="l00620"></a><span class="lineno">  620</span><span class="preprocessor">#if (configSUPPORT_STATIC_ALLOCATION == 1)</span></div>
-<div class="line"><a id="l00621" name="l00621"></a><span class="lineno">  621</span>        StaticQueue_t xStaticQueue;</div>
-<div class="line"><a id="l00622" name="l00622"></a><span class="lineno">  622</span><span class="preprocessor">#endif </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00623" name="l00623"></a><span class="lineno">  623</span>        <a class="code hl_class" href="class_free_r_t_o_s_1_1_counting_semaphore.html">CountingSemaphore</a> semaphore {0, size};</div>
-<div class="line"><a id="l00624" name="l00624"></a><span class="lineno">  624</span>        T buffer[size];</div>
-<div class="line"><a id="l00625" name="l00625"></a><span class="lineno">  625</span>        <span class="keywordtype">size_t</span> rd_idx = 0;</div>
-<div class="line"><a id="l00626" name="l00626"></a><span class="lineno">  626</span>        <span class="keywordtype">size_t</span> wr_idx = 0;</div>
-<div class="line"><a id="l00627" name="l00627"></a><span class="lineno">  627</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00631" name="l00631"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_queue.html#af6bc8d1a7c117467dbad953f9a8a8a20">  631</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#af6bc8d1a7c117467dbad953f9a8a8a20">Queue</a>() {}</div>
-<div class="line"><a id="l00632" name="l00632"></a><span class="lineno">  632</span> </div>
-<div class="line"><a id="l00636" name="l00636"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_queue.html#ae4bdfd503bbda2ac93e7d377415a17a0">  636</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#ae4bdfd503bbda2ac93e7d377415a17a0">Queue</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_free_r_t_o_s_1_1_queue.html">Queue</a>&amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00637" name="l00637"></a><span class="lineno">  637</span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#af6bc8d1a7c117467dbad953f9a8a8a20">Queue</a>(<a class="code hl_class" href="class_free_r_t_o_s_1_1_queue.html">Queue</a>&amp;&amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00638" name="l00638"></a><span class="lineno">  638</span> </div>
-<div class="line"><a id="l00649" name="l00649"></a><span class="lineno">  649</span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span>... Args&gt;</div>
-<div class="line"><a id="l00650" name="l00650"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_queue.html#a62bb65e28e7ee990754ba6fe7881196a">  650</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#a62bb65e28e7ee990754ba6fe7881196a">TryEmplaceBack</a>(Args &amp;&amp;...args) <span class="keyword">noexcept</span> (</div>
-<div class="line"><a id="l00651" name="l00651"></a><span class="lineno">  651</span>            std::is_nothrow_constructible&lt;T, Args &amp;&amp;...&gt;::value) {</div>
-<div class="line"><a id="l00652" name="l00652"></a><span class="lineno">  652</span>            <span class="keyword">static_assert</span>(</div>
-<div class="line"><a id="l00653" name="l00653"></a><span class="lineno">  653</span>                std::is_constructible&lt;T, Args &amp;&amp;...&gt;::value,</div>
-<div class="line"><a id="l00654" name="l00654"></a><span class="lineno">  654</span>                <span class="stringliteral">&quot;T must be constructible with Args&amp;&amp;...&quot;</span>);</div>
-<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span> </div>
-<div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span>            <span class="keywordtype">size_t</span> next_wr_idx = wr_idx + 1;</div>
-<div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span>            <span class="keywordflow">if</span> (next_wr_idx == size)</div>
-<div class="line"><a id="l00658" name="l00658"></a><span class="lineno">  658</span>                next_wr_idx = 0;</div>
-<div class="line"><a id="l00659" name="l00659"></a><span class="lineno">  659</span> </div>
-<div class="line"><a id="l00660" name="l00660"></a><span class="lineno">  660</span>            <span class="keywordflow">if</span> (next_wr_idx == rd_idx)</div>
-<div class="line"><a id="l00661" name="l00661"></a><span class="lineno">  661</span>                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00662" name="l00662"></a><span class="lineno">  662</span> </div>
-<div class="line"><a id="l00663" name="l00663"></a><span class="lineno">  663</span>            <span class="keyword">new</span> (&amp;buffer[wr_idx]) T(std::forward&lt;Args&gt;(args)...);</div>
-<div class="line"><a id="l00664" name="l00664"></a><span class="lineno">  664</span>            semaphore.<a class="code hl_function" href="class_free_r_t_o_s_1_1_binary_semaphore.html#a961750935145c11d42b8e639bf549a24">Give</a>();</div>
-<div class="line"><a id="l00665" name="l00665"></a><span class="lineno">  665</span>            wr_idx = next_wr_idx;</div>
-<div class="line"><a id="l00666" name="l00666"></a><span class="lineno">  666</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00667" name="l00667"></a><span class="lineno">  667</span>        }</div>
-<div class="line"><a id="l00668" name="l00668"></a><span class="lineno">  668</span> </div>
-<div class="line"><a id="l00680" name="l00680"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_queue.html#a41381e3c37debcd677aaaa10b56bf2fb">  680</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#a41381e3c37debcd677aaaa10b56bf2fb">TryPushBack</a>(<span class="keyword">const</span> T &amp;item) <span class="keyword">noexcept</span> {</div>
-<div class="line"><a id="l00681" name="l00681"></a><span class="lineno">  681</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#a62bb65e28e7ee990754ba6fe7881196a">TryEmplaceBack</a>(item);</div>
-<div class="line"><a id="l00682" name="l00682"></a><span class="lineno">  682</span>        }</div>
-<div class="line"><a id="l00683" name="l00683"></a><span class="lineno">  683</span> </div>
-<div class="line"><a id="l00694" name="l00694"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_queue.html#aeb1f1cf4694d727534c3c77c23ef28e0">  694</a></span>        T* <a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#aeb1f1cf4694d727534c3c77c23ef28e0">Front</a>(<span class="keywordtype">size_t</span> wait_ms = 0) noexcept {</div>
-<div class="line"><a id="l00695" name="l00695"></a><span class="lineno">  695</span>            <span class="keywordflow">if</span> (wr_idx == rd_idx) {</div>
-<div class="line"><a id="l00696" name="l00696"></a><span class="lineno">  696</span>                <span class="keywordflow">if</span> (wait_ms) {</div>
-<div class="line"><a id="l00697" name="l00697"></a><span class="lineno">  697</span>                    <span class="keywordflow">if</span> (!semaphore.<a class="code hl_function" href="class_free_r_t_o_s_1_1_binary_semaphore.html#aa6b9226fec2dd3706859b808212d2625">Take</a>(wait_ms))</div>
-<div class="line"><a id="l00698" name="l00698"></a><span class="lineno">  698</span>                        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00699" name="l00699"></a><span class="lineno">  699</span>                } <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00700" name="l00700"></a><span class="lineno">  700</span>                    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00701" name="l00701"></a><span class="lineno">  701</span>            }</div>
-<div class="line"><a id="l00702" name="l00702"></a><span class="lineno">  702</span> </div>
-<div class="line"><a id="l00703" name="l00703"></a><span class="lineno">  703</span>            <span class="keywordflow">return</span> &amp;buffer[rd_idx];</div>
-<div class="line"><a id="l00704" name="l00704"></a><span class="lineno">  704</span>        }</div>
-<div class="line"><a id="l00705" name="l00705"></a><span class="lineno">  705</span> </div>
-<div class="line"><a id="l00706" name="l00706"></a><span class="lineno">  706</span>        <span class="keywordtype">void</span> Pop() noexcept {</div>
-<div class="line"><a id="l00707" name="l00707"></a><span class="lineno">  707</span>            <span class="keyword">static_assert</span>(std::is_nothrow_destructible&lt;T&gt;::value,</div>
-<div class="line"><a id="l00708" name="l00708"></a><span class="lineno">  708</span>                    <span class="stringliteral">&quot;T must be nothrow destructible&quot;</span>);</div>
-<div class="line"><a id="l00709" name="l00709"></a><span class="lineno">  709</span>            buffer[rd_idx].~T();</div>
-<div class="line"><a id="l00710" name="l00710"></a><span class="lineno">  710</span>            rd_idx++;</div>
-<div class="line"><a id="l00711" name="l00711"></a><span class="lineno">  711</span>            <span class="keywordflow">if</span> (rd_idx == size)</div>
-<div class="line"><a id="l00712" name="l00712"></a><span class="lineno">  712</span>                rd_idx = 0;</div>
-<div class="line"><a id="l00713" name="l00713"></a><span class="lineno">  713</span>        }</div>
-<div class="line"><a id="l00714" name="l00714"></a><span class="lineno">  714</span>    };</div>
-<div class="line"><a id="l00715" name="l00715"></a><span class="lineno">  715</span> </div>
-<div class="line"><a id="l00716" name="l00716"></a><span class="lineno">  716</span><span class="preprocessor">#if (configUSE_TIMERS == 1)</span></div>
-<div class="line"><a id="l00720" name="l00720"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_timer.html">  720</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_free_r_t_o_s_1_1_timer.html">Timer</a></div>
-<div class="line"><a id="l00721" name="l00721"></a><span class="lineno">  721</span>    {</div>
-<div class="line"><a id="l00722" name="l00722"></a><span class="lineno">  722</span>    <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00723" name="l00723"></a><span class="lineno">  723</span>        TimerHandle_t handle = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00724" name="l00724"></a><span class="lineno">  724</span><span class="preprocessor">#if (configSUPPORT_STATIC_ALLOCATION == 1)</span></div>
-<div class="line"><a id="l00725" name="l00725"></a><span class="lineno">  725</span>        StaticTimer_t xTimerBuffers;</div>
-<div class="line"><a id="l00726" name="l00726"></a><span class="lineno">  726</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00727" name="l00727"></a><span class="lineno">  727</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00747" name="l00747"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_timer.html#a4754fead5253c8bb8dcd55fb51883fe6">  747</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_timer.html#a4754fead5253c8bb8dcd55fb51883fe6">Timer</a>(<span class="keywordtype">void</span> (*callback)(TimerHandle_t handle),</div>
-<div class="line"><a id="l00748" name="l00748"></a><span class="lineno">  748</span>            <span class="keywordtype">size_t</span> period_ms,</div>
-<div class="line"><a id="l00749" name="l00749"></a><span class="lineno">  749</span>            <span class="keywordtype">bool</span> autoreload = <span class="keyword">true</span>,</div>
-<div class="line"><a id="l00750" name="l00750"></a><span class="lineno">  750</span>            <span class="keyword">const</span> <span class="keywordtype">char</span> *name = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00751" name="l00751"></a><span class="lineno">  751</span>            <span class="keywordtype">void</span> *timer_id = <span class="keyword">nullptr</span>) {</div>
-<div class="line"><a id="l00752" name="l00752"></a><span class="lineno">  752</span><span class="preprocessor">#if (configSUPPORT_STATIC_ALLOCATION == 1)</span></div>
-<div class="line"><a id="l00753" name="l00753"></a><span class="lineno">  753</span>            handle = xTimerCreateStatic(name,</div>
-<div class="line"><a id="l00754" name="l00754"></a><span class="lineno">  754</span>                pdMS_TO_TICKS(period_ms),</div>
-<div class="line"><a id="l00755" name="l00755"></a><span class="lineno">  755</span>                autoreload, timer_id,</div>
-<div class="line"><a id="l00756" name="l00756"></a><span class="lineno">  756</span>                callback, &amp;xTimerBuffers);</div>
-<div class="line"><a id="l00757" name="l00757"></a><span class="lineno">  757</span><span class="preprocessor">#else </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00758" name="l00758"></a><span class="lineno">  758</span>            handle = xTimerCreate(name,</div>
-<div class="line"><a id="l00759" name="l00759"></a><span class="lineno">  759</span>                pdMS_TO_TICKS(period_ms),</div>
-<div class="line"><a id="l00760" name="l00760"></a><span class="lineno">  760</span>                autoreload, timer_id,</div>
-<div class="line"><a id="l00761" name="l00761"></a><span class="lineno">  761</span>                callback);</div>
-<div class="line"><a id="l00762" name="l00762"></a><span class="lineno">  762</span><span class="preprocessor">#endif </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00763" name="l00763"></a><span class="lineno">  763</span>            configASSERT(handle != <span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00764" name="l00764"></a><span class="lineno">  764</span>        }</div>
-<div class="line"><a id="l00765" name="l00765"></a><span class="lineno">  765</span> </div>
-<div class="line"><a id="l00769" name="l00769"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_timer.html#a984e627323a61ee2d421680fffa3ed12">  769</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_timer.html#a984e627323a61ee2d421680fffa3ed12">~Timer</a>() {</div>
-<div class="line"><a id="l00770" name="l00770"></a><span class="lineno">  770</span>            <a class="code hl_function" href="class_free_r_t_o_s_1_1_timer.html#a3bd486b644ffc9f9a5facaf2668ff09d">Delete</a>();</div>
-<div class="line"><a id="l00771" name="l00771"></a><span class="lineno">  771</span>        }</div>
-<div class="line"><a id="l00772" name="l00772"></a><span class="lineno">  772</span> </div>
-<div class="line"><a id="l00776" name="l00776"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_timer.html#a3f0a721e458caedf839395c1c1715053">  776</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_timer.html#a3f0a721e458caedf839395c1c1715053">Timer</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_free_r_t_o_s_1_1_timer.html">Timer</a> &amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00777" name="l00777"></a><span class="lineno">  777</span> </div>
-<div class="line"><a id="l00781" name="l00781"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_timer.html#a3bd486b644ffc9f9a5facaf2668ff09d">  781</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_timer.html#a3bd486b644ffc9f9a5facaf2668ff09d">Delete</a>(<span class="keywordtype">size_t</span> wait_ms = 0) {</div>
-<div class="line"><a id="l00782" name="l00782"></a><span class="lineno">  782</span>            <span class="keywordflow">if</span> (handle)</div>
-<div class="line"><a id="l00783" name="l00783"></a><span class="lineno">  783</span>                configASSERT(xTimerDelete(handle,</div>
-<div class="line"><a id="l00784" name="l00784"></a><span class="lineno">  784</span>                    pdMS_TO_TICKS(wait_ms)) == pdPASS);</div>
-<div class="line"><a id="l00785" name="l00785"></a><span class="lineno">  785</span>            handle = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00786" name="l00786"></a><span class="lineno">  786</span>        }</div>
-<div class="line"><a id="l00787" name="l00787"></a><span class="lineno">  787</span> </div>
-<div class="line"><a id="l00794" name="l00794"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_timer.html#a6a3a1b42666ae2339eff9ee5ee16e227">  794</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_timer.html#a6a3a1b42666ae2339eff9ee5ee16e227">Start</a>(<span class="keywordtype">size_t</span> wait_ms = 0) {</div>
-<div class="line"><a id="l00795" name="l00795"></a><span class="lineno">  795</span>            configASSERT(xTimerStart(handle,</div>
-<div class="line"><a id="l00796" name="l00796"></a><span class="lineno">  796</span>                pdMS_TO_TICKS(wait_ms)) == pdPASS);</div>
-<div class="line"><a id="l00797" name="l00797"></a><span class="lineno">  797</span>        }</div>
-<div class="line"><a id="l00798" name="l00798"></a><span class="lineno">  798</span> </div>
-<div class="line"><a id="l00809" name="l00809"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_timer.html#ab00bd9789f78f941b4822d979f63d5d6">  809</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_timer.html#ab00bd9789f78f941b4822d979f63d5d6">Stop</a>(<span class="keywordtype">size_t</span> wait_ms = 0) {</div>
-<div class="line"><a id="l00810" name="l00810"></a><span class="lineno">  810</span>            configASSERT(xTimerStop(handle,</div>
-<div class="line"><a id="l00811" name="l00811"></a><span class="lineno">  811</span>                pdMS_TO_TICKS(wait_ms)) == pdPASS);</div>
-<div class="line"><a id="l00812" name="l00812"></a><span class="lineno">  812</span>        }</div>
-<div class="line"><a id="l00813" name="l00813"></a><span class="lineno">  813</span>    };</div>
-<div class="line"><a id="l00814" name="l00814"></a><span class="lineno">  814</span><span class="preprocessor">#endif </span><span class="comment">/* configUSE_TIMERS */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00815" name="l00815"></a><span class="lineno">  815</span>}</div>
-<div class="line"><a id="l00816" name="l00816"></a><span class="lineno">  816</span> </div>
-<div class="line"><a id="l00817" name="l00817"></a><span class="lineno">  817</span><span class="preprocessor">#endif </span><span class="comment">/* __FREERTOS_ABSTRACT__ */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_binary_semaphore_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_binary_semaphore.html">FreeRTOS::BinarySemaphore</a></div><div class="ttdoc">Create binary semaphore.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:163</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_binary_semaphore_html_a8c648c44a12bfe12366cb286826acde9"><div class="ttname"><a href="class_free_r_t_o_s_1_1_binary_semaphore.html#a8c648c44a12bfe12366cb286826acde9">FreeRTOS::BinarySemaphore::BinarySemaphore</a></div><div class="ttdeci">BinarySemaphore()</div><div class="ttdoc">Create a binary semaphore.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:174</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_binary_semaphore_html_a961750935145c11d42b8e639bf549a24"><div class="ttname"><a href="class_free_r_t_o_s_1_1_binary_semaphore.html#a961750935145c11d42b8e639bf549a24">FreeRTOS::BinarySemaphore::Give</a></div><div class="ttdeci">bool Give()</div><div class="ttdoc">Give semaphore.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:188</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_binary_semaphore_html_aa6b9226fec2dd3706859b808212d2625"><div class="ttname"><a href="class_free_r_t_o_s_1_1_binary_semaphore.html#aa6b9226fec2dd3706859b808212d2625">FreeRTOS::BinarySemaphore::Take</a></div><div class="ttdeci">bool Take(size_t wait_ms=WAIT_MAX)</div><div class="ttdoc">Wait for semaphore to be given.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:200</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_binary_semaphore_html_ad5ac56aaa6c08999672a1cca7844843b"><div class="ttname"><a href="class_free_r_t_o_s_1_1_binary_semaphore.html#ad5ac56aaa6c08999672a1cca7844843b">FreeRTOS::BinarySemaphore::TakeFromISR</a></div><div class="ttdeci">bool TakeFromISR()</div><div class="ttdoc">Wait for semaphore to be given from ISR.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:219</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_binary_semaphore_html_adc5dbcb6bf747ee56044acb70c3cc4f6"><div class="ttname"><a href="class_free_r_t_o_s_1_1_binary_semaphore.html#adc5dbcb6bf747ee56044acb70c3cc4f6">FreeRTOS::BinarySemaphore::GiveFromISR</a></div><div class="ttdeci">bool GiveFromISR()</div><div class="ttdoc">Give semaphore from ISR.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:209</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_counting_semaphore_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_counting_semaphore.html">FreeRTOS::CountingSemaphore</a></div><div class="ttdoc">Create counting semaphore.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:228</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_counting_semaphore_html_acddd37f38a4c4dc5e1dca0304d9a9487"><div class="ttname"><a href="class_free_r_t_o_s_1_1_counting_semaphore.html#acddd37f38a4c4dc5e1dca0304d9a9487">FreeRTOS::CountingSemaphore::GetCount</a></div><div class="ttdeci">FREERTOS_NODISCARD size_t GetCount()</div><div class="ttdoc">Read current count value.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:256</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_counting_semaphore_html_afb1393646482eb0673e9da607011577a"><div class="ttname"><a href="class_free_r_t_o_s_1_1_counting_semaphore.html#afb1393646482eb0673e9da607011577a">FreeRTOS::CountingSemaphore::CountingSemaphore</a></div><div class="ttdeci">CountingSemaphore(size_t initial=0, size_t max=100)</div><div class="ttdoc">Create counting semaphore with initial count and max value.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:240</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html">FreeRTOS::Mutex</a></div><div class="ttdoc">Implement locking mechanism between tasks to protect shared resources against race conditions.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:83</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html_a0cd126cdf0aeec979954cee947b18176"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html#a0cd126cdf0aeec979954cee947b18176">FreeRTOS::Mutex::UnlockFromISR</a></div><div class="ttdeci">bool UnlockFromISR()</div><div class="ttdoc">Release an obtained mutex from interrupt context.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:154</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html_a31df9a3d06ee22ed89231c0bc9e589e8"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html#a31df9a3d06ee22ed89231c0bc9e589e8">FreeRTOS::Mutex::Mutex</a></div><div class="ttdeci">Mutex()</div><div class="ttdoc">Creates an instance of mutex.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:93</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html_a71ef58fb5c9500d264aa6a0bc67a3d63"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html#a71ef58fb5c9500d264aa6a0bc67a3d63">FreeRTOS::Mutex::Lock</a></div><div class="ttdeci">bool Lock(size_t wait_ms=WAIT_MAX)</div><div class="ttdoc">Obtain a mutex.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:119</div></div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span><span class="preprocessor">#endif </span><span class="comment">/* INCLUDE_vTaskSuspend */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span> </div>
+<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span><span class="preprocessor">#if (INCLUDE_vTaskSuspend == 1)</span></div>
+<div class="line"><a id="l00384" name="l00384"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task.html#a4c183b3045caf5cc5bdd7db2fed5fe4b">  384</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_task.html#a4c183b3045caf5cc5bdd7db2fed5fe4b">Resume</a>() {</div>
+<div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span>            vTaskResume(task_handle);</div>
+<div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span>        }</div>
+<div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span><span class="preprocessor">#endif </span><span class="comment">/* INCLUDE_vTaskSuspend */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span> </div>
+<div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span><span class="preprocessor">#if (INCLUDE_eTaskGetState == 1)</span></div>
+<div class="line"><a id="l00393" name="l00393"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task.html#a70e0b60a83794efe7a996c2811679676">  393</a></span>        <span class="keyword">enum</span> <a class="code hl_enumeration" href="class_free_r_t_o_s_1_1_task.html#a70e0b60a83794efe7a996c2811679676">TaskState</a> { Ready, Running, Blocked, Suspended, Deleted };</div>
+<div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span>        FREERTOS_NODISCARD</div>
+<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>        <a class="code hl_enumeration" href="class_free_r_t_o_s_1_1_task.html#a70e0b60a83794efe7a996c2811679676">TaskState</a> GetState() {</div>
+<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>            eTaskState state = eTaskGetState(task_handle);</div>
+<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>            <span class="keywordflow">return</span> (<a class="code hl_enumeration" href="class_free_r_t_o_s_1_1_task.html#a70e0b60a83794efe7a996c2811679676">TaskState</a>)state;</div>
+<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span>        }</div>
+<div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span><span class="preprocessor">#endif </span><span class="comment">/* INCLUDE_eTaskGetState */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span> </div>
+<div class="line"><a id="l00410" name="l00410"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task.html#a3ee8d8a3c3ac74e6b90c268f205a5cb8">  410</a></span>        <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_task.html#a3ee8d8a3c3ac74e6b90c268f205a5cb8">SuspendAll</a>() {</div>
+<div class="line"><a id="l00411" name="l00411"></a><span class="lineno">  411</span>            vTaskSuspendAll();</div>
+<div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span>        }</div>
+<div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span> </div>
+<div class="line"><a id="l00418" name="l00418"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task.html#af3ec97b8f573dc6f450daa426f2f6583">  418</a></span>        <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_task.html#af3ec97b8f573dc6f450daa426f2f6583">ResumeAll</a>() {</div>
+<div class="line"><a id="l00419" name="l00419"></a><span class="lineno">  419</span>            xTaskResumeAll();</div>
+<div class="line"><a id="l00420" name="l00420"></a><span class="lineno">  420</span>        }</div>
+<div class="line"><a id="l00421" name="l00421"></a><span class="lineno">  421</span> </div>
+<div class="line"><a id="l00429" name="l00429"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task.html#a170881f54dbef5fa92dead9ca7734662">  429</a></span>        <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_task.html#a170881f54dbef5fa92dead9ca7734662">DoYield</a>() {</div>
+<div class="line"><a id="l00430" name="l00430"></a><span class="lineno">  430</span>            taskYIELD();</div>
+<div class="line"><a id="l00431" name="l00431"></a><span class="lineno">  431</span>        }</div>
+<div class="line"><a id="l00432" name="l00432"></a><span class="lineno">  432</span> </div>
+<div class="line"><a id="l00438" name="l00438"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task.html#ac17405cc7f388a2bd6a3ab4071197b6e">  438</a></span>        <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_task.html#ac17405cc7f388a2bd6a3ab4071197b6e">EnterCritical</a>() {</div>
+<div class="line"><a id="l00439" name="l00439"></a><span class="lineno">  439</span>            taskENTER_CRITICAL();</div>
+<div class="line"><a id="l00440" name="l00440"></a><span class="lineno">  440</span>        }</div>
+<div class="line"><a id="l00441" name="l00441"></a><span class="lineno">  441</span> </div>
+<div class="line"><a id="l00454" name="l00454"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task.html#a990e54fa93dda4e8043651252d0e1e9e">  454</a></span>        <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_task.html#a990e54fa93dda4e8043651252d0e1e9e">ExitCritical</a>() {</div>
+<div class="line"><a id="l00455" name="l00455"></a><span class="lineno">  455</span>            taskEXIT_CRITICAL();</div>
+<div class="line"><a id="l00456" name="l00456"></a><span class="lineno">  456</span>        }</div>
+<div class="line"><a id="l00457" name="l00457"></a><span class="lineno">  457</span> </div>
+<div class="line"><a id="l00463" name="l00463"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task.html#af8a6afc889a6f628365e7dc9f9e7b4a4">  463</a></span>        <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_task.html#af8a6afc889a6f628365e7dc9f9e7b4a4">NumberOfTasksRunning</a>() {</div>
+<div class="line"><a id="l00464" name="l00464"></a><span class="lineno">  464</span>            <span class="keywordflow">return</span> nof_tasks.load(std::memory_order_acquire);</div>
+<div class="line"><a id="l00465" name="l00465"></a><span class="lineno">  465</span>        }</div>
+<div class="line"><a id="l00466" name="l00466"></a><span class="lineno">  466</span> </div>
+<div class="line"><a id="l00470" name="l00470"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task.html#ade968c3065522f224b2ef72608c5d689">  470</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_task.html#ade968c3065522f224b2ef72608c5d689">Task</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_free_r_t_o_s_1_1_task.html">Task</a> &amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00471" name="l00471"></a><span class="lineno">  471</span> </div>
+<div class="line"><a id="l00472" name="l00472"></a><span class="lineno">  472</span><span class="preprocessor">#if (configUSE_TASK_NOTIFICATIONS == 1)</span></div>
+<div class="line"><a id="l00481" name="l00481"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task.html#a5b33eeea58d2eb4c18250fbd8bbd3f83">  481</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_task.html#a5b33eeea58d2eb4c18250fbd8bbd3f83">NotifyGive</a>(<span class="keywordtype">int</span> index = -1) {</div>
+<div class="line"><a id="l00482" name="l00482"></a><span class="lineno">  482</span>            <span class="keywordflow">if</span> (index &gt;= 0) {</div>
+<div class="line"><a id="l00483" name="l00483"></a><span class="lineno">  483</span>                configASSERT(xTaskNotifyGiveIndexed(task_handle,</div>
+<div class="line"><a id="l00484" name="l00484"></a><span class="lineno">  484</span>                    index) == pdPASS);</div>
+<div class="line"><a id="l00485" name="l00485"></a><span class="lineno">  485</span>            } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00486" name="l00486"></a><span class="lineno">  486</span>                configASSERT(xTaskNotifyGive(task_handle) == pdPASS);</div>
+<div class="line"><a id="l00487" name="l00487"></a><span class="lineno">  487</span>            }</div>
+<div class="line"><a id="l00488" name="l00488"></a><span class="lineno">  488</span>        }</div>
+<div class="line"><a id="l00489" name="l00489"></a><span class="lineno">  489</span> </div>
+<div class="line"><a id="l00498" name="l00498"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task.html#a28a0f4d3ca08b869452f2f6f068b5426">  498</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_task.html#a28a0f4d3ca08b869452f2f6f068b5426">NotifyGiveFromISR</a>(<span class="keywordtype">int</span> index = -1) {</div>
+<div class="line"><a id="l00499" name="l00499"></a><span class="lineno">  499</span>            <span class="keywordflow">if</span> (index &gt;= 0) {</div>
+<div class="line"><a id="l00500" name="l00500"></a><span class="lineno">  500</span>                vTaskNotifyGiveIndexedFromISR(task_handle, index,</div>
+<div class="line"><a id="l00501" name="l00501"></a><span class="lineno">  501</span>                                              <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00502" name="l00502"></a><span class="lineno">  502</span>            } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00503" name="l00503"></a><span class="lineno">  503</span>                vTaskNotifyGiveFromISR(task_handle, <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00504" name="l00504"></a><span class="lineno">  504</span>            }</div>
+<div class="line"><a id="l00505" name="l00505"></a><span class="lineno">  505</span>        }</div>
+<div class="line"><a id="l00506" name="l00506"></a><span class="lineno">  506</span> </div>
+<div class="line"><a id="l00517" name="l00517"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task.html#a9d4cc684e4d315233960b1457d21ef74">  517</a></span>        uint32_t <a class="code hl_function" href="class_free_r_t_o_s_1_1_task.html#a9d4cc684e4d315233960b1457d21ef74">NotifyTake</a>(<span class="keywordtype">size_t</span> wait_ms,</div>
+<div class="line"><a id="l00518" name="l00518"></a><span class="lineno">  518</span>                            <span class="keywordtype">bool</span> reset = <span class="keyword">true</span>,</div>
+<div class="line"><a id="l00519" name="l00519"></a><span class="lineno">  519</span>                            <span class="keywordtype">int</span> index = -1) {</div>
+<div class="line"><a id="l00520" name="l00520"></a><span class="lineno">  520</span>            <span class="keywordflow">if</span> (index &gt;= 0) {</div>
+<div class="line"><a id="l00521" name="l00521"></a><span class="lineno">  521</span>                <span class="keywordflow">return</span> ulTaskNotifyTakeIndexed(index, reset,</div>
+<div class="line"><a id="l00522" name="l00522"></a><span class="lineno">  522</span>                    pdMS_TO_TICKS(wait_ms));</div>
+<div class="line"><a id="l00523" name="l00523"></a><span class="lineno">  523</span>            } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00524" name="l00524"></a><span class="lineno">  524</span>                <span class="keywordflow">return</span> ulTaskNotifyTake(reset,</div>
+<div class="line"><a id="l00525" name="l00525"></a><span class="lineno">  525</span>                    pdMS_TO_TICKS(wait_ms));</div>
+<div class="line"><a id="l00526" name="l00526"></a><span class="lineno">  526</span>            }</div>
+<div class="line"><a id="l00527" name="l00527"></a><span class="lineno">  527</span>        }</div>
+<div class="line"><a id="l00528" name="l00528"></a><span class="lineno">  528</span><span class="preprocessor">#endif </span><span class="comment">/* configUSE_TASK_NOTIFICATIONS */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00529" name="l00529"></a><span class="lineno">  529</span> </div>
+<div class="line"><a id="l00533" name="l00533"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task_1_1_isr.html">  533</a></span>        <span class="keyword">class </span><a class="code hl_class" href="class_free_r_t_o_s_1_1_task_1_1_isr.html">Isr</a></div>
+<div class="line"><a id="l00534" name="l00534"></a><span class="lineno">  534</span>        {</div>
+<div class="line"><a id="l00535" name="l00535"></a><span class="lineno">  535</span>        <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00536" name="l00536"></a><span class="lineno">  536</span>            <span class="keyword">static</span> <span class="keyword">inline</span> UBaseType_t uxSavedInterruptStatus;</div>
+<div class="line"><a id="l00537" name="l00537"></a><span class="lineno">  537</span>        <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00541" name="l00541"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task_1_1_isr.html#a569b845dbbbc6f5065bede741b963f43">  541</a></span>            <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_task_1_1_isr.html#a569b845dbbbc6f5065bede741b963f43">EnterCritical</a>() {</div>
+<div class="line"><a id="l00542" name="l00542"></a><span class="lineno">  542</span>                uxSavedInterruptStatus =</div>
+<div class="line"><a id="l00543" name="l00543"></a><span class="lineno">  543</span>                        taskENTER_CRITICAL_FROM_ISR();</div>
+<div class="line"><a id="l00544" name="l00544"></a><span class="lineno">  544</span>            }</div>
+<div class="line"><a id="l00545" name="l00545"></a><span class="lineno">  545</span> </div>
+<div class="line"><a id="l00549" name="l00549"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_task_1_1_isr.html#aed67ad5728aaa460db5acb4f854b1091">  549</a></span>            <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_task_1_1_isr.html#aed67ad5728aaa460db5acb4f854b1091">ExitCritical</a>() {</div>
+<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span>                taskEXIT_CRITICAL_FROM_ISR(uxSavedInterruptStatus);</div>
+<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span>            }</div>
+<div class="line"><a id="l00552" name="l00552"></a><span class="lineno">  552</span>        };</div>
+<div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span>    };</div>
+<div class="line"><a id="l00554" name="l00554"></a><span class="lineno">  554</span> </div>
+<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span><span class="preprocessor">#if (INCLUDE_vTaskDelay == 1)</span></div>
+<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span>    <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> Delay_ms(<span class="keywordtype">size_t</span> ms) {</div>
+<div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span>        vTaskDelay(pdMS_TO_TICKS(ms));</div>
+<div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span>    }</div>
+<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span><span class="preprocessor">#endif </span><span class="comment">/* INCLUDE_vTaskDelay */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span> </div>
+<div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span><span class="preprocessor">#if (INCLUDE_vTaskDelayUntil == 1)</span></div>
+<div class="line"><a id="l00570" name="l00570"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_timer_delay.html">  570</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_free_r_t_o_s_1_1_timer_delay.html">TimerDelay</a></div>
+<div class="line"><a id="l00571" name="l00571"></a><span class="lineno">  571</span>    {</div>
+<div class="line"><a id="l00572" name="l00572"></a><span class="lineno">  572</span>    <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00573" name="l00573"></a><span class="lineno">  573</span>        TickType_t xLastWakeTime = 0;</div>
+<div class="line"><a id="l00574" name="l00574"></a><span class="lineno">  574</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00580" name="l00580"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_timer_delay.html#a226f7857c5bfbed68322b6e324e17bfa">  580</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_timer_delay.html#a226f7857c5bfbed68322b6e324e17bfa">TimerDelay</a>(<span class="keywordtype">bool</span> start = <span class="keyword">true</span>) {</div>
+<div class="line"><a id="l00581" name="l00581"></a><span class="lineno">  581</span>            <span class="keywordflow">if</span> (start)</div>
+<div class="line"><a id="l00582" name="l00582"></a><span class="lineno">  582</span>                <a class="code hl_function" href="class_free_r_t_o_s_1_1_timer_delay.html#a1fbe3627f6b44b257bf345362b83a274">Reset</a>();</div>
+<div class="line"><a id="l00583" name="l00583"></a><span class="lineno">  583</span>        }</div>
+<div class="line"><a id="l00584" name="l00584"></a><span class="lineno">  584</span> </div>
+<div class="line"><a id="l00588" name="l00588"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_timer_delay.html#a1fbe3627f6b44b257bf345362b83a274">  588</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_timer_delay.html#a1fbe3627f6b44b257bf345362b83a274">Reset</a>() {</div>
+<div class="line"><a id="l00589" name="l00589"></a><span class="lineno">  589</span>            xLastWakeTime = xTaskGetTickCount();</div>
+<div class="line"><a id="l00590" name="l00590"></a><span class="lineno">  590</span>        }</div>
+<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span> </div>
+<div class="line"><a id="l00597" name="l00597"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_timer_delay.html#ad4e8fe8a81774aad47fcc7020232e65d">  597</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_timer_delay.html#ad4e8fe8a81774aad47fcc7020232e65d">Wait</a>(<span class="keywordtype">size_t</span> ms) {</div>
+<div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span>            vTaskDelayUntil(&amp;xLastWakeTime, pdMS_TO_TICKS(ms));</div>
+<div class="line"><a id="l00599" name="l00599"></a><span class="lineno">  599</span>        }</div>
+<div class="line"><a id="l00600" name="l00600"></a><span class="lineno">  600</span>    };</div>
+<div class="line"><a id="l00601" name="l00601"></a><span class="lineno">  601</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00602" name="l00602"></a><span class="lineno">  602</span> </div>
+<div class="line"><a id="l00614" name="l00614"></a><span class="lineno">  614</span>    <span class="keyword">template</span> &lt;<span class="keyword">class</span> T, <span class="keywordtype">size_t</span> size = 2&gt;</div>
+<div class="line"><a id="l00615" name="l00615"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_queue.html">  615</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_free_r_t_o_s_1_1_queue.html">Queue</a></div>
+<div class="line"><a id="l00616" name="l00616"></a><span class="lineno">  616</span>    {</div>
+<div class="line"><a id="l00617" name="l00617"></a><span class="lineno">  617</span>    <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00618" name="l00618"></a><span class="lineno">  618</span><span class="preprocessor">#if (configSUPPORT_STATIC_ALLOCATION == 1)</span></div>
+<div class="line"><a id="l00619" name="l00619"></a><span class="lineno">  619</span>        StaticQueue_t xStaticQueue;</div>
+<div class="line"><a id="l00620" name="l00620"></a><span class="lineno">  620</span><span class="preprocessor">#endif </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00621" name="l00621"></a><span class="lineno">  621</span>        <a class="code hl_class" href="class_free_r_t_o_s_1_1_counting_semaphore.html">CountingSemaphore</a> semaphore {0, size};</div>
+<div class="line"><a id="l00622" name="l00622"></a><span class="lineno">  622</span>        T buffer[size];</div>
+<div class="line"><a id="l00623" name="l00623"></a><span class="lineno">  623</span>        <span class="keywordtype">size_t</span> rd_idx = 0;</div>
+<div class="line"><a id="l00624" name="l00624"></a><span class="lineno">  624</span>        <span class="keywordtype">size_t</span> wr_idx = 0;</div>
+<div class="line"><a id="l00625" name="l00625"></a><span class="lineno">  625</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00629" name="l00629"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_queue.html#af6bc8d1a7c117467dbad953f9a8a8a20">  629</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#af6bc8d1a7c117467dbad953f9a8a8a20">Queue</a>() {}</div>
+<div class="line"><a id="l00630" name="l00630"></a><span class="lineno">  630</span> </div>
+<div class="line"><a id="l00634" name="l00634"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_queue.html#ae4bdfd503bbda2ac93e7d377415a17a0">  634</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#ae4bdfd503bbda2ac93e7d377415a17a0">Queue</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_free_r_t_o_s_1_1_queue.html">Queue</a>&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00635" name="l00635"></a><span class="lineno">  635</span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#af6bc8d1a7c117467dbad953f9a8a8a20">Queue</a>(<a class="code hl_class" href="class_free_r_t_o_s_1_1_queue.html">Queue</a>&amp;&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00636" name="l00636"></a><span class="lineno">  636</span> </div>
+<div class="line"><a id="l00647" name="l00647"></a><span class="lineno">  647</span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span>... Args&gt;</div>
+<div class="line"><a id="l00648" name="l00648"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_queue.html#a62bb65e28e7ee990754ba6fe7881196a">  648</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#a62bb65e28e7ee990754ba6fe7881196a">TryEmplaceBack</a>(Args &amp;&amp;...args) <span class="keyword">noexcept</span> (</div>
+<div class="line"><a id="l00649" name="l00649"></a><span class="lineno">  649</span>            std::is_nothrow_constructible&lt;T, Args &amp;&amp;...&gt;::value) {</div>
+<div class="line"><a id="l00650" name="l00650"></a><span class="lineno">  650</span>            <span class="keyword">static_assert</span>(</div>
+<div class="line"><a id="l00651" name="l00651"></a><span class="lineno">  651</span>                std::is_constructible&lt;T, Args &amp;&amp;...&gt;::value,</div>
+<div class="line"><a id="l00652" name="l00652"></a><span class="lineno">  652</span>                <span class="stringliteral">&quot;T must be constructible with Args&amp;&amp;...&quot;</span>);</div>
+<div class="line"><a id="l00653" name="l00653"></a><span class="lineno">  653</span> </div>
+<div class="line"><a id="l00654" name="l00654"></a><span class="lineno">  654</span>            <span class="keywordtype">size_t</span> next_wr_idx = wr_idx + 1;</div>
+<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span>            <span class="keywordflow">if</span> (next_wr_idx == size)</div>
+<div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span>                next_wr_idx = 0;</div>
+<div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span> </div>
+<div class="line"><a id="l00658" name="l00658"></a><span class="lineno">  658</span>            <span class="keywordflow">if</span> (next_wr_idx == rd_idx)</div>
+<div class="line"><a id="l00659" name="l00659"></a><span class="lineno">  659</span>                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00660" name="l00660"></a><span class="lineno">  660</span> </div>
+<div class="line"><a id="l00661" name="l00661"></a><span class="lineno">  661</span>            <span class="keyword">new</span> (&amp;buffer[wr_idx]) T(std::forward&lt;Args&gt;(args)...);</div>
+<div class="line"><a id="l00662" name="l00662"></a><span class="lineno">  662</span>            semaphore.<a class="code hl_function" href="class_free_r_t_o_s_1_1_binary_semaphore.html#a961750935145c11d42b8e639bf549a24">Give</a>();</div>
+<div class="line"><a id="l00663" name="l00663"></a><span class="lineno">  663</span>            wr_idx = next_wr_idx;</div>
+<div class="line"><a id="l00664" name="l00664"></a><span class="lineno">  664</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00665" name="l00665"></a><span class="lineno">  665</span>        }</div>
+<div class="line"><a id="l00666" name="l00666"></a><span class="lineno">  666</span> </div>
+<div class="line"><a id="l00678" name="l00678"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_queue.html#a41381e3c37debcd677aaaa10b56bf2fb">  678</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#a41381e3c37debcd677aaaa10b56bf2fb">TryPushBack</a>(<span class="keyword">const</span> T &amp;item) <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00679" name="l00679"></a><span class="lineno">  679</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#a62bb65e28e7ee990754ba6fe7881196a">TryEmplaceBack</a>(item);</div>
+<div class="line"><a id="l00680" name="l00680"></a><span class="lineno">  680</span>        }</div>
+<div class="line"><a id="l00681" name="l00681"></a><span class="lineno">  681</span> </div>
+<div class="line"><a id="l00692" name="l00692"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_queue.html#aeb1f1cf4694d727534c3c77c23ef28e0">  692</a></span>        T* <a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#aeb1f1cf4694d727534c3c77c23ef28e0">Front</a>(<span class="keywordtype">size_t</span> wait_ms = 0) noexcept {</div>
+<div class="line"><a id="l00693" name="l00693"></a><span class="lineno">  693</span>            <span class="keywordflow">if</span> (wr_idx == rd_idx) {</div>
+<div class="line"><a id="l00694" name="l00694"></a><span class="lineno">  694</span>                <span class="keywordflow">if</span> (!semaphore.<a class="code hl_function" href="class_free_r_t_o_s_1_1_binary_semaphore.html#aa6b9226fec2dd3706859b808212d2625">Take</a>(wait_ms))</div>
+<div class="line"><a id="l00695" name="l00695"></a><span class="lineno">  695</span>                    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00696" name="l00696"></a><span class="lineno">  696</span>            }</div>
+<div class="line"><a id="l00697" name="l00697"></a><span class="lineno">  697</span> </div>
+<div class="line"><a id="l00698" name="l00698"></a><span class="lineno">  698</span>            <span class="keywordflow">return</span> &amp;buffer[rd_idx];</div>
+<div class="line"><a id="l00699" name="l00699"></a><span class="lineno">  699</span>        }</div>
+<div class="line"><a id="l00700" name="l00700"></a><span class="lineno">  700</span> </div>
+<div class="line"><a id="l00701" name="l00701"></a><span class="lineno">  701</span>        <span class="keywordtype">void</span> Pop() noexcept {</div>
+<div class="line"><a id="l00702" name="l00702"></a><span class="lineno">  702</span>            <span class="keyword">static_assert</span>(std::is_nothrow_destructible&lt;T&gt;::value,</div>
+<div class="line"><a id="l00703" name="l00703"></a><span class="lineno">  703</span>                    <span class="stringliteral">&quot;T must be nothrow destructible&quot;</span>);</div>
+<div class="line"><a id="l00704" name="l00704"></a><span class="lineno">  704</span>            buffer[rd_idx].~T();</div>
+<div class="line"><a id="l00705" name="l00705"></a><span class="lineno">  705</span>            taskENTER_CRITICAL();</div>
+<div class="line"><a id="l00706" name="l00706"></a><span class="lineno">  706</span>            rd_idx++;</div>
+<div class="line"><a id="l00707" name="l00707"></a><span class="lineno">  707</span>            <span class="keywordflow">if</span> (rd_idx == size)</div>
+<div class="line"><a id="l00708" name="l00708"></a><span class="lineno">  708</span>                rd_idx = 0;</div>
+<div class="line"><a id="l00709" name="l00709"></a><span class="lineno">  709</span>            taskEXIT_CRITICAL();</div>
+<div class="line"><a id="l00710" name="l00710"></a><span class="lineno">  710</span>        }</div>
+<div class="line"><a id="l00711" name="l00711"></a><span class="lineno">  711</span>    };</div>
+<div class="line"><a id="l00712" name="l00712"></a><span class="lineno">  712</span> </div>
+<div class="line"><a id="l00713" name="l00713"></a><span class="lineno">  713</span><span class="preprocessor">#if (configUSE_TIMERS == 1)</span></div>
+<div class="line"><a id="l00717" name="l00717"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_timer.html">  717</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_free_r_t_o_s_1_1_timer.html">Timer</a></div>
+<div class="line"><a id="l00718" name="l00718"></a><span class="lineno">  718</span>    {</div>
+<div class="line"><a id="l00719" name="l00719"></a><span class="lineno">  719</span>    <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00720" name="l00720"></a><span class="lineno">  720</span>        TimerHandle_t handle = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00721" name="l00721"></a><span class="lineno">  721</span><span class="preprocessor">#if (configSUPPORT_STATIC_ALLOCATION == 1)</span></div>
+<div class="line"><a id="l00722" name="l00722"></a><span class="lineno">  722</span>        StaticTimer_t xTimerBuffers;</div>
+<div class="line"><a id="l00723" name="l00723"></a><span class="lineno">  723</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00724" name="l00724"></a><span class="lineno">  724</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00744" name="l00744"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_timer.html#a4754fead5253c8bb8dcd55fb51883fe6">  744</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_timer.html#a4754fead5253c8bb8dcd55fb51883fe6">Timer</a>(<span class="keywordtype">void</span> (*callback)(TimerHandle_t handle),</div>
+<div class="line"><a id="l00745" name="l00745"></a><span class="lineno">  745</span>            <span class="keywordtype">size_t</span> period_ms,</div>
+<div class="line"><a id="l00746" name="l00746"></a><span class="lineno">  746</span>            <span class="keywordtype">bool</span> autoreload = <span class="keyword">true</span>,</div>
+<div class="line"><a id="l00747" name="l00747"></a><span class="lineno">  747</span>            <span class="keyword">const</span> <span class="keywordtype">char</span> *name = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00748" name="l00748"></a><span class="lineno">  748</span>            <span class="keywordtype">void</span> *timer_id = <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a id="l00749" name="l00749"></a><span class="lineno">  749</span><span class="preprocessor">#if (configSUPPORT_STATIC_ALLOCATION == 1)</span></div>
+<div class="line"><a id="l00750" name="l00750"></a><span class="lineno">  750</span>            handle = xTimerCreateStatic(name,</div>
+<div class="line"><a id="l00751" name="l00751"></a><span class="lineno">  751</span>                pdMS_TO_TICKS(period_ms),</div>
+<div class="line"><a id="l00752" name="l00752"></a><span class="lineno">  752</span>                autoreload, timer_id,</div>
+<div class="line"><a id="l00753" name="l00753"></a><span class="lineno">  753</span>                callback, &amp;xTimerBuffers);</div>
+<div class="line"><a id="l00754" name="l00754"></a><span class="lineno">  754</span><span class="preprocessor">#else </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00755" name="l00755"></a><span class="lineno">  755</span>            handle = xTimerCreate(name,</div>
+<div class="line"><a id="l00756" name="l00756"></a><span class="lineno">  756</span>                pdMS_TO_TICKS(period_ms),</div>
+<div class="line"><a id="l00757" name="l00757"></a><span class="lineno">  757</span>                autoreload, timer_id,</div>
+<div class="line"><a id="l00758" name="l00758"></a><span class="lineno">  758</span>                callback);</div>
+<div class="line"><a id="l00759" name="l00759"></a><span class="lineno">  759</span><span class="preprocessor">#endif </span><span class="comment">/* STATIC_ALLOCATION */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00760" name="l00760"></a><span class="lineno">  760</span>            configASSERT(handle != <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00761" name="l00761"></a><span class="lineno">  761</span>        }</div>
+<div class="line"><a id="l00762" name="l00762"></a><span class="lineno">  762</span> </div>
+<div class="line"><a id="l00766" name="l00766"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_timer.html#a984e627323a61ee2d421680fffa3ed12">  766</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_timer.html#a984e627323a61ee2d421680fffa3ed12">~Timer</a>() {</div>
+<div class="line"><a id="l00767" name="l00767"></a><span class="lineno">  767</span>            <a class="code hl_function" href="class_free_r_t_o_s_1_1_timer.html#a3bd486b644ffc9f9a5facaf2668ff09d">Delete</a>();</div>
+<div class="line"><a id="l00768" name="l00768"></a><span class="lineno">  768</span>        }</div>
+<div class="line"><a id="l00769" name="l00769"></a><span class="lineno">  769</span> </div>
+<div class="line"><a id="l00773" name="l00773"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_timer.html#a3f0a721e458caedf839395c1c1715053">  773</a></span>        <a class="code hl_function" href="class_free_r_t_o_s_1_1_timer.html#a3f0a721e458caedf839395c1c1715053">Timer</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_free_r_t_o_s_1_1_timer.html">Timer</a> &amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00774" name="l00774"></a><span class="lineno">  774</span> </div>
+<div class="line"><a id="l00778" name="l00778"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_timer.html#a3bd486b644ffc9f9a5facaf2668ff09d">  778</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_timer.html#a3bd486b644ffc9f9a5facaf2668ff09d">Delete</a>(<span class="keywordtype">size_t</span> wait_ms = 0) {</div>
+<div class="line"><a id="l00779" name="l00779"></a><span class="lineno">  779</span>            <span class="keywordflow">if</span> (handle)</div>
+<div class="line"><a id="l00780" name="l00780"></a><span class="lineno">  780</span>                configASSERT(xTimerDelete(handle,</div>
+<div class="line"><a id="l00781" name="l00781"></a><span class="lineno">  781</span>                    pdMS_TO_TICKS(wait_ms)) == pdPASS);</div>
+<div class="line"><a id="l00782" name="l00782"></a><span class="lineno">  782</span>            handle = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00783" name="l00783"></a><span class="lineno">  783</span>        }</div>
+<div class="line"><a id="l00784" name="l00784"></a><span class="lineno">  784</span> </div>
+<div class="line"><a id="l00791" name="l00791"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_timer.html#a6a3a1b42666ae2339eff9ee5ee16e227">  791</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_timer.html#a6a3a1b42666ae2339eff9ee5ee16e227">Start</a>(<span class="keywordtype">size_t</span> wait_ms = 0) {</div>
+<div class="line"><a id="l00792" name="l00792"></a><span class="lineno">  792</span>            configASSERT(xTimerStart(handle,</div>
+<div class="line"><a id="l00793" name="l00793"></a><span class="lineno">  793</span>                pdMS_TO_TICKS(wait_ms)) == pdPASS);</div>
+<div class="line"><a id="l00794" name="l00794"></a><span class="lineno">  794</span>        }</div>
+<div class="line"><a id="l00795" name="l00795"></a><span class="lineno">  795</span> </div>
+<div class="line"><a id="l00806" name="l00806"></a><span class="lineno"><a class="line" href="class_free_r_t_o_s_1_1_timer.html#ab00bd9789f78f941b4822d979f63d5d6">  806</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_free_r_t_o_s_1_1_timer.html#ab00bd9789f78f941b4822d979f63d5d6">Stop</a>(<span class="keywordtype">size_t</span> wait_ms = 0) {</div>
+<div class="line"><a id="l00807" name="l00807"></a><span class="lineno">  807</span>            configASSERT(xTimerStop(handle,</div>
+<div class="line"><a id="l00808" name="l00808"></a><span class="lineno">  808</span>                pdMS_TO_TICKS(wait_ms)) == pdPASS);</div>
+<div class="line"><a id="l00809" name="l00809"></a><span class="lineno">  809</span>        }</div>
+<div class="line"><a id="l00810" name="l00810"></a><span class="lineno">  810</span>    };</div>
+<div class="line"><a id="l00811" name="l00811"></a><span class="lineno">  811</span><span class="preprocessor">#endif </span><span class="comment">/* configUSE_TIMERS */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00812" name="l00812"></a><span class="lineno">  812</span>}</div>
+<div class="line"><a id="l00813" name="l00813"></a><span class="lineno">  813</span> </div>
+<div class="line"><a id="l00814" name="l00814"></a><span class="lineno">  814</span><span class="preprocessor">#endif </span><span class="comment">/* __FREERTOS_ABSTRACT__ */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_binary_semaphore_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_binary_semaphore.html">FreeRTOS::BinarySemaphore</a></div><div class="ttdoc">Create binary semaphore.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:184</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_binary_semaphore_html_a8c648c44a12bfe12366cb286826acde9"><div class="ttname"><a href="class_free_r_t_o_s_1_1_binary_semaphore.html#a8c648c44a12bfe12366cb286826acde9">FreeRTOS::BinarySemaphore::BinarySemaphore</a></div><div class="ttdeci">BinarySemaphore()</div><div class="ttdoc">Create a binary semaphore.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:195</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_binary_semaphore_html_a961750935145c11d42b8e639bf549a24"><div class="ttname"><a href="class_free_r_t_o_s_1_1_binary_semaphore.html#a961750935145c11d42b8e639bf549a24">FreeRTOS::BinarySemaphore::Give</a></div><div class="ttdeci">bool Give()</div><div class="ttdoc">Give semaphore.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:209</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_binary_semaphore_html_aa6b9226fec2dd3706859b808212d2625"><div class="ttname"><a href="class_free_r_t_o_s_1_1_binary_semaphore.html#aa6b9226fec2dd3706859b808212d2625">FreeRTOS::BinarySemaphore::Take</a></div><div class="ttdeci">bool Take(size_t wait_ms=WAIT_MAX)</div><div class="ttdoc">Wait for semaphore to be given.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:221</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_binary_semaphore_html_ad5ac56aaa6c08999672a1cca7844843b"><div class="ttname"><a href="class_free_r_t_o_s_1_1_binary_semaphore.html#ad5ac56aaa6c08999672a1cca7844843b">FreeRTOS::BinarySemaphore::TakeFromISR</a></div><div class="ttdeci">bool TakeFromISR()</div><div class="ttdoc">Wait for semaphore to be given from ISR.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:240</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_binary_semaphore_html_adc5dbcb6bf747ee56044acb70c3cc4f6"><div class="ttname"><a href="class_free_r_t_o_s_1_1_binary_semaphore.html#adc5dbcb6bf747ee56044acb70c3cc4f6">FreeRTOS::BinarySemaphore::GiveFromISR</a></div><div class="ttdeci">bool GiveFromISR()</div><div class="ttdoc">Give semaphore from ISR.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:230</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_counting_semaphore_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_counting_semaphore.html">FreeRTOS::CountingSemaphore</a></div><div class="ttdoc">Create counting semaphore.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:249</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_counting_semaphore_html_acddd37f38a4c4dc5e1dca0304d9a9487"><div class="ttname"><a href="class_free_r_t_o_s_1_1_counting_semaphore.html#acddd37f38a4c4dc5e1dca0304d9a9487">FreeRTOS::CountingSemaphore::GetCount</a></div><div class="ttdeci">FREERTOS_NODISCARD size_t GetCount()</div><div class="ttdoc">Read current count value.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:277</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_counting_semaphore_html_afb1393646482eb0673e9da607011577a"><div class="ttname"><a href="class_free_r_t_o_s_1_1_counting_semaphore.html#afb1393646482eb0673e9da607011577a">FreeRTOS::CountingSemaphore::CountingSemaphore</a></div><div class="ttdeci">CountingSemaphore(size_t initial=0, size_t max=100)</div><div class="ttdoc">Create counting semaphore with initial count and max value.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:261</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html">FreeRTOS::Mutex</a></div><div class="ttdoc">Implement locking mechanism between tasks to protect shared resources against race conditions.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:84</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html_a0cd126cdf0aeec979954cee947b18176"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html#a0cd126cdf0aeec979954cee947b18176">FreeRTOS::Mutex::UnlockFromISR</a></div><div class="ttdeci">bool UnlockFromISR()</div><div class="ttdoc">Release an obtained mutex from interrupt context.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:155</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html_a31df9a3d06ee22ed89231c0bc9e589e8"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html#a31df9a3d06ee22ed89231c0bc9e589e8">FreeRTOS::Mutex::Mutex</a></div><div class="ttdeci">Mutex()</div><div class="ttdoc">Creates an instance of mutex.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:94</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html_a71ef58fb5c9500d264aa6a0bc67a3d63"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html#a71ef58fb5c9500d264aa6a0bc67a3d63">FreeRTOS::Mutex::Lock</a></div><div class="ttdeci">bool Lock(size_t wait_ms=WAIT_MAX)</div><div class="ttdoc">Obtain a mutex.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:120</div></div>
 <div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html_a92ea0a38fb3a023b38455798117de9d5"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html#a92ea0a38fb3a023b38455798117de9d5">FreeRTOS::Mutex::Mutex</a></div><div class="ttdeci">Mutex(const Mutex &amp;)=delete</div><div class="ttdoc">Prevent class to be copied.</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html_abebd78712e4394604d7508e8f99abd30"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html#abebd78712e4394604d7508e8f99abd30">FreeRTOS::Mutex::Unlock</a></div><div class="ttdeci">bool Unlock()</div><div class="ttdoc">Release an obtained mutex.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:130</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html_ac4860e7216b0d7944643b2bba96afefa"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html#ac4860e7216b0d7944643b2bba96afefa">FreeRTOS::Mutex::LockFromISR</a></div><div class="ttdeci">bool LockFromISR()</div><div class="ttdoc">Obtain a mutex from interrupt context.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:144</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html_adf0a6b9b93fa68a20ef728fc63e0b1e2"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html#adf0a6b9b93fa68a20ef728fc63e0b1e2">FreeRTOS::Mutex::~Mutex</a></div><div class="ttdeci">~Mutex()</div><div class="ttdoc">Deletes the instance and release allocated memory.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:105</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html">FreeRTOS::Queue</a></div><div class="ttdoc">Creates a new FreeRTOS queue instance.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:618</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html_a41381e3c37debcd677aaaa10b56bf2fb"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html#a41381e3c37debcd677aaaa10b56bf2fb">FreeRTOS::Queue::TryPushBack</a></div><div class="ttdeci">bool TryPushBack(const T &amp;item) noexcept</div><div class="ttdoc">Post an item to the back of a queue.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:680</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html_a62bb65e28e7ee990754ba6fe7881196a"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html#a62bb65e28e7ee990754ba6fe7881196a">FreeRTOS::Queue::TryEmplaceBack</a></div><div class="ttdeci">bool TryEmplaceBack(Args &amp;&amp;...args) noexcept(std::is_nothrow_constructible&lt; T, Args &amp;&amp;... &gt;::value)</div><div class="ttdoc">Construct an item at the back place of a queue.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:650</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html_abebd78712e4394604d7508e8f99abd30"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html#abebd78712e4394604d7508e8f99abd30">FreeRTOS::Mutex::Unlock</a></div><div class="ttdeci">bool Unlock()</div><div class="ttdoc">Release an obtained mutex.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:131</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html_ac4860e7216b0d7944643b2bba96afefa"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html#ac4860e7216b0d7944643b2bba96afefa">FreeRTOS::Mutex::LockFromISR</a></div><div class="ttdeci">bool LockFromISR()</div><div class="ttdoc">Obtain a mutex from interrupt context.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:145</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html_adf0a6b9b93fa68a20ef728fc63e0b1e2"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html#adf0a6b9b93fa68a20ef728fc63e0b1e2">FreeRTOS::Mutex::~Mutex</a></div><div class="ttdeci">~Mutex()</div><div class="ttdoc">Deletes the instance and release allocated memory.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:106</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html">FreeRTOS::Queue</a></div><div class="ttdoc">Creates a new FreeRTOS queue instance.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:616</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html_a41381e3c37debcd677aaaa10b56bf2fb"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html#a41381e3c37debcd677aaaa10b56bf2fb">FreeRTOS::Queue::TryPushBack</a></div><div class="ttdeci">bool TryPushBack(const T &amp;item) noexcept</div><div class="ttdoc">Post an item to the back of a queue.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:678</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html_a62bb65e28e7ee990754ba6fe7881196a"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html#a62bb65e28e7ee990754ba6fe7881196a">FreeRTOS::Queue::TryEmplaceBack</a></div><div class="ttdeci">bool TryEmplaceBack(Args &amp;&amp;...args) noexcept(std::is_nothrow_constructible&lt; T, Args &amp;&amp;... &gt;::value)</div><div class="ttdoc">Construct an item at the back place of a queue.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:648</div></div>
 <div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html_ae4bdfd503bbda2ac93e7d377415a17a0"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html#ae4bdfd503bbda2ac93e7d377415a17a0">FreeRTOS::Queue::Queue</a></div><div class="ttdeci">Queue(const Queue &amp;)=delete</div><div class="ttdoc">Prevent class to be copied or moved.</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html_aeb1f1cf4694d727534c3c77c23ef28e0"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html#aeb1f1cf4694d727534c3c77c23ef28e0">FreeRTOS::Queue::Front</a></div><div class="ttdeci">T * Front(size_t wait_ms=0) noexcept</div><div class="ttdoc">Receive an item from a queue.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:694</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html_af6bc8d1a7c117467dbad953f9a8a8a20"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html#af6bc8d1a7c117467dbad953f9a8a8a20">FreeRTOS::Queue::Queue</a></div><div class="ttdeci">Queue()</div><div class="ttdoc">Default constructor.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:631</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_1_1_do_async_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task_1_1_do_async.html">FreeRTOS::Task::DoAsync</a></div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:507</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_1_1_do_async_html_a94933a57f5b5d0f4840e74fa6f824f86"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task_1_1_do_async.html#a94933a57f5b5d0f4840e74fa6f824f86">FreeRTOS::Task::DoAsync::DoAsync</a></div><div class="ttdeci">DoAsync(void(*job)(), size_t priority=1)</div><div class="ttdoc">Calls pointer to function from new task. After job is done, task is self deleted.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:530</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_1_1_isr_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task_1_1_isr.html">FreeRTOS::Task::Isr</a></div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:482</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_1_1_isr_html_a58c7978bd53808a9d1011ac5a444159c"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task_1_1_isr.html#a58c7978bd53808a9d1011ac5a444159c">FreeRTOS::Task::Isr::EnterCritical</a></div><div class="ttdeci">static void EnterCritical()</div><div class="ttdoc">See Task::EnterCritical()</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:489</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_1_1_isr_html_a7f0bdca16bfe91d9b5d9b6f61276c619"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task_1_1_isr.html#a7f0bdca16bfe91d9b5d9b6f61276c619">FreeRTOS::Task::Isr::ExitCritical</a></div><div class="ttdeci">static void ExitCritical()</div><div class="ttdoc">See Task::ExitCritical()</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:497</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html">FreeRTOS::Task</a></div><div class="ttdoc">Responsible for creating, control and delete FreeRTOS tasks.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:269</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html_a026c97a31108347b80a105a59920fa6a"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html#a026c97a31108347b80a105a59920fa6a">FreeRTOS::Task::DoYield</a></div><div class="ttdeci">static void DoYield()</div><div class="ttdoc">taskYIELD() is used to request a context switch to another task. However, if there are no other tasks...</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:386</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html_a1fd823bbaac1f96d0ddeddf57bb7fc5c"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html#a1fd823bbaac1f96d0ddeddf57bb7fc5c">FreeRTOS::Task::Suspend</a></div><div class="ttdeci">void Suspend()</div><div class="ttdoc">Put current task into idle state.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:332</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html_a50498c97387988610bf721148ba8fb94"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html#a50498c97387988610bf721148ba8fb94">FreeRTOS::Task::NotifyGive</a></div><div class="ttdeci">void NotifyGive(int index=-1)</div><div class="ttdoc">Send notify to task.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:429</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html_a594300025cc39e3142208ec6e132ce14"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html#a594300025cc39e3142208ec6e132ce14">FreeRTOS::Task::SuspendAll</a></div><div class="ttdeci">static void SuspendAll()</div><div class="ttdoc">Suspends the scheduler.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:367</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html_a70e0b60a83794efe7a996c2811679676"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html#a70e0b60a83794efe7a996c2811679676">FreeRTOS::Task::TaskState</a></div><div class="ttdeci">TaskState</div><div class="ttdoc">Get current task state.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:350</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html_a718584a6070a4b5979b5e4f6980cc068"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html#a718584a6070a4b5979b5e4f6980cc068">FreeRTOS::Task::ResumeAll</a></div><div class="ttdeci">static void ResumeAll()</div><div class="ttdoc">Resumes the scheduler after it was suspended using a call to vTaskSuspendAll().</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:375</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html_a9522e36f2028a89978c5f37c78616a74"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html#a9522e36f2028a89978c5f37c78616a74">FreeRTOS::Task::Task</a></div><div class="ttdeci">Task(void(*handler)(void *), void *params=nullptr, const char *name=nullptr, int priority=tskIDLE_PRIORITY+1)</div><div class="ttdoc">Create a new task and add it to the list of tasks that are ready to run.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:288</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html_aa174e39d9f4421795246b1305f7870db"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html#aa174e39d9f4421795246b1305f7870db">FreeRTOS::Task::NotifyTake</a></div><div class="ttdeci">uint32_t NotifyTake(size_t wait_ms, bool reset=true, int index=-1)</div><div class="ttdoc">Wait for notify.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:465</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html_abe252dac2fb6e563182212f6d7a36056"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html#abe252dac2fb6e563182212f6d7a36056">FreeRTOS::Task::ExitCritical</a></div><div class="ttdeci">static void ExitCritical()</div><div class="ttdoc">Critical sections are entered by calling taskENTER_CRITICAL(), and subsequently exited by calling tas...</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:411</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html_ac5c09246df5766e249ef8fef921b5c6f"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html#ac5c09246df5766e249ef8fef921b5c6f">FreeRTOS::Task::Task</a></div><div class="ttdeci">Task(const Task &amp;)=delete</div><div class="ttdoc">Prevent class to be copied.</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html_acb02a8f41d28a895958f511b66633cb3"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html#acb02a8f41d28a895958f511b66633cb3">FreeRTOS::Task::Delete</a></div><div class="ttdeci">void Delete()</div><div class="ttdoc">Delete current task.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:317</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html_adeb60d237e5345710bfd98ad8cb7f616"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html#adeb60d237e5345710bfd98ad8cb7f616">FreeRTOS::Task::NotifyGiveFromISR</a></div><div class="ttdeci">void NotifyGiveFromISR(int index=-1)</div><div class="ttdoc">Send notify to task from ISR.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:446</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html_aeac72b24ef62f1c64d14351674c9932a"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html#aeac72b24ef62f1c64d14351674c9932a">FreeRTOS::Task::EnterCritical</a></div><div class="ttdeci">static void EnterCritical()</div><div class="ttdoc">Critical sections are entered by calling taskENTER_CRITICAL(), and subsequently exited by calling tas...</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:395</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html_af8b7de0060e1fe5084e7cf743ae1af84"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html#af8b7de0060e1fe5084e7cf743ae1af84">FreeRTOS::Task::Resume</a></div><div class="ttdeci">void Resume()</div><div class="ttdoc">Wake up current task.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:341</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_timer_delay_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_timer_delay.html">FreeRTOS::TimerDelay</a></div><div class="ttdoc">Enables accurate periodic execution.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:573</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_timer_delay_html_a1fbe3627f6b44b257bf345362b83a274"><div class="ttname"><a href="class_free_r_t_o_s_1_1_timer_delay.html#a1fbe3627f6b44b257bf345362b83a274">FreeRTOS::TimerDelay::Reset</a></div><div class="ttdeci">void Reset()</div><div class="ttdoc">Reset the time stamp value.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:590</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_timer_delay_html_a226f7857c5bfbed68322b6e324e17bfa"><div class="ttname"><a href="class_free_r_t_o_s_1_1_timer_delay.html#a226f7857c5bfbed68322b6e324e17bfa">FreeRTOS::TimerDelay::TimerDelay</a></div><div class="ttdeci">TimerDelay(bool start=true)</div><div class="ttdoc">Constructor of TimerDelay class.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:582</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_timer_delay_html_ad4e8fe8a81774aad47fcc7020232e65d"><div class="ttname"><a href="class_free_r_t_o_s_1_1_timer_delay.html#ad4e8fe8a81774aad47fcc7020232e65d">FreeRTOS::TimerDelay::Wait</a></div><div class="ttdeci">void Wait(size_t ms)</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:599</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_timer_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_timer.html">FreeRTOS::Timer</a></div><div class="ttdoc">FreeRTOS software timer.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:721</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_timer_html_a3bd486b644ffc9f9a5facaf2668ff09d"><div class="ttname"><a href="class_free_r_t_o_s_1_1_timer.html#a3bd486b644ffc9f9a5facaf2668ff09d">FreeRTOS::Timer::Delete</a></div><div class="ttdeci">void Delete(size_t wait_ms=0)</div><div class="ttdoc">Delete timer and release allocated memory.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:781</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html_aeb1f1cf4694d727534c3c77c23ef28e0"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html#aeb1f1cf4694d727534c3c77c23ef28e0">FreeRTOS::Queue::Front</a></div><div class="ttdeci">T * Front(size_t wait_ms=0) noexcept</div><div class="ttdoc">Receive an item from a queue.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:692</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html_af6bc8d1a7c117467dbad953f9a8a8a20"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html#af6bc8d1a7c117467dbad953f9a8a8a20">FreeRTOS::Queue::Queue</a></div><div class="ttdeci">Queue()</div><div class="ttdoc">Default constructor.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:629</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_scoped_mutex_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_scoped_mutex.html">FreeRTOS::ScopedMutex</a></div><div class="ttdoc">Scoped mutex lock.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:167</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_1_1_isr_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task_1_1_isr.html">FreeRTOS::Task::Isr</a></div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:534</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_1_1_isr_html_a569b845dbbbc6f5065bede741b963f43"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task_1_1_isr.html#a569b845dbbbc6f5065bede741b963f43">FreeRTOS::Task::Isr::EnterCritical</a></div><div class="ttdeci">static void EnterCritical()</div><div class="ttdoc">See Task::EnterCritical()</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:541</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_1_1_isr_html_aed67ad5728aaa460db5acb4f854b1091"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task_1_1_isr.html#aed67ad5728aaa460db5acb4f854b1091">FreeRTOS::Task::Isr::ExitCritical</a></div><div class="ttdeci">static void ExitCritical()</div><div class="ttdoc">See Task::ExitCritical()</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:549</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html">FreeRTOS::Task</a></div><div class="ttdoc">Responsible for creating, control and delete FreeRTOS tasks.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:295</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html_a08381225164a2f897db9baec92ffd774"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html#a08381225164a2f897db9baec92ffd774">FreeRTOS::Task::Delete</a></div><div class="ttdeci">void Delete()</div><div class="ttdoc">Delete current task.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:356</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html_a170881f54dbef5fa92dead9ca7734662"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html#a170881f54dbef5fa92dead9ca7734662">FreeRTOS::Task::DoYield</a></div><div class="ttdeci">static void DoYield()</div><div class="ttdoc">taskYIELD() is used to request a context switch to another task. However, if there are no other tasks...</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:429</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html_a28a0f4d3ca08b869452f2f6f068b5426"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html#a28a0f4d3ca08b869452f2f6f068b5426">FreeRTOS::Task::NotifyGiveFromISR</a></div><div class="ttdeci">void NotifyGiveFromISR(int index=-1)</div><div class="ttdoc">Send notify to task from ISR.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:498</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html_a3ee8d8a3c3ac74e6b90c268f205a5cb8"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html#a3ee8d8a3c3ac74e6b90c268f205a5cb8">FreeRTOS::Task::SuspendAll</a></div><div class="ttdeci">static void SuspendAll()</div><div class="ttdoc">Suspends the scheduler.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:410</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html_a4c183b3045caf5cc5bdd7db2fed5fe4b"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html#a4c183b3045caf5cc5bdd7db2fed5fe4b">FreeRTOS::Task::Resume</a></div><div class="ttdeci">void Resume()</div><div class="ttdoc">Wake up current task.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:384</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html_a552e855d2aa2478e8a21d30ce587128b"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html#a552e855d2aa2478e8a21d30ce587128b">FreeRTOS::Task::Task</a></div><div class="ttdeci">Task(void(*handler)(T *), T *params=nullptr, const char *name=nullptr, int priority=tskIDLE_PRIORITY+1)</div><div class="ttdoc">Create a new task and add it to the list of tasks that are ready to run.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:323</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html_a5b33eeea58d2eb4c18250fbd8bbd3f83"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html#a5b33eeea58d2eb4c18250fbd8bbd3f83">FreeRTOS::Task::NotifyGive</a></div><div class="ttdeci">void NotifyGive(int index=-1)</div><div class="ttdoc">Send notify to task.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:481</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html_a6f379657327a9937d5dd628386bfec7f"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html#a6f379657327a9937d5dd628386bfec7f">FreeRTOS::Task::Suspend</a></div><div class="ttdeci">void Suspend()</div><div class="ttdoc">Put current task into idle state.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:375</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html_a70e0b60a83794efe7a996c2811679676"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html#a70e0b60a83794efe7a996c2811679676">FreeRTOS::Task::TaskState</a></div><div class="ttdeci">TaskState</div><div class="ttdoc">Get current task state.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:393</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html_a990e54fa93dda4e8043651252d0e1e9e"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html#a990e54fa93dda4e8043651252d0e1e9e">FreeRTOS::Task::ExitCritical</a></div><div class="ttdeci">static void ExitCritical()</div><div class="ttdoc">Critical sections are entered by calling taskENTER_CRITICAL(), and subsequently exited by calling tas...</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:454</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html_a9d4cc684e4d315233960b1457d21ef74"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html#a9d4cc684e4d315233960b1457d21ef74">FreeRTOS::Task::NotifyTake</a></div><div class="ttdeci">uint32_t NotifyTake(size_t wait_ms, bool reset=true, int index=-1)</div><div class="ttdoc">Wait for notify.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:517</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html_ac17405cc7f388a2bd6a3ab4071197b6e"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html#ac17405cc7f388a2bd6a3ab4071197b6e">FreeRTOS::Task::EnterCritical</a></div><div class="ttdeci">static void EnterCritical()</div><div class="ttdoc">Critical sections are entered by calling taskENTER_CRITICAL(), and subsequently exited by calling tas...</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:438</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html_ade968c3065522f224b2ef72608c5d689"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html#ade968c3065522f224b2ef72608c5d689">FreeRTOS::Task::Task</a></div><div class="ttdeci">Task(const Task &amp;)=delete</div><div class="ttdoc">Prevent class to be copied.</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html_af3ec97b8f573dc6f450daa426f2f6583"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html#af3ec97b8f573dc6f450daa426f2f6583">FreeRTOS::Task::ResumeAll</a></div><div class="ttdeci">static void ResumeAll()</div><div class="ttdoc">Resumes the scheduler after it was suspended using a call to vTaskSuspendAll().</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:418</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html_af8a6afc889a6f628365e7dc9f9e7b4a4"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html#af8a6afc889a6f628365e7dc9f9e7b4a4">FreeRTOS::Task::NumberOfTasksRunning</a></div><div class="ttdeci">static unsigned int NumberOfTasksRunning()</div><div class="ttdoc">Get number of currently running tasks.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:463</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_timer_delay_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_timer_delay.html">FreeRTOS::TimerDelay</a></div><div class="ttdoc">Enables accurate periodic execution.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:571</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_timer_delay_html_a1fbe3627f6b44b257bf345362b83a274"><div class="ttname"><a href="class_free_r_t_o_s_1_1_timer_delay.html#a1fbe3627f6b44b257bf345362b83a274">FreeRTOS::TimerDelay::Reset</a></div><div class="ttdeci">void Reset()</div><div class="ttdoc">Reset the time stamp value.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:588</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_timer_delay_html_a226f7857c5bfbed68322b6e324e17bfa"><div class="ttname"><a href="class_free_r_t_o_s_1_1_timer_delay.html#a226f7857c5bfbed68322b6e324e17bfa">FreeRTOS::TimerDelay::TimerDelay</a></div><div class="ttdeci">TimerDelay(bool start=true)</div><div class="ttdoc">Constructor of TimerDelay class.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:580</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_timer_delay_html_ad4e8fe8a81774aad47fcc7020232e65d"><div class="ttname"><a href="class_free_r_t_o_s_1_1_timer_delay.html#ad4e8fe8a81774aad47fcc7020232e65d">FreeRTOS::TimerDelay::Wait</a></div><div class="ttdeci">void Wait(size_t ms)</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:597</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_timer_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_timer.html">FreeRTOS::Timer</a></div><div class="ttdoc">FreeRTOS software timer.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:718</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_timer_html_a3bd486b644ffc9f9a5facaf2668ff09d"><div class="ttname"><a href="class_free_r_t_o_s_1_1_timer.html#a3bd486b644ffc9f9a5facaf2668ff09d">FreeRTOS::Timer::Delete</a></div><div class="ttdeci">void Delete(size_t wait_ms=0)</div><div class="ttdoc">Delete timer and release allocated memory.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:778</div></div>
 <div class="ttc" id="aclass_free_r_t_o_s_1_1_timer_html_a3f0a721e458caedf839395c1c1715053"><div class="ttname"><a href="class_free_r_t_o_s_1_1_timer.html#a3f0a721e458caedf839395c1c1715053">FreeRTOS::Timer::Timer</a></div><div class="ttdeci">Timer(const Timer &amp;)=delete</div><div class="ttdoc">Prevent class to be copied.</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_timer_html_a4754fead5253c8bb8dcd55fb51883fe6"><div class="ttname"><a href="class_free_r_t_o_s_1_1_timer.html#a4754fead5253c8bb8dcd55fb51883fe6">FreeRTOS::Timer::Timer</a></div><div class="ttdeci">Timer(void(*callback)(TimerHandle_t handle), size_t period_ms, bool autoreload=true, const char *name=nullptr, void *timer_id=nullptr)</div><div class="ttdoc">Creates instance of software timer.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:747</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_timer_html_a6a3a1b42666ae2339eff9ee5ee16e227"><div class="ttname"><a href="class_free_r_t_o_s_1_1_timer.html#a6a3a1b42666ae2339eff9ee5ee16e227">FreeRTOS::Timer::Start</a></div><div class="ttdeci">void Start(size_t wait_ms=0)</div><div class="ttdoc">Start the timer.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:794</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_timer_html_a984e627323a61ee2d421680fffa3ed12"><div class="ttname"><a href="class_free_r_t_o_s_1_1_timer.html#a984e627323a61ee2d421680fffa3ed12">FreeRTOS::Timer::~Timer</a></div><div class="ttdeci">~Timer()</div><div class="ttdoc">Delete timer and release allocated memory.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:769</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_timer_html_ab00bd9789f78f941b4822d979f63d5d6"><div class="ttname"><a href="class_free_r_t_o_s_1_1_timer.html#ab00bd9789f78f941b4822d979f63d5d6">FreeRTOS::Timer::Stop</a></div><div class="ttdeci">void Stop(size_t wait_ms=0)</div><div class="ttdoc">Stop the timer.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:809</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_timer_html_a4754fead5253c8bb8dcd55fb51883fe6"><div class="ttname"><a href="class_free_r_t_o_s_1_1_timer.html#a4754fead5253c8bb8dcd55fb51883fe6">FreeRTOS::Timer::Timer</a></div><div class="ttdeci">Timer(void(*callback)(TimerHandle_t handle), size_t period_ms, bool autoreload=true, const char *name=nullptr, void *timer_id=nullptr)</div><div class="ttdoc">Creates instance of software timer.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:744</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_timer_html_a6a3a1b42666ae2339eff9ee5ee16e227"><div class="ttname"><a href="class_free_r_t_o_s_1_1_timer.html#a6a3a1b42666ae2339eff9ee5ee16e227">FreeRTOS::Timer::Start</a></div><div class="ttdeci">void Start(size_t wait_ms=0)</div><div class="ttdoc">Start the timer.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:791</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_timer_html_a984e627323a61ee2d421680fffa3ed12"><div class="ttname"><a href="class_free_r_t_o_s_1_1_timer.html#a984e627323a61ee2d421680fffa3ed12">FreeRTOS::Timer::~Timer</a></div><div class="ttdeci">~Timer()</div><div class="ttdoc">Delete timer and release allocated memory.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:766</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_timer_html_ab00bd9789f78f941b4822d979f63d5d6"><div class="ttname"><a href="class_free_r_t_o_s_1_1_timer.html#ab00bd9789f78f941b4822d979f63d5d6">FreeRTOS::Timer::Stop</a></div><div class="ttdeci">void Stop(size_t wait_ms=0)</div><div class="ttdoc">Stop the timer.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:806</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

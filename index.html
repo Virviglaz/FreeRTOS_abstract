@@ -84,7 +84,7 @@ Static allocation:</h3>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;Task started&quot;</span> &lt;&lt; std::endl;</div>
 <div class="line">    <span class="keywordflow">while</span> (1) { .... your code .... }</div>
 <div class="line">});</div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html">FreeRTOS::Task</a></div><div class="ttdoc">Responsible for creating, control and delete FreeRTOS tasks.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:269</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task.html">FreeRTOS::Task</a></div><div class="ttdoc">Responsible for creating, control and delete FreeRTOS tasks.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:295</div></div>
 </div><!-- fragment --><h3><a class="anchor" id="autotoc_md3"></a>
 Dynamic allocation:</h3>
 <div class="fragment"><div class="line"><a class="code hl_class" href="class_free_r_t_o_s_1_1_task.html">FreeRTOS::Task&lt;&gt;</a> *task3 = <span class="keyword">new</span> <a class="code hl_class" href="class_free_r_t_o_s_1_1_task.html">FreeRTOS::Task&lt;&gt;</a>([](<span class="keywordtype">void</span> *) {</div>
@@ -114,11 +114,10 @@ Manual allocation:</h3>
 <div class="line">});</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md5"></a>
 Async execution</h2>
-<div class="fragment"><div class="line"><a class="code hl_class" href="class_free_r_t_o_s_1_1_task_1_1_do_async.html">FreeRTOS::Task&lt;&gt;::DoAsync</a> async([]{</div>
+<div class="fragment"><div class="line"><a class="code hl_class" href="class_free_r_t_o_s_1_1_task.html">FreeRTOS::Task&lt;&gt;::DoAsync</a> async([]{</div>
 <div class="line">        FreeRTOS::Delay_ms(100);</div>
 <div class="line">        std::cout &lt;&lt; <span class="stringliteral">&quot;Async job done!&quot;</span> &lt;&lt; std::endl;</div>
 <div class="line">});</div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_task_1_1_do_async_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_task_1_1_do_async.html">FreeRTOS::Task::DoAsync</a></div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:507</div></div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md6"></a>
 Queue</h2>
 <div class="fragment"><div class="line"><a class="code hl_class" href="class_free_r_t_o_s_1_1_queue.html">FreeRTOS::Queue&lt;std::string, 10&gt;</a> q;</div>
@@ -131,8 +130,8 @@ Queue</h2>
 <div class="line">        <span class="keywordflow">if</span> (ret) {</div>
 <div class="line">            std::cout &lt;&lt; <span class="stringliteral">&quot;Data: &quot;</span> &lt;&lt; *ret &lt;&lt; std::endl;</div>
 <div class="line">        }</div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html">FreeRTOS::Queue</a></div><div class="ttdoc">Creates a new FreeRTOS queue instance.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:618</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html_a41381e3c37debcd677aaaa10b56bf2fb"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html#a41381e3c37debcd677aaaa10b56bf2fb">FreeRTOS::Queue::TryPushBack</a></div><div class="ttdeci">bool TryPushBack(const T &amp;item) noexcept</div><div class="ttdoc">Post an item to the back of a queue.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:680</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html">FreeRTOS::Queue</a></div><div class="ttdoc">Creates a new FreeRTOS queue instance.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:616</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html_a41381e3c37debcd677aaaa10b56bf2fb"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html#a41381e3c37debcd677aaaa10b56bf2fb">FreeRTOS::Queue::TryPushBack</a></div><div class="ttdeci">bool TryPushBack(const T &amp;item) noexcept</div><div class="ttdoc">Post an item to the back of a queue.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:678</div></div>
 </div><!-- fragment --> <h3><a class="anchor" id="autotoc_md7"></a>
 Emplace constructor is supported</h3>
 <div class="fragment"><div class="line"><a class="code hl_class" href="class_free_r_t_o_s_1_1_queue.html">FreeRTOS::Queue&lt;std::string, 3, true&gt;</a> q;</div>
@@ -143,7 +142,7 @@ Emplace constructor is supported</h3>
 <div class="line">        q.<a class="code hl_function" href="class_free_r_t_o_s_1_1_queue.html#a62bb65e28e7ee990754ba6fe7881196a">TryEmplaceBack</a>(0, <span class="stringliteral">&quot;Test string&quot;</span>);</div>
 <div class="line">    }</div>
 <div class="line">});</div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html_a62bb65e28e7ee990754ba6fe7881196a"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html#a62bb65e28e7ee990754ba6fe7881196a">FreeRTOS::Queue::TryEmplaceBack</a></div><div class="ttdeci">bool TryEmplaceBack(Args &amp;&amp;...args) noexcept(std::is_nothrow_constructible&lt; T, Args &amp;&amp;... &gt;::value)</div><div class="ttdoc">Construct an item at the back place of a queue.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:650</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_queue_html_a62bb65e28e7ee990754ba6fe7881196a"><div class="ttname"><a href="class_free_r_t_o_s_1_1_queue.html#a62bb65e28e7ee990754ba6fe7881196a">FreeRTOS::Queue::TryEmplaceBack</a></div><div class="ttdeci">bool TryEmplaceBack(Args &amp;&amp;...args) noexcept(std::is_nothrow_constructible&lt; T, Args &amp;&amp;... &gt;::value)</div><div class="ttdoc">Construct an item at the back place of a queue.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:648</div></div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md8"></a>
 Locks</h2>
 <div class="fragment"><div class="line"><a class="code hl_class" href="class_free_r_t_o_s_1_1_mutex.html">FreeRTOS::Mutex</a> lock;</div>
@@ -152,11 +151,11 @@ Locks</h2>
 <div class="line"> </div>
 <div class="line">lock.<a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#a71ef58fb5c9500d264aa6a0bc67a3d63">Lock</a>();</div>
 <div class="line">lock.<a class="code hl_function" href="class_free_r_t_o_s_1_1_mutex.html#abebd78712e4394604d7508e8f99abd30">Unlock</a>();</div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_binary_semaphore_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_binary_semaphore.html">FreeRTOS::BinarySemaphore</a></div><div class="ttdoc">Create binary semaphore.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:163</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_counting_semaphore_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_counting_semaphore.html">FreeRTOS::CountingSemaphore</a></div><div class="ttdoc">Create counting semaphore.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:228</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html">FreeRTOS::Mutex</a></div><div class="ttdoc">Implement locking mechanism between tasks to protect shared resources against race conditions.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:83</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html_a71ef58fb5c9500d264aa6a0bc67a3d63"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html#a71ef58fb5c9500d264aa6a0bc67a3d63">FreeRTOS::Mutex::Lock</a></div><div class="ttdeci">bool Lock(size_t wait_ms=WAIT_MAX)</div><div class="ttdoc">Obtain a mutex.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:119</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html_abebd78712e4394604d7508e8f99abd30"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html#abebd78712e4394604d7508e8f99abd30">FreeRTOS::Mutex::Unlock</a></div><div class="ttdeci">bool Unlock()</div><div class="ttdoc">Release an obtained mutex.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:130</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_binary_semaphore_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_binary_semaphore.html">FreeRTOS::BinarySemaphore</a></div><div class="ttdoc">Create binary semaphore.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:184</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_counting_semaphore_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_counting_semaphore.html">FreeRTOS::CountingSemaphore</a></div><div class="ttdoc">Create counting semaphore.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:249</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html">FreeRTOS::Mutex</a></div><div class="ttdoc">Implement locking mechanism between tasks to protect shared resources against race conditions.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:84</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html_a71ef58fb5c9500d264aa6a0bc67a3d63"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html#a71ef58fb5c9500d264aa6a0bc67a3d63">FreeRTOS::Mutex::Lock</a></div><div class="ttdeci">bool Lock(size_t wait_ms=WAIT_MAX)</div><div class="ttdoc">Obtain a mutex.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:120</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_mutex_html_abebd78712e4394604d7508e8f99abd30"><div class="ttname"><a href="class_free_r_t_o_s_1_1_mutex.html#abebd78712e4394604d7508e8f99abd30">FreeRTOS::Mutex::Unlock</a></div><div class="ttdeci">bool Unlock()</div><div class="ttdoc">Release an obtained mutex.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:131</div></div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md9"></a>
 Timer</h2>
 <div class="fragment"><div class="line"><a class="code hl_class" href="class_free_r_t_o_s_1_1_timer.html">FreeRTOS::Timer</a> tim([](TimerHandle_t t) {</div>
@@ -165,8 +164,8 @@ Timer</h2>
 <div class="line">}, 1000); <span class="comment">/* every 1s */</span></div>
 <div class="line"> </div>
 <div class="line">tim.<a class="code hl_function" href="class_free_r_t_o_s_1_1_timer.html#a6a3a1b42666ae2339eff9ee5ee16e227">Start</a>();</div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_timer_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_timer.html">FreeRTOS::Timer</a></div><div class="ttdoc">FreeRTOS software timer.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:721</div></div>
-<div class="ttc" id="aclass_free_r_t_o_s_1_1_timer_html_a6a3a1b42666ae2339eff9ee5ee16e227"><div class="ttname"><a href="class_free_r_t_o_s_1_1_timer.html#a6a3a1b42666ae2339eff9ee5ee16e227">FreeRTOS::Timer::Start</a></div><div class="ttdeci">void Start(size_t wait_ms=0)</div><div class="ttdoc">Start the timer.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:794</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_timer_html"><div class="ttname"><a href="class_free_r_t_o_s_1_1_timer.html">FreeRTOS::Timer</a></div><div class="ttdoc">FreeRTOS software timer.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:718</div></div>
+<div class="ttc" id="aclass_free_r_t_o_s_1_1_timer_html_a6a3a1b42666ae2339eff9ee5ee16e227"><div class="ttname"><a href="class_free_r_t_o_s_1_1_timer.html#a6a3a1b42666ae2339eff9ee5ee16e227">FreeRTOS::Timer::Start</a></div><div class="ttdeci">void Start(size_t wait_ms=0)</div><div class="ttdoc">Start the timer.</div><div class="ttdef"><b>Definition:</b> FreeRTOS_abstract.h:791</div></div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md10"></a>
 Misc</h2>
 <div class="fragment"><div class="line"><span class="comment">/* Start kernel scheduler */</span></div>

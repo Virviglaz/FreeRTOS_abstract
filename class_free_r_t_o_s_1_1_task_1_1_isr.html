@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.5"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Doxygen with github: FreeRTOS::Task&lt; stack_size &gt;::Isr Class Reference</title>
+<title>Doxygen with github: FreeRTOS::Task&lt; stack_size, T &gt;::Isr Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -77,7 +77,7 @@ $(function() {
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pro-static-attribs">Static Protected Attributes</a> &#124;
 <a href="class_free_r_t_o_s_1_1_task_1_1_isr-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">FreeRTOS::Task&lt; stack_size &gt;::Isr Class Reference</div></div>
+  <div class="headertitle"><div class="title">FreeRTOS::Task&lt; stack_size, T &gt;::Isr Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -85,24 +85,24 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a58c7978bd53808a9d1011ac5a444159c"><td class="memItemLeft" align="right" valign="top"><a id="a58c7978bd53808a9d1011ac5a444159c" name="a58c7978bd53808a9d1011ac5a444159c"></a>
+<tr class="memitem:a569b845dbbbc6f5065bede741b963f43"><td class="memItemLeft" align="right" valign="top"><a id="a569b845dbbbc6f5065bede741b963f43" name="a569b845dbbbc6f5065bede741b963f43"></a>
 static void&#160;</td><td class="memItemRight" valign="bottom"><b>EnterCritical</b> ()</td></tr>
-<tr class="memdesc:a58c7978bd53808a9d1011ac5a444159c"><td class="mdescLeft">&#160;</td><td class="mdescRight">See <a class="el" href="class_free_r_t_o_s_1_1_task.html#aeac72b24ef62f1c64d14351674c9932a" title="Critical sections are entered by calling taskENTER_CRITICAL(), and subsequently exited by calling tas...">Task::EnterCritical()</a> <br /></td></tr>
-<tr class="separator:a58c7978bd53808a9d1011ac5a444159c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f0bdca16bfe91d9b5d9b6f61276c619"><td class="memItemLeft" align="right" valign="top"><a id="a7f0bdca16bfe91d9b5d9b6f61276c619" name="a7f0bdca16bfe91d9b5d9b6f61276c619"></a>
+<tr class="memdesc:a569b845dbbbc6f5065bede741b963f43"><td class="mdescLeft">&#160;</td><td class="mdescRight">See <a class="el" href="class_free_r_t_o_s_1_1_task.html#ac17405cc7f388a2bd6a3ab4071197b6e" title="Critical sections are entered by calling taskENTER_CRITICAL(), and subsequently exited by calling tas...">Task::EnterCritical()</a> <br /></td></tr>
+<tr class="separator:a569b845dbbbc6f5065bede741b963f43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed67ad5728aaa460db5acb4f854b1091"><td class="memItemLeft" align="right" valign="top"><a id="aed67ad5728aaa460db5acb4f854b1091" name="aed67ad5728aaa460db5acb4f854b1091"></a>
 static void&#160;</td><td class="memItemRight" valign="bottom"><b>ExitCritical</b> ()</td></tr>
-<tr class="memdesc:a7f0bdca16bfe91d9b5d9b6f61276c619"><td class="mdescLeft">&#160;</td><td class="mdescRight">See <a class="el" href="class_free_r_t_o_s_1_1_task.html#abe252dac2fb6e563182212f6d7a36056" title="Critical sections are entered by calling taskENTER_CRITICAL(), and subsequently exited by calling tas...">Task::ExitCritical()</a> <br /></td></tr>
-<tr class="separator:a7f0bdca16bfe91d9b5d9b6f61276c619"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memdesc:aed67ad5728aaa460db5acb4f854b1091"><td class="mdescLeft">&#160;</td><td class="mdescRight">See <a class="el" href="class_free_r_t_o_s_1_1_task.html#a990e54fa93dda4e8043651252d0e1e9e" title="Critical sections are entered by calling taskENTER_CRITICAL(), and subsequently exited by calling tas...">Task::ExitCritical()</a> <br /></td></tr>
+<tr class="separator:aed67ad5728aaa460db5acb4f854b1091"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-static-attribs" name="pro-static-attribs"></a>
 Static Protected Attributes</h2></td></tr>
-<tr class="memitem:ac5964b6783cd26f6e4ed83e3b060cc60"><td class="memItemLeft" align="right" valign="top"><a id="ac5964b6783cd26f6e4ed83e3b060cc60" name="ac5964b6783cd26f6e4ed83e3b060cc60"></a>
+<tr class="memitem:a142c33b15562e1dc8d3dc4e81f867f96"><td class="memItemLeft" align="right" valign="top"><a id="a142c33b15562e1dc8d3dc4e81f867f96" name="a142c33b15562e1dc8d3dc4e81f867f96"></a>
 static UBaseType_t&#160;</td><td class="memItemRight" valign="bottom"><b>uxSavedInterruptStatus</b></td></tr>
-<tr class="separator:ac5964b6783cd26f6e4ed83e3b060cc60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a142c33b15562e1dc8d3dc4e81f867f96"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;const size_t stack_size = FREERTOS_DEFAULT_TASK_STACK_SIZE&gt;<br />
-class FreeRTOS::Task&lt; stack_size &gt;::Isr</div><p >Critical section control can be used from interrupt context. </p>
+<div class="textblock"><div class="compoundTemplParams">template&lt;const size_t stack_size = FREERTOS_DEFAULT_TASK_STACK_SIZE, typename T = void&gt;<br />
+class FreeRTOS::Task&lt; stack_size, T &gt;::Isr</div><p >Critical section control can be used from interrupt context. </p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="_free_r_t_o_s__abstract_8h_source.html">FreeRTOS_abstract.h</a></li>
 </ul>

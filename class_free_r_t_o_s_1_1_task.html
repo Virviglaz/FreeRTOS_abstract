@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.5"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Doxygen with github: FreeRTOS::Task&lt; stack_size &gt; Class Template Reference</title>
+<title>Doxygen with github: FreeRTOS::Task&lt; stack_size, T &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -78,9 +78,11 @@ $(function() {
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pro-static-methods">Static Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
+<a href="#pro-static-attribs">Static Protected Attributes</a> &#124;
 <a href="class_free_r_t_o_s_1_1_task-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">FreeRTOS::Task&lt; stack_size &gt; Class Template Reference</div></div>
+  <div class="headertitle"><div class="title">FreeRTOS::Task&lt; stack_size, T &gt; Class Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -91,8 +93,6 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_task_1_1_do_async.html">DoAsync</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_task_1_1_isr.html">Isr</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -112,105 +112,124 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a9522e36f2028a89978c5f37c78616a74"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_task.html#a9522e36f2028a89978c5f37c78616a74">Task</a> (void(*handler)(void *), void *params=nullptr, const char *name=nullptr, int priority=tskIDLE_PRIORITY+1)</td></tr>
-<tr class="memdesc:a9522e36f2028a89978c5f37c78616a74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new task and add it to the list of tasks that are ready to run.  <a href="class_free_r_t_o_s_1_1_task.html#a9522e36f2028a89978c5f37c78616a74">More...</a><br /></td></tr>
-<tr class="separator:a9522e36f2028a89978c5f37c78616a74"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb02a8f41d28a895958f511b66633cb3"><td class="memItemLeft" align="right" valign="top"><a id="acb02a8f41d28a895958f511b66633cb3" name="acb02a8f41d28a895958f511b66633cb3"></a>
+<tr class="memitem:a552e855d2aa2478e8a21d30ce587128b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_task.html#a552e855d2aa2478e8a21d30ce587128b">Task</a> (void(*handler)(T *), T *params=nullptr, const char *name=nullptr, int priority=tskIDLE_PRIORITY+1)</td></tr>
+<tr class="memdesc:a552e855d2aa2478e8a21d30ce587128b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new task and add it to the list of tasks that are ready to run.  <a href="class_free_r_t_o_s_1_1_task.html#a552e855d2aa2478e8a21d30ce587128b">More...</a><br /></td></tr>
+<tr class="separator:a552e855d2aa2478e8a21d30ce587128b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08381225164a2f897db9baec92ffd774"><td class="memItemLeft" align="right" valign="top"><a id="a08381225164a2f897db9baec92ffd774" name="a08381225164a2f897db9baec92ffd774"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Delete</b> ()</td></tr>
-<tr class="memdesc:acb02a8f41d28a895958f511b66633cb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete current task. <br /></td></tr>
-<tr class="separator:acb02a8f41d28a895958f511b66633cb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1fd823bbaac1f96d0ddeddf57bb7fc5c"><td class="memItemLeft" align="right" valign="top"><a id="a1fd823bbaac1f96d0ddeddf57bb7fc5c" name="a1fd823bbaac1f96d0ddeddf57bb7fc5c"></a>
+<tr class="memdesc:a08381225164a2f897db9baec92ffd774"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete current task. <br /></td></tr>
+<tr class="separator:a08381225164a2f897db9baec92ffd774"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f379657327a9937d5dd628386bfec7f"><td class="memItemLeft" align="right" valign="top"><a id="a6f379657327a9937d5dd628386bfec7f" name="a6f379657327a9937d5dd628386bfec7f"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Suspend</b> ()</td></tr>
-<tr class="memdesc:a1fd823bbaac1f96d0ddeddf57bb7fc5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Put current task into idle state. <br /></td></tr>
-<tr class="separator:a1fd823bbaac1f96d0ddeddf57bb7fc5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8b7de0060e1fe5084e7cf743ae1af84"><td class="memItemLeft" align="right" valign="top"><a id="af8b7de0060e1fe5084e7cf743ae1af84" name="af8b7de0060e1fe5084e7cf743ae1af84"></a>
+<tr class="memdesc:a6f379657327a9937d5dd628386bfec7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Put current task into idle state. <br /></td></tr>
+<tr class="separator:a6f379657327a9937d5dd628386bfec7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c183b3045caf5cc5bdd7db2fed5fe4b"><td class="memItemLeft" align="right" valign="top"><a id="a4c183b3045caf5cc5bdd7db2fed5fe4b" name="a4c183b3045caf5cc5bdd7db2fed5fe4b"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Resume</b> ()</td></tr>
-<tr class="memdesc:af8b7de0060e1fe5084e7cf743ae1af84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wake up current task. <br /></td></tr>
-<tr class="separator:af8b7de0060e1fe5084e7cf743ae1af84"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e96484d99950e9e47829a051fe28796"><td class="memItemLeft" align="right" valign="top"><a id="a8e96484d99950e9e47829a051fe28796" name="a8e96484d99950e9e47829a051fe28796"></a>
+<tr class="memdesc:a4c183b3045caf5cc5bdd7db2fed5fe4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wake up current task. <br /></td></tr>
+<tr class="separator:a4c183b3045caf5cc5bdd7db2fed5fe4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7452e6cc1428aac9561d457054b8aeaf"><td class="memItemLeft" align="right" valign="top"><a id="a7452e6cc1428aac9561d457054b8aeaf" name="a7452e6cc1428aac9561d457054b8aeaf"></a>
 FREERTOS_NODISCARD <a class="el" href="class_free_r_t_o_s_1_1_task.html#a70e0b60a83794efe7a996c2811679676">TaskState</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetState</b> ()</td></tr>
-<tr class="separator:a8e96484d99950e9e47829a051fe28796"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac5c09246df5766e249ef8fef921b5c6f"><td class="memItemLeft" align="right" valign="top"><a id="ac5c09246df5766e249ef8fef921b5c6f" name="ac5c09246df5766e249ef8fef921b5c6f"></a>
+<tr class="separator:a7452e6cc1428aac9561d457054b8aeaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade968c3065522f224b2ef72608c5d689"><td class="memItemLeft" align="right" valign="top"><a id="ade968c3065522f224b2ef72608c5d689" name="ade968c3065522f224b2ef72608c5d689"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Task</b> (const <a class="el" href="class_free_r_t_o_s_1_1_task.html">Task</a> &amp;)=delete</td></tr>
-<tr class="memdesc:ac5c09246df5766e249ef8fef921b5c6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prevent class to be copied. <br /></td></tr>
-<tr class="separator:ac5c09246df5766e249ef8fef921b5c6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50498c97387988610bf721148ba8fb94"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_task.html#a50498c97387988610bf721148ba8fb94">NotifyGive</a> (int index=-1)</td></tr>
-<tr class="memdesc:a50498c97387988610bf721148ba8fb94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send notify to task.  <a href="class_free_r_t_o_s_1_1_task.html#a50498c97387988610bf721148ba8fb94">More...</a><br /></td></tr>
-<tr class="separator:a50498c97387988610bf721148ba8fb94"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adeb60d237e5345710bfd98ad8cb7f616"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_task.html#adeb60d237e5345710bfd98ad8cb7f616">NotifyGiveFromISR</a> (int index=-1)</td></tr>
-<tr class="memdesc:adeb60d237e5345710bfd98ad8cb7f616"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send notify to task from ISR.  <a href="class_free_r_t_o_s_1_1_task.html#adeb60d237e5345710bfd98ad8cb7f616">More...</a><br /></td></tr>
-<tr class="separator:adeb60d237e5345710bfd98ad8cb7f616"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa174e39d9f4421795246b1305f7870db"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_task.html#aa174e39d9f4421795246b1305f7870db">NotifyTake</a> (size_t wait_ms, bool reset=true, int index=-1)</td></tr>
-<tr class="memdesc:aa174e39d9f4421795246b1305f7870db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wait for notify.  <a href="class_free_r_t_o_s_1_1_task.html#aa174e39d9f4421795246b1305f7870db">More...</a><br /></td></tr>
-<tr class="separator:aa174e39d9f4421795246b1305f7870db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memdesc:ade968c3065522f224b2ef72608c5d689"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prevent class to be copied. <br /></td></tr>
+<tr class="separator:ade968c3065522f224b2ef72608c5d689"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b33eeea58d2eb4c18250fbd8bbd3f83"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_task.html#a5b33eeea58d2eb4c18250fbd8bbd3f83">NotifyGive</a> (int index=-1)</td></tr>
+<tr class="memdesc:a5b33eeea58d2eb4c18250fbd8bbd3f83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send notify to task.  <a href="class_free_r_t_o_s_1_1_task.html#a5b33eeea58d2eb4c18250fbd8bbd3f83">More...</a><br /></td></tr>
+<tr class="separator:a5b33eeea58d2eb4c18250fbd8bbd3f83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28a0f4d3ca08b869452f2f6f068b5426"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_task.html#a28a0f4d3ca08b869452f2f6f068b5426">NotifyGiveFromISR</a> (int index=-1)</td></tr>
+<tr class="memdesc:a28a0f4d3ca08b869452f2f6f068b5426"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send notify to task from ISR.  <a href="class_free_r_t_o_s_1_1_task.html#a28a0f4d3ca08b869452f2f6f068b5426">More...</a><br /></td></tr>
+<tr class="separator:a28a0f4d3ca08b869452f2f6f068b5426"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d4cc684e4d315233960b1457d21ef74"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_task.html#a9d4cc684e4d315233960b1457d21ef74">NotifyTake</a> (size_t wait_ms, bool reset=true, int index=-1)</td></tr>
+<tr class="memdesc:a9d4cc684e4d315233960b1457d21ef74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wait for notify.  <a href="class_free_r_t_o_s_1_1_task.html#a9d4cc684e4d315233960b1457d21ef74">More...</a><br /></td></tr>
+<tr class="separator:a9d4cc684e4d315233960b1457d21ef74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a8f710dbfdd530449ee2b840d186ef9f2"><td class="memItemLeft" align="right" valign="top"><a id="a8f710dbfdd530449ee2b840d186ef9f2" name="a8f710dbfdd530449ee2b840d186ef9f2"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>SelfDelete</b> ()</td></tr>
-<tr class="separator:a8f710dbfdd530449ee2b840d186ef9f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a594300025cc39e3142208ec6e132ce14"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_task.html#a594300025cc39e3142208ec6e132ce14">SuspendAll</a> ()</td></tr>
-<tr class="memdesc:a594300025cc39e3142208ec6e132ce14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Suspends the scheduler.  <a href="class_free_r_t_o_s_1_1_task.html#a594300025cc39e3142208ec6e132ce14">More...</a><br /></td></tr>
-<tr class="separator:a594300025cc39e3142208ec6e132ce14"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a718584a6070a4b5979b5e4f6980cc068"><td class="memItemLeft" align="right" valign="top"><a id="a718584a6070a4b5979b5e4f6980cc068" name="a718584a6070a4b5979b5e4f6980cc068"></a>
+<tr class="memitem:a3ee8d8a3c3ac74e6b90c268f205a5cb8"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_task.html#a3ee8d8a3c3ac74e6b90c268f205a5cb8">SuspendAll</a> ()</td></tr>
+<tr class="memdesc:a3ee8d8a3c3ac74e6b90c268f205a5cb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Suspends the scheduler.  <a href="class_free_r_t_o_s_1_1_task.html#a3ee8d8a3c3ac74e6b90c268f205a5cb8">More...</a><br /></td></tr>
+<tr class="separator:a3ee8d8a3c3ac74e6b90c268f205a5cb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3ec97b8f573dc6f450daa426f2f6583"><td class="memItemLeft" align="right" valign="top"><a id="af3ec97b8f573dc6f450daa426f2f6583" name="af3ec97b8f573dc6f450daa426f2f6583"></a>
 static void&#160;</td><td class="memItemRight" valign="bottom"><b>ResumeAll</b> ()</td></tr>
-<tr class="memdesc:a718584a6070a4b5979b5e4f6980cc068"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resumes the scheduler after it was suspended using a call to vTaskSuspendAll(). <br /></td></tr>
-<tr class="separator:a718584a6070a4b5979b5e4f6980cc068"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a026c97a31108347b80a105a59920fa6a"><td class="memItemLeft" align="right" valign="top"><a id="a026c97a31108347b80a105a59920fa6a" name="a026c97a31108347b80a105a59920fa6a"></a>
+<tr class="memdesc:af3ec97b8f573dc6f450daa426f2f6583"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resumes the scheduler after it was suspended using a call to vTaskSuspendAll(). <br /></td></tr>
+<tr class="separator:af3ec97b8f573dc6f450daa426f2f6583"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a170881f54dbef5fa92dead9ca7734662"><td class="memItemLeft" align="right" valign="top"><a id="a170881f54dbef5fa92dead9ca7734662" name="a170881f54dbef5fa92dead9ca7734662"></a>
 static void&#160;</td><td class="memItemRight" valign="bottom"><b>DoYield</b> ()</td></tr>
-<tr class="memdesc:a026c97a31108347b80a105a59920fa6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">taskYIELD() is used to request a context switch to another task. However, if there are no other tasks at a higher or equal priority to the task that calls taskYIELD() then the RTOS scheduler will simply select the task that called taskYIELD() to run again. <br /></td></tr>
-<tr class="separator:a026c97a31108347b80a105a59920fa6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeac72b24ef62f1c64d14351674c9932a"><td class="memItemLeft" align="right" valign="top"><a id="aeac72b24ef62f1c64d14351674c9932a" name="aeac72b24ef62f1c64d14351674c9932a"></a>
+<tr class="memdesc:a170881f54dbef5fa92dead9ca7734662"><td class="mdescLeft">&#160;</td><td class="mdescRight">taskYIELD() is used to request a context switch to another task. However, if there are no other tasks at a higher or equal priority to the task that calls taskYIELD() then the RTOS scheduler will simply select the task that called taskYIELD() to run again. <br /></td></tr>
+<tr class="separator:a170881f54dbef5fa92dead9ca7734662"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac17405cc7f388a2bd6a3ab4071197b6e"><td class="memItemLeft" align="right" valign="top"><a id="ac17405cc7f388a2bd6a3ab4071197b6e" name="ac17405cc7f388a2bd6a3ab4071197b6e"></a>
 static void&#160;</td><td class="memItemRight" valign="bottom"><b>EnterCritical</b> ()</td></tr>
-<tr class="memdesc:aeac72b24ef62f1c64d14351674c9932a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Critical sections are entered by calling taskENTER_CRITICAL(), and subsequently exited by calling taskEXIT_CRITICAL(). <br /></td></tr>
-<tr class="separator:aeac72b24ef62f1c64d14351674c9932a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abe252dac2fb6e563182212f6d7a36056"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_task.html#abe252dac2fb6e563182212f6d7a36056">ExitCritical</a> ()</td></tr>
-<tr class="memdesc:abe252dac2fb6e563182212f6d7a36056"><td class="mdescLeft">&#160;</td><td class="mdescRight">Critical sections are entered by calling taskENTER_CRITICAL(), and subsequently exited by calling taskEXIT_CRITICAL().  <a href="class_free_r_t_o_s_1_1_task.html#abe252dac2fb6e563182212f6d7a36056">More...</a><br /></td></tr>
-<tr class="separator:abe252dac2fb6e563182212f6d7a36056"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memdesc:ac17405cc7f388a2bd6a3ab4071197b6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Critical sections are entered by calling taskENTER_CRITICAL(), and subsequently exited by calling taskEXIT_CRITICAL(). <br /></td></tr>
+<tr class="separator:ac17405cc7f388a2bd6a3ab4071197b6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a990e54fa93dda4e8043651252d0e1e9e"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_task.html#a990e54fa93dda4e8043651252d0e1e9e">ExitCritical</a> ()</td></tr>
+<tr class="memdesc:a990e54fa93dda4e8043651252d0e1e9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Critical sections are entered by calling taskENTER_CRITICAL(), and subsequently exited by calling taskEXIT_CRITICAL().  <a href="class_free_r_t_o_s_1_1_task.html#a990e54fa93dda4e8043651252d0e1e9e">More...</a><br /></td></tr>
+<tr class="separator:a990e54fa93dda4e8043651252d0e1e9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8a6afc889a6f628365e7dc9f9e7b4a4"><td class="memItemLeft" align="right" valign="top">static unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_free_r_t_o_s_1_1_task.html#af8a6afc889a6f628365e7dc9f9e7b4a4">NumberOfTasksRunning</a> ()</td></tr>
+<tr class="memdesc:af8a6afc889a6f628365e7dc9f9e7b4a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get number of currently running tasks.  <a href="class_free_r_t_o_s_1_1_task.html#af8a6afc889a6f628365e7dc9f9e7b4a4">More...</a><br /></td></tr>
+<tr class="separator:af8a6afc889a6f628365e7dc9f9e7b4a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-static-methods" name="pro-static-methods"></a>
+Static Protected Member Functions</h2></td></tr>
+<tr class="memitem:aca0c96bca329097ee9011f1b9d29954c"><td class="memItemLeft" align="right" valign="top"><a id="aca0c96bca329097ee9011f1b9d29954c" name="aca0c96bca329097ee9011f1b9d29954c"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>internal_handler</b> (void *params)</td></tr>
+<tr class="separator:aca0c96bca329097ee9011f1b9d29954c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a5d2aefbb5accf4357bef550a6568f206"><td class="memItemLeft" align="right" valign="top"><a id="a5d2aefbb5accf4357bef550a6568f206" name="a5d2aefbb5accf4357bef550a6568f206"></a>
-TaskHandle_t&#160;</td><td class="memItemRight" valign="bottom"><b>handle</b> = nullptr</td></tr>
-<tr class="separator:a5d2aefbb5accf4357bef550a6568f206"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a096e44fc67d201ec58621c380d22de18"><td class="memItemLeft" align="right" valign="top"><a id="a096e44fc67d201ec58621c380d22de18" name="a096e44fc67d201ec58621c380d22de18"></a>
+<tr class="memitem:a1cd0058f9ee09c984bcfbf29c8c4f0cb"><td class="memItemLeft" align="right" valign="top"><a id="a1cd0058f9ee09c984bcfbf29c8c4f0cb" name="a1cd0058f9ee09c984bcfbf29c8c4f0cb"></a>
+TaskHandle_t&#160;</td><td class="memItemRight" valign="bottom"><b>task_handle</b> = nullptr</td></tr>
+<tr class="separator:a1cd0058f9ee09c984bcfbf29c8c4f0cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a145251283ff8299408eceef40facbd84"><td class="memItemLeft" align="right" valign="top"><a id="a145251283ff8299408eceef40facbd84" name="a145251283ff8299408eceef40facbd84"></a>
+T *&#160;</td><td class="memItemRight" valign="bottom"><b>task_params</b> = nullptr</td></tr>
+<tr class="separator:a145251283ff8299408eceef40facbd84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5526b722d13a1e679c5c2a2d65f89adb"><td class="memItemLeft" align="right" valign="top"><a id="a5526b722d13a1e679c5c2a2d65f89adb" name="a5526b722d13a1e679c5c2a2d65f89adb"></a>
+void(*&#160;</td><td class="memItemRight" valign="bottom"><b>task_handler</b> )(void *) = nullptr</td></tr>
+<tr class="separator:a5526b722d13a1e679c5c2a2d65f89adb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23aac29f68beb970afb38d038457ddf4"><td class="memItemLeft" align="right" valign="top"><a id="a23aac29f68beb970afb38d038457ddf4" name="a23aac29f68beb970afb38d038457ddf4"></a>
 StackType_t&#160;</td><td class="memItemRight" valign="bottom"><b>xStack</b> [stack_size]</td></tr>
-<tr class="separator:a096e44fc67d201ec58621c380d22de18"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af6a1cd5fb79e8740f17f509c73514aca"><td class="memItemLeft" align="right" valign="top"><a id="af6a1cd5fb79e8740f17f509c73514aca" name="af6a1cd5fb79e8740f17f509c73514aca"></a>
+<tr class="separator:a23aac29f68beb970afb38d038457ddf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53b71a8026ec5100dec4c07bc56b34da"><td class="memItemLeft" align="right" valign="top"><a id="a53b71a8026ec5100dec4c07bc56b34da" name="a53b71a8026ec5100dec4c07bc56b34da"></a>
 StaticTask_t&#160;</td><td class="memItemRight" valign="bottom"><b>xTaskBuffer</b></td></tr>
-<tr class="separator:af6a1cd5fb79e8740f17f509c73514aca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a53b71a8026ec5100dec4c07bc56b34da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-static-attribs" name="pro-static-attribs"></a>
+Static Protected Attributes</h2></td></tr>
+<tr class="memitem:aaa264c4c13ae2b53dbe11cac6cf0a771"><td class="memItemLeft" align="right" valign="top"><a id="aaa264c4c13ae2b53dbe11cac6cf0a771" name="aaa264c4c13ae2b53dbe11cac6cf0a771"></a>
+static std::atomic&lt; unsigned int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>nof_tasks</b> {0}</td></tr>
+<tr class="separator:aaa264c4c13ae2b53dbe11cac6cf0a771"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;const size_t stack_size = FREERTOS_DEFAULT_TASK_STACK_SIZE&gt;<br />
-class FreeRTOS::Task&lt; stack_size &gt;</div><p >Responsible for creating, control and delete FreeRTOS tasks. </p>
+<div class="textblock"><div class="compoundTemplParams">template&lt;const size_t stack_size = FREERTOS_DEFAULT_TASK_STACK_SIZE, typename T = void&gt;<br />
+class FreeRTOS::Task&lt; stack_size, T &gt;</div><p >Responsible for creating, control and delete FreeRTOS tasks. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">stack_size</td><td>[Optional] The number of words (not bytes) for use as the task's stack. </td></tr>
+    <tr><td class="paramname">T</td><td>[Optional] The type of the parameter passed to the task being created. </td></tr>
   </table>
   </dd>
 </dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a9522e36f2028a89978c5f37c78616a74" name="a9522e36f2028a89978c5f37c78616a74"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9522e36f2028a89978c5f37c78616a74">&#9670;&#160;</a></span>Task()</h2>
+<a id="a552e855d2aa2478e8a21d30ce587128b" name="a552e855d2aa2478e8a21d30ce587128b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a552e855d2aa2478e8a21d30ce587128b">&#9670;&#160;</a></span>Task()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;const size_t stack_size = FREERTOS_DEFAULT_TASK_STACK_SIZE&gt; </div>
+template&lt;const size_t stack_size = FREERTOS_DEFAULT_TASK_STACK_SIZE, typename T  = void&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_free_r_t_o_s_1_1_task.html">FreeRTOS::Task</a>&lt; stack_size &gt;::Task </td>
+          <td class="memname"><a class="el" href="class_free_r_t_o_s_1_1_task.html">FreeRTOS::Task</a>&lt; stack_size, T &gt;::Task </td>
           <td>(</td>
-          <td class="paramtype">void(*)(void *)&#160;</td>
+          <td class="paramtype">void(*)(T *)&#160;</td>
           <td class="paramname"><em>handler</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">void *&#160;</td>
+          <td class="paramtype">T *&#160;</td>
           <td class="paramname"><em>params</em> = <code>nullptr</code>, </td>
         </tr>
         <tr>
@@ -252,19 +271,19 @@ template&lt;const size_t stack_size = FREERTOS_DEFAULT_TASK_STACK_SIZE&gt; </div
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="abe252dac2fb6e563182212f6d7a36056" name="abe252dac2fb6e563182212f6d7a36056"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abe252dac2fb6e563182212f6d7a36056">&#9670;&#160;</a></span>ExitCritical()</h2>
+<a id="a990e54fa93dda4e8043651252d0e1e9e" name="a990e54fa93dda4e8043651252d0e1e9e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a990e54fa93dda4e8043651252d0e1e9e">&#9670;&#160;</a></span>ExitCritical()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;const size_t stack_size = FREERTOS_DEFAULT_TASK_STACK_SIZE&gt; </div>
+template&lt;const size_t stack_size = FREERTOS_DEFAULT_TASK_STACK_SIZE, typename T  = void&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static void <a class="el" href="class_free_r_t_o_s_1_1_task.html">FreeRTOS::Task</a>&lt; stack_size &gt;::ExitCritical </td>
+          <td class="memname">static void <a class="el" href="class_free_r_t_o_s_1_1_task.html">FreeRTOS::Task</a>&lt; stack_size, T &gt;::ExitCritical </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -282,19 +301,19 @@ template&lt;const size_t stack_size = FREERTOS_DEFAULT_TASK_STACK_SIZE&gt; </div
 
 </div>
 </div>
-<a id="a50498c97387988610bf721148ba8fb94" name="a50498c97387988610bf721148ba8fb94"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a50498c97387988610bf721148ba8fb94">&#9670;&#160;</a></span>NotifyGive()</h2>
+<a id="a5b33eeea58d2eb4c18250fbd8bbd3f83" name="a5b33eeea58d2eb4c18250fbd8bbd3f83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b33eeea58d2eb4c18250fbd8bbd3f83">&#9670;&#160;</a></span>NotifyGive()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;const size_t stack_size = FREERTOS_DEFAULT_TASK_STACK_SIZE&gt; </div>
+template&lt;const size_t stack_size = FREERTOS_DEFAULT_TASK_STACK_SIZE, typename T  = void&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="class_free_r_t_o_s_1_1_task.html">FreeRTOS::Task</a>&lt; stack_size &gt;::NotifyGive </td>
+          <td class="memname">void <a class="el" href="class_free_r_t_o_s_1_1_task.html">FreeRTOS::Task</a>&lt; stack_size, T &gt;::NotifyGive </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>index</em> = <code>-1</code></td><td>)</td>
@@ -318,19 +337,19 @@ template&lt;const size_t stack_size = FREERTOS_DEFAULT_TASK_STACK_SIZE&gt; </div
 
 </div>
 </div>
-<a id="adeb60d237e5345710bfd98ad8cb7f616" name="adeb60d237e5345710bfd98ad8cb7f616"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adeb60d237e5345710bfd98ad8cb7f616">&#9670;&#160;</a></span>NotifyGiveFromISR()</h2>
+<a id="a28a0f4d3ca08b869452f2f6f068b5426" name="a28a0f4d3ca08b869452f2f6f068b5426"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28a0f4d3ca08b869452f2f6f068b5426">&#9670;&#160;</a></span>NotifyGiveFromISR()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;const size_t stack_size = FREERTOS_DEFAULT_TASK_STACK_SIZE&gt; </div>
+template&lt;const size_t stack_size = FREERTOS_DEFAULT_TASK_STACK_SIZE, typename T  = void&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="class_free_r_t_o_s_1_1_task.html">FreeRTOS::Task</a>&lt; stack_size &gt;::NotifyGiveFromISR </td>
+          <td class="memname">void <a class="el" href="class_free_r_t_o_s_1_1_task.html">FreeRTOS::Task</a>&lt; stack_size, T &gt;::NotifyGiveFromISR </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>index</em> = <code>-1</code></td><td>)</td>
@@ -354,19 +373,19 @@ template&lt;const size_t stack_size = FREERTOS_DEFAULT_TASK_STACK_SIZE&gt; </div
 
 </div>
 </div>
-<a id="aa174e39d9f4421795246b1305f7870db" name="aa174e39d9f4421795246b1305f7870db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa174e39d9f4421795246b1305f7870db">&#9670;&#160;</a></span>NotifyTake()</h2>
+<a id="a9d4cc684e4d315233960b1457d21ef74" name="a9d4cc684e4d315233960b1457d21ef74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d4cc684e4d315233960b1457d21ef74">&#9670;&#160;</a></span>NotifyTake()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;const size_t stack_size = FREERTOS_DEFAULT_TASK_STACK_SIZE&gt; </div>
+template&lt;const size_t stack_size = FREERTOS_DEFAULT_TASK_STACK_SIZE, typename T  = void&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t <a class="el" href="class_free_r_t_o_s_1_1_task.html">FreeRTOS::Task</a>&lt; stack_size &gt;::NotifyTake </td>
+          <td class="memname">uint32_t <a class="el" href="class_free_r_t_o_s_1_1_task.html">FreeRTOS::Task</a>&lt; stack_size, T &gt;::NotifyTake </td>
           <td>(</td>
           <td class="paramtype">size_t&#160;</td>
           <td class="paramname"><em>wait_ms</em>, </td>
@@ -409,19 +428,49 @@ template&lt;const size_t stack_size = FREERTOS_DEFAULT_TASK_STACK_SIZE&gt; </div
 
 </div>
 </div>
-<a id="a594300025cc39e3142208ec6e132ce14" name="a594300025cc39e3142208ec6e132ce14"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a594300025cc39e3142208ec6e132ce14">&#9670;&#160;</a></span>SuspendAll()</h2>
+<a id="af8a6afc889a6f628365e7dc9f9e7b4a4" name="af8a6afc889a6f628365e7dc9f9e7b4a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8a6afc889a6f628365e7dc9f9e7b4a4">&#9670;&#160;</a></span>NumberOfTasksRunning()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;const size_t stack_size = FREERTOS_DEFAULT_TASK_STACK_SIZE&gt; </div>
+template&lt;const size_t stack_size = FREERTOS_DEFAULT_TASK_STACK_SIZE, typename T  = void&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static void <a class="el" href="class_free_r_t_o_s_1_1_task.html">FreeRTOS::Task</a>&lt; stack_size &gt;::SuspendAll </td>
+          <td class="memname">static unsigned int <a class="el" href="class_free_r_t_o_s_1_1_task.html">FreeRTOS::Task</a>&lt; stack_size, T &gt;::NumberOfTasksRunning </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get number of currently running tasks. </p>
+<dl class="section return"><dt>Returns</dt><dd>Number of running tasks. </dd></dl>
+
+</div>
+</div>
+<a id="a3ee8d8a3c3ac74e6b90c268f205a5cb8" name="a3ee8d8a3c3ac74e6b90c268f205a5cb8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ee8d8a3c3ac74e6b90c268f205a5cb8">&#9670;&#160;</a></span>SuspendAll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;const size_t stack_size = FREERTOS_DEFAULT_TASK_STACK_SIZE, typename T  = void&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void <a class="el" href="class_free_r_t_o_s_1_1_task.html">FreeRTOS::Task</a>&lt; stack_size, T &gt;::SuspendAll </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
