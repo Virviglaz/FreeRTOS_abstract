@@ -15,6 +15,7 @@
 #include <string.h>
 #include <type_traits>
 #include <utility>
+#include <atomic>
 
 /**
  * @Note
@@ -157,6 +158,26 @@ namespace FreeRTOS
 	};
 
 	/**
+	 * @brief Scoped mutex lock.
+	 *
+	 * Automatically locks the mutex on creation and unlocks
+	 * when going out of scope.
+	 */
+	class ScopedMutex
+	{
+	public:
+		explicit ScopedMutex(Mutex &m) : mutex(m) {
+			mutex.Lock();
+		}
+
+		~ScopedMutex() {
+			mutex.Unlock();
+		}
+	protected:
+		Mutex &mutex;
+	};
+
+	/**
 	 * @brief Create binary semaphore.
 	 */
 	class BinarySemaphore : public Mutex
@@ -263,12 +284,26 @@ namespace FreeRTOS
 	 *
 	 * @tparam stack_size		[Optional] The number of words
 	 *				(not bytes) for use as the task's stack.
+	 * @tparam T				[Optional] The type of the parameter
+	 *				passed to the task being created.
 	 */
-	template <const size_t stack_size = FREERTOS_DEFAULT_TASK_STACK_SIZE>
+	template <
+		const size_t stack_size = FREERTOS_DEFAULT_TASK_STACK_SIZE,
+		typename T = void
+	>
 	class Task
 	{
 	protected:
-		TaskHandle_t handle = nullptr;
+		TaskHandle_t task_handle = nullptr;
+		T *task_params = nullptr;
+		void (*task_handler)(void *) = nullptr;
+		static inline std::atomic<unsigned int> nof_tasks {0};
+		static void internal_handler(void *params) {
+			Task *typed_params = static_cast<Task *>(params);
+			typed_params->task_handler(typed_params->task_params);
+			typed_params->Delete();
+			typed_params->task_handle = nullptr;
+		}
 #if (configSUPPORT_STATIC_ALLOCATION == 1)
 		StackType_t xStack[stack_size];
 		StaticTask_t xTaskBuffer;
@@ -285,26 +320,30 @@ namespace FreeRTOS
 		 * @param[in] priority	[Optional] The priority at which the
 		 *			task will execute.
 		 */
-		Task(void (*handler)(void *),
-			void *params = nullptr,
+		Task(void (*handler)(T *),
+			T *params = nullptr,
 			const char *name = nullptr,
 			int priority = tskIDLE_PRIORITY + 1) {
+			task_handler = handler;
+			task_params = params;
 #if (configSUPPORT_STATIC_ALLOCATION == 1)
-			handle = xTaskCreateStatic(handler,
+			task_handle = xTaskCreateStatic(internal_handler,
 			                           name,
 			                           stack_size,
-			                           params,
+			                           this,
 			                           tskIDLE_PRIORITY + priority,
 			                           xStack,
 			                           &xTaskBuffer);
 			configASSERT(handle != nullptr);
+			nof_tasks++;
 #else /* STATIC_ALLOCATION */
-			configASSERT(xTaskCreate(handler,
+			configASSERT(xTaskCreate(internal_handler,
 			                         name,
 			                         stack_size,
-			                         params,
+			                         this,
 			                         tskIDLE_PRIORITY + priority,
-			                         &handle) == pdPASS);
+			                         &task_handle) == pdPASS);
+			nof_tasks++;
 #endif /* STATIC_ALLOCATION */
 		}
 
@@ -315,13 +354,17 @@ namespace FreeRTOS
 		 * @brief Delete current task.
 		 */
 		void Delete() {
-			if (handle)
-				vTaskDelete(handle);
-			handle = nullptr;
-		}
+			if (!task_handle)
+				return;
 
-		static void SelfDelete() {
-			vTaskDelete(nullptr);
+			TaskHandle_t tmp = task_handle;
+			task_handle = nullptr;
+			nof_tasks--;
+
+			/* No tasks left, stop scheduller */
+			if (!nof_tasks)
+				StopScheduler();
+			vTaskDelete(tmp);
 		}
 #endif /* INCLUDE_vTaskDelete */
 
@@ -330,7 +373,7 @@ namespace FreeRTOS
 		 * @brief Put current task into idle state.
 		 */
 		void Suspend() {
-			vTaskSuspend(handle);
+			vTaskSuspend(task_handle);
 		}
 #endif /* INCLUDE_vTaskSuspend */
 
@@ -339,7 +382,7 @@ namespace FreeRTOS
 		 * @brief Wake up current task.
 		 */
 		void Resume() {
-			vTaskResume(handle);
+			vTaskResume(task_handle);
 		}
 #endif /* INCLUDE_vTaskSuspend */
 
@@ -350,7 +393,7 @@ namespace FreeRTOS
 		enum TaskState { Ready, Running, Blocked, Suspended, Deleted };
 		FREERTOS_NODISCARD
 		TaskState GetState() {
-			eTaskState state = eTaskGetState(handle);
+			eTaskState state = eTaskGetState(task_handle);
 			return (TaskState)state;
 		}
 #endif /* INCLUDE_eTaskGetState */
@@ -413,6 +456,15 @@ namespace FreeRTOS
 		}
 
 		/**
+		 * @brief Get number of currently running tasks.
+		 *
+		 * @return Number of running tasks.
+		 */
+		static inline unsigned int NumberOfTasksRunning() {
+			return nof_tasks.load(std::memory_order_acquire);
+		}
+
+		/**
 		 * @brief Prevent class to be copied.
 		 */
 		Task(const Task &) = delete;
@@ -428,10 +480,10 @@ namespace FreeRTOS
 		 */
 		void NotifyGive(int index = -1) {
 			if (index >= 0) {
-				configASSERT(xTaskNotifyGiveIndexed(handle,
+				configASSERT(xTaskNotifyGiveIndexed(task_handle,
 					index) == pdPASS);
 			} else {
-				configASSERT(xTaskNotifyGive(handle) == pdPASS);
+				configASSERT(xTaskNotifyGive(task_handle) == pdPASS);
 			}
 		}
 
@@ -445,10 +497,10 @@ namespace FreeRTOS
 		 */
 		void NotifyGiveFromISR(int index = -1) {
 			if (index >= 0) {
-				vTaskNotifyGiveIndexedFromISR(handle, index,
+				vTaskNotifyGiveIndexedFromISR(task_handle, index,
 				                              nullptr);
 			} else {
-				vTaskNotifyGiveFromISR(handle, nullptr);
+				vTaskNotifyGiveFromISR(task_handle, nullptr);
 			}
 		}
 
@@ -498,60 +550,6 @@ namespace FreeRTOS
 				taskEXIT_CRITICAL_FROM_ISR(uxSavedInterruptStatus);
 			}
 		};
-
-#if (INCLUDE_vTaskDelete == 1)
-		/**
-		 * Class to execute code asynchronously.
-		 */
-		class DoAsync
-		{
-		protected:
-			void (*async_job)();
-			BinarySemaphore done;
-#if (configSUPPORT_STATIC_ALLOCATION == 1)
-			StackType_t xStack[stack_size];
-			StaticTask_t xTaskBuffer;
-#endif /* STATIC_ALLOCATION */
-			static void handler(void *args) {
-				DoAsync *c = static_cast<DoAsync *>(args);
-				c->async_job();
-				c->done.Give();
-				Task::SelfDelete();
-			}
-		public:
-			/**
-			 * @brief Calls pointer to function from new task.
-			 * After job is done, task is self deleted.
-			 *
-			 * @param job		Callback function to call
-			 *			asynchronously.
-			 * @param priority	[Optional] Priority
-			 */
-			DoAsync(void (*job)(),
-			        size_t priority = 1) {
-				async_job = job;
-#if (configSUPPORT_STATIC_ALLOCATION == 1)
-				configASSERT(xTaskCreateStatic(handler,
-			                           nullptr,
-			                           stack_size,
-			                           this,
-			                           tskIDLE_PRIORITY + priority,
-			                           xStack,
-			                           &xTaskBuffer) != nullptr);
-#else /* STATIC_ALLOCATION */
-				configASSERT(xTaskCreate(handler,
-			                         nullptr,
-			                         stack_size,
-			                         this,
-			                         tskIDLE_PRIORITY + priority,
-			                         nullptr) == pdPASS);
-#endif /* STATIC_ALLOCATION */
-			}
-			~DoAsync() {
-				done.Take(WAIT_MAX);
-			}
-		};
-#endif /* INCLUDE_vTaskDelete */
 	};
 
 #if (INCLUDE_vTaskDelay == 1)
@@ -693,10 +691,7 @@ namespace FreeRTOS
 		 */
 		T* Front(size_t wait_ms = 0) noexcept {
 			if (wr_idx == rd_idx) {
-				if (wait_ms) {
-					if (!semaphore.Take(wait_ms))
-						return nullptr;
-				} else
+				if (!semaphore.Take(wait_ms))
 					return nullptr;
 			}
 
@@ -707,9 +702,11 @@ namespace FreeRTOS
 			static_assert(std::is_nothrow_destructible<T>::value,
 					"T must be nothrow destructible");
 			buffer[rd_idx].~T();
+			taskENTER_CRITICAL();
 			rd_idx++;
 			if (rd_idx == size)
 				rd_idx = 0;
+			taskEXIT_CRITICAL();
 		}
 	};
 
